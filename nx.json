@@ -31,6 +31,16 @@
     },
     "shared-assets": {
       "tags": []
+    },
+    "todomongoapp": {
+      "tags": []
+    },
+    "todomongoapp-e2e": {
+      "tags": [],
+      "implicitDependencies": ["todomongoapp"]
+    },
+    "todomongoapi": {
+      "tags": []
     }
   }
 }
