@@ -18,7 +18,12 @@
     "default": {
       "runner": "@nrwl/workspace/tasks-runners/default",
       "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e"]
+        "cacheableOperations": [
+          "build",
+          "lint",
+          "test",
+          "e2e"
+        ]
       }
     }
   },
@@ -33,14 +38,22 @@
       "tags": []
     },
     "todomongoapp": {
-      "tags": []
+      "tags": [],
+      "implicitDependencies": [
+        "shared-data-access-models"
+      ]
     },
     "todomongoapp-e2e": {
       "tags": [],
-      "implicitDependencies": ["todomongoapp"]
+      "implicitDependencies": [
+        "todomongoapp"
+      ]
     },
     "todomongoapi": {
-      "tags": []
+      "tags": [],
+      "implicitDependencies": [
+        "shared-data-access-models"
+      ]
     }
   }
 }
