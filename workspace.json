@@ -10,9 +10,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/shared/styles/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/shared/styles/**/*.ts"]
           }
         }
       }
@@ -26,9 +24,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/shared/assets/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/shared/assets/**/*.ts"]
           }
         }
       }
@@ -51,9 +47,7 @@
               "apps/todomongoapp/src/favicon.ico",
               "apps/todomongoapp/src/assets"
             ],
-            "styles": [
-              "apps/todomongoapp/src/styles.scss"
-            ],
+            "styles": ["apps/todomongoapp/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -96,9 +90,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/todomongoapp/**/*.ts"
-            ]
+            "lintFilePatterns": ["apps/todomongoapp/**/*.ts"]
           }
         },
         "test": {
@@ -131,9 +123,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/todomongoapp-e2e/**/*.{js,ts}"
-            ]
+            "lintFilePatterns": ["apps/todomongoapp-e2e/**/*.{js,ts}"]
           }
         }
       }
@@ -151,9 +141,7 @@
             "outputPath": "dist/apps/todomongoapi",
             "main": "apps/todomongoapi/src/main.ts",
             "tsConfig": "apps/todomongoapi/tsconfig.app.json",
-            "assets": [
-              "apps/todomongoapi/src/assets"
-            ]
+            "assets": ["apps/todomongoapi/src/assets"]
           },
           "configurations": {
             "production": {
@@ -178,9 +166,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/todomongoapi/**/*.ts"
-            ]
+            "lintFilePatterns": ["apps/todomongoapi/**/*.ts"]
           }
         },
         "test": {
@@ -201,9 +187,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/todomongoapi/controllers/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/todomongoapi/controllers/**/*.ts"]
           }
         },
         "test": {
@@ -224,9 +208,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/todomongoapi/modules/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/todomongoapi/modules/**/*.ts"]
           }
         },
         "test": {
@@ -247,9 +229,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/todomongoapi/routes/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/todomongoapi/routes/**/*.ts"]
           }
         },
         "test": {
@@ -270,15 +250,34 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/shared/data-access-models/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/shared/data-access-models/**/*.ts"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/shared/data-access-models/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "todomongoapi-services": {
+      "root": "libs/todomongoapi/services",
+      "sourceRoot": "libs/todomongoapi/services/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/todomongoapi/services/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/todomongoapi/services/jest.config.js",
             "passWithNoTests": true
           }
         }

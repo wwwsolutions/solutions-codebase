@@ -6,5 +6,6 @@ module.exports = {
     '<rootDir>/libs/todomongoapi/modules',
     '<rootDir>/libs/todomongoapi/routes',
     '<rootDir>/libs/shared/data-access-models',
+    '<rootDir>/libs/todomongoapi/services',
   ],
 };
