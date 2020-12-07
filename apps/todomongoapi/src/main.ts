@@ -1,9 +1,10 @@
 // https://levelup.gitconnected.com/project-structure-and-building-routes-of-restful-api-with-node-js-f3a8b53d94e7
 
 import app from './app/app';
+import env from './environments/environment';
 
 const HOST = 'http://localhost';
-const PORT = process.env.port || 8888;
+const PORT = env.getPort();
 
 app.listen(PORT, () => {
   console.log(`Listening at ${HOST}:${PORT}`);
