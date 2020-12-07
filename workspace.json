@@ -1,20 +1,6 @@
 {
   "version": 1,
   "projects": {
-    "shared-data-access-models": {
-      "root": "libs/shared/data-access-models",
-      "sourceRoot": "libs/shared/data-access-models/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/shared/data-access-models/**/*.ts"]
-          }
-        }
-      }
-    },
     "shared-styles": {
       "root": "libs/shared/styles",
       "sourceRoot": "libs/shared/styles/src",
@@ -187,6 +173,132 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "apps/todomongoapi/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "todomongoapi-controllers": {
+      "root": "libs/todomongoapi/controllers",
+      "sourceRoot": "libs/todomongoapi/controllers/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/todomongoapi/controllers/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/todomongoapi/controllers/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "todomongoapi-modules": {
+      "root": "libs/todomongoapi/modules",
+      "sourceRoot": "libs/todomongoapi/modules/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/todomongoapi/modules/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/todomongoapi/modules/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "todomongoapi-routes": {
+      "root": "libs/todomongoapi/routes",
+      "sourceRoot": "libs/todomongoapi/routes/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/todomongoapi/routes/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/todomongoapi/routes/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "shared-data-access-models": {
+      "root": "libs/shared/data-access-models",
+      "sourceRoot": "libs/shared/data-access-models/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/shared/data-access-models/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared/data-access-models/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "todomongoapi-services": {
+      "root": "libs/todomongoapi/services",
+      "sourceRoot": "libs/todomongoapi/services/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/todomongoapi/services/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/todomongoapi/services/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "todomongoapi-schemas": {
+      "root": "libs/todomongoapi/schemas",
+      "sourceRoot": "libs/todomongoapi/schemas/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/todomongoapi/schemas/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/todomongoapi/schemas/jest.config.js",
             "passWithNoTests": true
           }
         }

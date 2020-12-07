@@ -1,18 +1,25 @@
-/**
- * This is not a production server yet!
- * This is only a minimal backend to get started.
- */
+// https://levelup.gitconnected.com/project-structure-and-building-routes-of-restful-api-with-node-js-f3a8b53d94e7
 
-import * as express from 'express';
+import app from './app/app';
+import env from './environments/environment';
 
-const app = express();
+const HOST = 'http://localhost';
+const PORT = env.getPort();
 
-app.get('/api', (req, res) => {
-  res.send({ message: 'Welcome to todomongoapi!' });
+app.listen(PORT, () => {
+  console.log(`Listening at ${HOST}:${PORT}`);
 });
 
-const port = process.env.port || 3333;
-const server = app.listen(port, () => {
-  console.log(`Listening at http://localhost:${port}/api`);
-});
-server.on('error', console.error);
+// app()
+
+// import * as express from 'express';
+// const app = express();
+// app.get('/api', (req, res) => {
+//   res.send({ message: 'Welcome to todomongoapi!' });
+// });
+// const host = 'http://localhost';
+// const port = process.env.port || 8888;
+// export const server = app.listen(port, () => {
+//   console.log(`Listening at ${host}:${port}`);
+// });
+// server.on('error', console.error);

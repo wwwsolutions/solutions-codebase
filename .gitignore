@@ -39,6 +39,5 @@ testem.log
 Thumbs.db
 
 # Custom
-apps/**/NFO.md
-libs/**/NFO.md
-
+README_APPS.md
+README_TASKS.md
