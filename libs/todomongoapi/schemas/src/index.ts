@@ -1,1 +1,1 @@
-export * from './lib/todomongoapi-schemas';
+export * from './lib/user-schema';

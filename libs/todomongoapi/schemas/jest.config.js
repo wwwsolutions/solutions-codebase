@@ -1,5 +1,5 @@
 module.exports = {
-  displayName: 'todomongoapi-schemas',
+  displayName: 'user-schema',
   preset: '../../../jest.preset.js',
   globals: {
     'ts-jest': {
