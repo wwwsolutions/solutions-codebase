@@ -23,9 +23,6 @@
     }
   },
   "projects": {
-    "shared-data-access-models": {
-      "tags": []
-    },
     "shared-styles": {
       "tags": []
     },
@@ -34,7 +31,7 @@
     },
     "todomongoapp": {
       "tags": [],
-      "implicitDependencies": ["shared-data-access-models"]
+      "implicitDependencies": []
     },
     "todomongoapp-e2e": {
       "tags": [],
@@ -51,6 +48,12 @@
       "tags": []
     },
     "todomongoapi-routes": {
+      "tags": []
+    },
+    "shared-data-access-test": {
+      "tags": []
+    },
+    "shared-data-access-models": {
       "tags": []
     }
   }

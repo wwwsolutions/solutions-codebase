@@ -16,9 +16,6 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@codebase/shared/data-access-models": [
-        "libs/shared/data-access-models/src/index.ts"
-      ],
       "@codebase/shared/styles": ["libs/shared/styles/src/index.ts"],
       "@codebase/shared/assets": ["libs/shared/assets/src/index.ts"],
       "@codebase/todomongoapi/controlers": [
@@ -27,7 +24,12 @@
       "@codebase/todomongoapi/modules": [
         "libs/todomongoapi/modules/src/index.ts"
       ],
-      "@codebase/todomongoapi/routes": ["libs/todomongoapi/routes/src/index.ts"]
+      "@codebase/todomongoapi/routes": [
+        "libs/todomongoapi/routes/src/index.ts"
+      ],
+      "@codebase/shared/data-access-models": [
+        "libs/shared/data-access-models/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]
