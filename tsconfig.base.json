@@ -32,6 +32,9 @@
       ],
       "@codebase/todomongoapi/services": [
         "libs/todomongoapi/services/src/index.ts"
+      ],
+      "@codebase/todomongoapi/schemas": [
+        "libs/todomongoapi/schemas/src/index.ts"
       ]
     }
   },

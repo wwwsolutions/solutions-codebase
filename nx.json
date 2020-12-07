@@ -58,6 +58,9 @@
     },
     "todomongoapi-services": {
       "tags": []
+    },
+    "todomongoapi-schemas": {
+      "tags": []
     }
   }
 }

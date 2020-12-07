@@ -282,6 +282,27 @@
           }
         }
       }
+    },
+    "todomongoapi-schemas": {
+      "root": "libs/todomongoapi/schemas",
+      "sourceRoot": "libs/todomongoapi/schemas/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/todomongoapi/schemas/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/todomongoapi/schemas/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {
