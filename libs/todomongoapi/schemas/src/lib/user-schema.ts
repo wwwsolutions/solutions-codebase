@@ -21,4 +21,6 @@ const schema = new Schema({
   modification_notes: [ModificationNote],
 });
 
-export default mongoose.model('users', schema);
+export const users = mongoose.model('users', schema);
+
+// export default mongoose.model('users', schema);
