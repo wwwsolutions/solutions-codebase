@@ -12,7 +12,7 @@ import e = require('express');
 export class UserController {
   private user_service: UserService = new UserService();
 
-  public create_user(req: Request, res: Response) {
+  public createUser(req: Request, res: Response) {
     // this check whether all the fields were send through the request or not
     if (
       req.body.name &&
@@ -56,7 +56,7 @@ export class UserController {
     }
   }
 
-  public get_user(req: Request, res: Response) {
+  public getUser(req: Request, res: Response) {
     if (req.params.id) {
       const user_filter = { _id: req.params.id };
       this.user_service.filterUser(
@@ -74,7 +74,7 @@ export class UserController {
     }
   }
 
-  public update_user(req: Request, res: Response) {
+  public updateUser(req: Request, res: Response) {
     if (
       (req.params.id && req.body.name) ||
       req.body.name.first_name ||
@@ -138,7 +138,7 @@ export class UserController {
     }
   }
 
-  public delete_user(req: Request, res: Response) {
+  public deleteUser(req: Request, res: Response) {
     if (req.params.id) {
       this.user_service.deleteUser(
         req.params.id,
