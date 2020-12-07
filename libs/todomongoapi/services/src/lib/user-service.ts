@@ -1,7 +1,7 @@
 import { IUser } from '@codebase/shared/data-access-models';
 import { users } from '@codebase/todomongoapi/schemas';
 
-export default class UserService {
+export class UserService {
   public createUser(user_params: IUser, callback: any) {
     const _session = new users(user_params);
     _session.save(callback);

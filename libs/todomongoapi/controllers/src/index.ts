@@ -1,1 +1,1 @@
-export * from './lib/todomongoapi-controllers';
+export * from './lib/user-controller';

@@ -1,5 +1,5 @@
 module.exports = {
-  displayName: 'todomongoapi-controllers',
+  displayName: 'user-controller',
   preset: '../../../jest.preset.js',
   globals: {
     'ts-jest': {
