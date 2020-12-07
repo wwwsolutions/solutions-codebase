@@ -20,7 +20,14 @@
         "libs/shared/data-access-models/src/index.ts"
       ],
       "@codebase/shared/styles": ["libs/shared/styles/src/index.ts"],
-      "@codebase/shared/assets": ["libs/shared/assets/src/index.ts"]
+      "@codebase/shared/assets": ["libs/shared/assets/src/index.ts"],
+      "@codebase/todomongoapi/controlers": [
+        "libs/todomongoapi/controlers/src/index.ts"
+      ],
+      "@codebase/todomongoapi/modules": [
+        "libs/todomongoapi/modules/src/index.ts"
+      ],
+      "@codebase/todomongoapi/routes": ["libs/todomongoapi/routes/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
