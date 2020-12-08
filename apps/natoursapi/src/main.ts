@@ -35,6 +35,24 @@ app.get('/api/v1/tours/:id', (req, res) => {
   });
 });
 
+// DELETE
+// app.patch('', (req, res) =>)
+app.delete('/api/v1/tours/:id', (req, res) => {
+  const { id } = req.params;
+
+  if (parseInt(id) > tours.length) {
+    return res.status(404).json({
+      status: 'fail',
+      message: 'Invalid ID',
+    });
+  }
+
+  res.status(204).json({
+    status: 'success',
+    data: null,
+  });
+});
+
 // PUT, PATCH
 // app.patch('', (req, res) =>)
 app.patch('/api/v1/tours/:id', (req, res) => {
