@@ -204,9 +204,60 @@
           }
         }
       }
+    },
+    "natoursapi": {
+      "root": "apps/natoursapi",
+      "sourceRoot": "apps/natoursapi/src",
+      "projectType": "application",
+      "prefix": "natoursapi",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/natoursapi",
+            "main": "apps/natoursapi/src/main.ts",
+            "tsConfig": "apps/natoursapi/tsconfig.app.json",
+            "assets": ["apps/natoursapi/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/natoursapi/src/environments/environment.ts",
+                  "with": "apps/natoursapi/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "natoursapi:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/natoursapi/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/natoursapi/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {
     "defaultCollection": "@nrwl/web"
-  }
+  },
+  "defaultProject": "natoursapi"
 }

@@ -50,6 +50,9 @@
     },
     "todomongoapi-schemas": {
       "tags": []
+    },
+    "natoursapi": {
+      "tags": []
     }
   }
 }
