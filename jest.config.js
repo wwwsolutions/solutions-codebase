@@ -8,5 +8,6 @@ module.exports = {
     '<rootDir>/libs/shared/data-access-models',
     '<rootDir>/libs/todomongoapi/services',
     '<rootDir>/libs/todomongoapi/schemas',
+    '<rootDir>/apps/natoursapi',
   ],
 };
