@@ -3,7 +3,7 @@ import * as express from 'express';
 // FAKE DATA
 import { tours } from './dev-data/data/tours-simple';
 
-const getAllTours = (req, res) => {
+const getTours = (req, res) => {
   res.status(200).json({
     status: 'success',
     results: tours.length,
@@ -11,7 +11,7 @@ const getAllTours = (req, res) => {
   });
 };
 
-const getOneTour = (req, res) => {
+const getTour = (req, res) => {
   const { id } = req.params;
   const tour = tours.find((el) => el.id === parseInt(id));
 
@@ -82,21 +82,19 @@ const app = express();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-// Get all tours
-app.get('/api/v1/tours', getAllTours);
+// ROUTES
+// app.get('/api/v1/tours', getTours);
+// app.post('/api/v1/tours', createTour);
+// app.get('/api/v1/tours/:id', getTour);
+// app.delete('/api/v1/tours/:id', deleteTour);
+// app.patch('/api/v1/tours/:id', updateTour);
 
-// Get one tour
-app.get('/api/v1/tours/:id', getOneTour);
-
-// DELETE
-// app.patch('', (req, res) =>)
-app.delete('/api/v1/tours/:id', deleteTour);
-
-// PUT, PATCH
-app.patch('/api/v1/tours/:id', updateTour);
-
-// Create new tour
-app.post('/api/v1/tours', createTour);
+app.route('/api/v1/tours').get(getTours).post(createTour);
+app
+  .route('/api/v1/tours/:id')
+  .get(getTour)
+  .delete(deleteTour)
+  .patch(updateTour);
 
 const port = process.env.port || 3333;
 const server = app.listen(port, () => {
