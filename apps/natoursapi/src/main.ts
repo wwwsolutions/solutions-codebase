@@ -5,13 +5,22 @@ import { tours } from './dev-data/data/tours-simple';
 
 const app = express();
 
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
+// GET TOURS
 app.get('/api/v1/tours', (req, res) => {
-  // ENVELOPE DATA
   res.status(200).json({
     status: 'success',
     results: tours.length,
     data: { tours },
   });
+});
+
+// POST TOURS
+app.post('/api/v1/tours', (req, res) => {
+  console.log(req.body);
+  res.send('Done');
 });
 
 // app.get('/api', (req, res) => {
