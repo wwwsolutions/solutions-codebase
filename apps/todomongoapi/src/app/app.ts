@@ -6,8 +6,12 @@ import { TestRoutes, CommonRoutes } from '@codebase/todomongoapi/routes';
 class App {
   public app: express.Application;
 
+  private dbConnectionString: string =
+    'mongodb+srv://todoAppUser:P@ssw0rd@cluster0.qhbkh.mongodb.net/todoApp?retryWrites=true&w=majority';
+
   // mongo
-  public mongoUrl: string = 'mongodb://localhost/' + env.getDBName();
+  // public mongoUrl: string = `${this.dbConnectionString}/${env.getDBName()}`;
+  public mongoUrl: string = this.dbConnectionString;
 
   // routes
   private test_routes: TestRoutes = new TestRoutes();
@@ -18,10 +22,9 @@ class App {
     this.config();
     this.mongoSetup();
 
-    // routes
+    // ROUTES
     this.test_routes.route(this.app);
-    // always as the last route
-    this.common_routes.route(this.app);
+    this.common_routes.route(this.app); // always set as the last route
   }
 
   private config(): void {
