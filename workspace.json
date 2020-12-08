@@ -29,105 +29,6 @@
         }
       }
     },
-    "todomongoapp": {
-      "root": "apps/todomongoapp",
-      "sourceRoot": "apps/todomongoapp/src",
-      "projectType": "application",
-      "schematics": {},
-      "architect": {
-        "build": {
-          "builder": "@nrwl/web:build",
-          "options": {
-            "outputPath": "dist/apps/todomongoapp",
-            "index": "apps/todomongoapp/src/index.html",
-            "main": "apps/todomongoapp/src/main.ts",
-            "polyfills": "apps/todomongoapp/src/polyfills.ts",
-            "tsConfig": "apps/todomongoapp/tsconfig.app.json",
-            "assets": [
-              "apps/todomongoapp/src/favicon.ico",
-              "apps/todomongoapp/src/assets"
-            ],
-            "styles": ["apps/todomongoapp/src/styles.scss"],
-            "scripts": []
-          },
-          "configurations": {
-            "production": {
-              "fileReplacements": [
-                {
-                  "replace": "apps/todomongoapp/src/environments/environment.ts",
-                  "with": "apps/todomongoapp/src/environments/environment.prod.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "extractCss": true,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
-                }
-              ]
-            }
-          }
-        },
-        "serve": {
-          "builder": "@nrwl/web:dev-server",
-          "options": {
-            "buildTarget": "todomongoapp:build",
-            "proxyConfig": "apps/todomongoapp/proxy.conf.json"
-          },
-          "configurations": {
-            "production": {
-              "buildTarget": "todomongoapp:build:production"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["apps/todomongoapp/**/*.ts"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "apps/todomongoapp/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "todomongoapp-e2e": {
-      "root": "apps/todomongoapp-e2e",
-      "sourceRoot": "apps/todomongoapp-e2e/src",
-      "projectType": "application",
-      "architect": {
-        "e2e": {
-          "builder": "@nrwl/cypress:cypress",
-          "options": {
-            "cypressConfig": "apps/todomongoapp-e2e/cypress.json",
-            "tsConfig": "apps/todomongoapp-e2e/tsconfig.e2e.json",
-            "devServerTarget": "todomongoapp:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "todomongoapp:serve:production"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["apps/todomongoapp-e2e/**/*.{js,ts}"]
-          }
-        }
-      }
-    },
     "todomongoapi": {
       "root": "apps/todomongoapi",
       "sourceRoot": "apps/todomongoapi/src",
@@ -307,6 +208,5 @@
   },
   "cli": {
     "defaultCollection": "@nrwl/web"
-  },
-  "defaultProject": "todomongoapp"
+  }
 }
