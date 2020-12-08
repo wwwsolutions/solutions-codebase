@@ -1,17 +1,21 @@
 import * as express from 'express';
+import { Request, Response } from 'express';
 
 // FAKE DATA
 import { tours } from './dev-data/data/tours-simple';
 
-const getTours = (req, res) => {
+const getTours = (req: Request, res: Response) => {
+  console.log(req.requestTime);
+
   res.status(200).json({
     status: 'success',
+    requestedAt: req.requestTime,
     results: tours.length,
     data: { tours },
   });
 };
 
-const getTour = (req, res) => {
+const getTour = (req: Request, res: Response) => {
   const { id } = req.params;
   const tour = tours.find((el) => el.id === parseInt(id));
 
@@ -28,7 +32,7 @@ const getTour = (req, res) => {
   });
 };
 
-const createTour = (req, res) => {
+const createTour = (req: Request, res: Response) => {
   // console.log(req.body);
 
   const newId = tours[tours.length - 1].id + 1;
@@ -41,7 +45,7 @@ const createTour = (req, res) => {
   });
 };
 
-const deleteTour = (req, res) => {
+const deleteTour = (req: Request, res: Response) => {
   const { id } = req.params;
 
   if (parseInt(id) > tours.length) {
@@ -57,7 +61,7 @@ const deleteTour = (req, res) => {
   });
 };
 
-const updateTour = (req, res) => {
+const updateTour = (req: Request, res: Response) => {
   const { id } = req.params;
 
   if (parseInt(id) > tours.length) {
@@ -82,13 +86,20 @@ const app = express();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-// ROUTES
-// app.get('/api/v1/tours', getTours);
-// app.post('/api/v1/tours', createTour);
-// app.get('/api/v1/tours/:id', getTour);
-// app.delete('/api/v1/tours/:id', deleteTour);
-// app.patch('/api/v1/tours/:id', updateTour);
+app.use((req: Request, res: Response, next) => {
+  console.log('Hello from Middleware');
+  next();
+});
 
+app.use((req: Request, res: Response, next): void => {
+  // ADDED CUSTOM TYPINGS
+  // https://stackoverflow.com/questions/37377731/extend-express-request-object-using-typescript
+  // https://truetocode.com/extend-express-request-and-response-typescript-declaration-merging/
+  req.requestTime = new Date().toISOString();
+  next();
+});
+
+// ROUTES
 app.route('/api/v1/tours').get(getTours).post(createTour);
 app
   .route('/api/v1/tours/:id')
