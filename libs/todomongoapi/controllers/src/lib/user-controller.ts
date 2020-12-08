@@ -7,7 +7,7 @@ import {
   UserService,
 } from '@codebase/todomongoapi/services';
 import { IUser } from '@codebase/shared/data-access-models';
-import e = require('express');
+// import e = require('express');
 
 export class UserController {
   private user_service: UserService = new UserService();
