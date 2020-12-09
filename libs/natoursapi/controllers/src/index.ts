@@ -1,1 +1,1 @@
-export * from './lib/natoursapi-controllers';
+export * from './lib/tour-controller';
