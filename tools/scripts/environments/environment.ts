@@ -11,31 +11,34 @@ env = dotenvParseVariables(env.parsed);
 const targetPath =
   './libs/shared/environments/src/lib/environments/environment.ts';
 
+// type: 'development',
+// production: false,
+// isMockEnabled: ${env.IS_MOCK_ENABLED},
+// authTokenKey: '${process.env.AUTH_TOKEN_KEY}',
+// firebaseConfig: {
+//   apiKey: '${process.env.DBDEV_API_KEY}',
+//   authDomain: '${process.env.DBDEV_AUTH_DOMAIN}',
+//   databaseURL: '${process.env.DBDEV_DATABASE_URL}',
+//   projectId: '${process.env.DBDEV_PROJECT_ID}',
+//   storageBucket: '${process.env.DBDEV_STORAGE_BUCKET}',
+//   messagingSenderId: '${process.env.DBDEV_MESSAGING_SENDER_ID}',
+//   appId: '${process.env.DBDEV_APP_ID}'
+// },
+// firebaseTestingConfig: {
+//   apiKey: '${process.env.DBTEST_API_KEY}',
+//   authDomain: '${process.env.DBTEST_AUTH_DOMAIN}',
+//   databaseURL: '${process.env.DBTEST_DATABASE_URL}',
+//   projectId: '${process.env.DBTEST_PROJECT_ID}',
+//   storageBucket: '${process.env.DBTEST_STORAGE_BUCKET}',
+//   messagingSenderId: '${process.env.DBTEST_MESSAGING_SENDER_ID}',
+//   appId: '${process.env.DBTEST_APP_ID}'
+// },
+
 // `environment.ts` file structure
 const envConfigFile = `export const environment = {
   type: 'development',
   production: false,
-  isMockEnabled: ${env.IS_MOCK_ENABLED},
-  authTokenKey: '${process.env.AUTH_TOKEN_KEY}',
-  firebaseConfig: {
-    apiKey: '${process.env.DBDEV_API_KEY}',
-    authDomain: '${process.env.DBDEV_AUTH_DOMAIN}',
-    databaseURL: '${process.env.DBDEV_DATABASE_URL}',
-    projectId: '${process.env.DBDEV_PROJECT_ID}',
-    storageBucket: '${process.env.DBDEV_STORAGE_BUCKET}',
-    messagingSenderId: '${process.env.DBDEV_MESSAGING_SENDER_ID}',
-    appId: '${process.env.DBDEV_APP_ID}'
-  },
-  firebaseTestingConfig: {
-    apiKey: '${process.env.DBTEST_API_KEY}',
-    authDomain: '${process.env.DBTEST_AUTH_DOMAIN}',
-    databaseURL: '${process.env.DBTEST_DATABASE_URL}',
-    projectId: '${process.env.DBTEST_PROJECT_ID}',
-    storageBucket: '${process.env.DBTEST_STORAGE_BUCKET}',
-    messagingSenderId: '${process.env.DBTEST_MESSAGING_SENDER_ID}',
-    appId: '${process.env.DBTEST_APP_ID}'
-  },
-
+  apiPort: ${process.env.PORT_API},
 };
 `;
 

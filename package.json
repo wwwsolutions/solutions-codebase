@@ -8,6 +8,9 @@
     "generate:environment": "ts-node ./tools/scripts/environments/environment.ts",
     "generate:environment.prod": "ts-node ./tools/scripts/environments/environment.prod.ts",
     "generate:environment.stage": "ts-node ./tools/scripts/environments/environment.stage.ts",
+    "generate:environments": "run-s generate:environment generate:environment.prod generate:environment.stage",
+    "clean.natoursapi": "npx rimraf dist/apps/natoursapi",
+    "serve.natoursapi": "nx serve natoursapi",
     "nx": "nx",
     "start": "nx serve",
     "build": "nx build",
@@ -28,7 +31,8 @@
     "update": "nx migrate latest",
     "workspace-schematic": "nx workspace-schematic",
     "dep-graph": "nx dep-graph",
-    "help": "nx help"
+    "help": "nx help",
+    "serve:natoursapi": "run-s generate:environment clean.natoursapi serve.natoursapi"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.1",
@@ -48,7 +52,6 @@
     "tslib": "^2.0.0"
   },
   "devDependencies": {
-    "colors": "^1.4.0",
     "@nrwl/cli": "10.4.4",
     "@nrwl/cypress": "10.4.4",
     "@nrwl/eslint-plugin-nx": "10.4.4",
@@ -63,6 +66,7 @@
     "@types/node": "~8.9.4",
     "@typescript-eslint/eslint-plugin": "4.3.0",
     "@typescript-eslint/parser": "4.3.0",
+    "colors": "^1.4.0",
     "concurrently": "^5.3.0",
     "cypress": "^6.0.1",
     "dotenv": "6.2.0",
@@ -75,6 +79,7 @@
     "npm-run-all": "^4.1.5",
     "prettier": "2.1.2",
     "replace-in-file": "^6.1.0",
+    "rimraf": "^3.0.2",
     "serialize-javascript": "^5.0.1",
     "ts-jest": "^26.4.4",
     "ts-node": "^7.0.1",
