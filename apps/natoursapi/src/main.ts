@@ -1,13 +1,7 @@
 import app from './app/app';
-import dotenv from 'dotenv';
-import dotenvParseVariables from 'dotenv-parse-variables';
+import { production } from '@codebase/shared/environments';
 
-// ENVIRONMENT VARIABLES
-let env = dotenv.config({});
-if (env.error) throw env.error;
-env = dotenvParseVariables(env.parsed);
-
-console.log(env);
+console.log(production);
 
 // SERVER
 const port = process.env.port || 3333;

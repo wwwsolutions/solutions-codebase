@@ -71,6 +71,9 @@
     },
     "natoursapi-fake-data": {
       "tags": []
+    },
+    "shared-environments": {
+      "tags": []
     }
   }
 }
