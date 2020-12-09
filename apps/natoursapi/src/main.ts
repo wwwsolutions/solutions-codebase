@@ -1,9 +1,11 @@
 import * as express from 'express';
 import { Request, Response } from 'express';
+import morgan from 'morgan';
 
 // FAKE DATA
 import { tours } from './dev-data/data/tours-simple';
 
+// ROUTE HANDLER
 const getTours = (req: Request, res: Response) => {
   console.log(req.requestTime);
 
@@ -15,6 +17,7 @@ const getTours = (req: Request, res: Response) => {
   });
 };
 
+// ROUTE HANDLER
 const getTour = (req: Request, res: Response) => {
   const { id } = req.params;
   const tour = tours.find((el) => el.id === parseInt(id));
@@ -32,6 +35,7 @@ const getTour = (req: Request, res: Response) => {
   });
 };
 
+// ROUTE HANDLER
 const createTour = (req: Request, res: Response) => {
   // console.log(req.body);
 
@@ -45,6 +49,7 @@ const createTour = (req: Request, res: Response) => {
   });
 };
 
+// ROUTE HANDLER
 const deleteTour = (req: Request, res: Response) => {
   const { id } = req.params;
 
@@ -61,6 +66,7 @@ const deleteTour = (req: Request, res: Response) => {
   });
 };
 
+// ROUTE HANDLER
 const updateTour = (req: Request, res: Response) => {
   const { id } = req.params;
 
@@ -79,22 +85,16 @@ const updateTour = (req: Request, res: Response) => {
   });
 };
 
-//''''''''''''''''''''''''''
+//'''''''''''''''''''''''''' MIDDLEWARE
 
 const app = express();
 
+app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-app.use((req: Request, res: Response, next) => {
-  console.log('Hello from Middleware');
-  next();
-});
-
+// CUSTOM MIDDLEWARE
 app.use((req: Request, res: Response, next): void => {
-  // ADDED CUSTOM TYPINGS
-  // https://stackoverflow.com/questions/37377731/extend-express-request-object-using-typescript
-  // https://truetocode.com/extend-express-request-and-response-typescript-declaration-merging/
   req.requestTime = new Date().toISOString();
   next();
 });
