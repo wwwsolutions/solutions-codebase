@@ -39,6 +39,8 @@ testem.log
 Thumbs.db
 
 # Env Variables
+.env
+environments/*
 
 # Custom
 README_APPS.md
