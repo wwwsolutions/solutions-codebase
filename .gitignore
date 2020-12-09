@@ -38,6 +38,8 @@ testem.log
 .DS_Store
 Thumbs.db
 
+# Env Variables
+
 # Custom
 README_APPS.md
 README_TASKS.md
