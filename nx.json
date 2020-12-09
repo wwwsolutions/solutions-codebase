@@ -53,6 +53,24 @@
     },
     "natoursapi": {
       "tags": []
+    },
+    "natoursapi-controllers": {
+      "tags": []
+    },
+    "natoursapi-modules": {
+      "tags": []
+    },
+    "natoursapi-routes": {
+      "tags": []
+    },
+    "natoursapi-schemas": {
+      "tags": []
+    },
+    "natoursapi-services": {
+      "tags": []
+    },
+    "natoursapi-fake-data": {
+      "tags": []
     }
   }
 }

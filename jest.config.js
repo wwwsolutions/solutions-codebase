@@ -9,5 +9,11 @@ module.exports = {
     '<rootDir>/libs/todomongoapi/services',
     '<rootDir>/libs/todomongoapi/schemas',
     '<rootDir>/apps/natoursapi',
+    '<rootDir>/libs/natoursapi/controllers',
+    '<rootDir>/libs/natoursapi/modules',
+    '<rootDir>/libs/natoursapi/routes',
+    '<rootDir>/libs/natoursapi/schemas',
+    '<rootDir>/libs/natoursapi/services',
+    '<rootDir>/libs/natoursapi/fake-data',
   ],
 };
