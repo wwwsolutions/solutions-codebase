@@ -1,1 +1,2 @@
-export * from './lib/natoursapi-routes';
+// export * from './lib/user-routes';
+export * from './lib/tour-routes';
