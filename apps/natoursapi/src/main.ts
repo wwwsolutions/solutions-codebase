@@ -129,21 +129,22 @@ app.use((req: Request, res: Response, next): void => {
   next();
 });
 
+// ROUTERS DECLARATION
+const tourRouter = express.Router();
+const userRouter = express.Router();
+
 // ROUTES
-app.route('/api/v1/tours').get(getTours).post(createTour);
-app
-  .route('/api/v1/tours/:id')
-  .get(getTour)
-  .delete(deleteTour)
-  .patch(updateTour);
+tourRouter.route('/').get(getTours).post(createTour);
+tourRouter.route('/:id').get(getTour).delete(deleteTour).patch(updateTour);
 
-app.route('/api/v1/users').get(getUsers).post(createUser);
-app
-  .route('/api/v1/users/:id')
-  .get(getUser)
-  .delete(deleteUser)
-  .patch(updateUser);
+userRouter.route('/').get(getUsers).post(createUser);
+userRouter.route('/:id').get(getUser).delete(deleteUser).patch(updateUser);
 
+// MOUNTING ROUTERS
+app.use('/api/v1/tours', tourRouter);
+app.use('/api/v1/users', userRouter);
+
+// -----------------------------SERVER
 const port = process.env.port || 3333;
 const server = app.listen(port, () => {
   console.log(`Listening at http://localhost:${port}/api`);
