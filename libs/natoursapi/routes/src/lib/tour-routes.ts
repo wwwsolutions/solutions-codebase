@@ -5,8 +5,14 @@ import {
   createTour,
   deleteTour,
   updateTour,
+  checkId,
+  checkBody,
 } from '@codebase/natoursapi/controllers';
 
 export const tourRouter = Router();
-tourRouter.route('/').get(getTours).post(createTour);
+
+// VALIDATE ID
+tourRouter.param('id', checkId);
+
+tourRouter.route('/').get(getTours).post(checkBody, createTour);
 tourRouter.route('/:id').get(getTour).delete(deleteTour).patch(updateTour);

@@ -5,6 +5,9 @@
   "author": "Domagoj-Mario Mendas <developer.domagoj.mendas@gmail.com> (https://github.com/wwwsolutions)",
   "private": true,
   "scripts": {
+    "generate:environment": "ts-node ./tools/scripts/environments/environment.ts",
+    "generate:environment.prod": "ts-node ./tools/scripts/environments/environment.prod.ts",
+    "generate:environment.stage": "ts-node ./tools/scripts/environments/environment.stage.ts",
     "nx": "nx",
     "start": "nx serve",
     "build": "nx build",
@@ -45,6 +48,7 @@
     "tslib": "^2.0.0"
   },
   "devDependencies": {
+    "colors": "^1.4.0",
     "@nrwl/cli": "10.4.4",
     "@nrwl/cypress": "10.4.4",
     "@nrwl/eslint-plugin-nx": "10.4.4",
@@ -62,6 +66,7 @@
     "concurrently": "^5.3.0",
     "cypress": "^6.0.1",
     "dotenv": "6.2.0",
+    "dotenv-parse-variables": "^1.0.1",
     "eslint": "7.10.0",
     "eslint-config-prettier": "6.0.0",
     "eslint-plugin-cypress": "^2.10.3",
