@@ -75,6 +75,5 @@ const updateTour = (req: Request, res: Response) => {
 };
 
 export const tourRouter = Router();
-
 tourRouter.route('/').get(getTours).post(createTour);
 tourRouter.route('/:id').get(getTour).delete(deleteTour).patch(updateTour);
