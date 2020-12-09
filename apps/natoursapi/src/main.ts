@@ -16,7 +16,7 @@ app.use((req: Request, res: Response, next): void => {
   next();
 });
 
-// ROUTERS
+// ROUTING
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
 
