@@ -359,6 +359,27 @@
           }
         }
       }
+    },
+    "natoursapi-fake-data": {
+      "root": "libs/natoursapi/fake-data",
+      "sourceRoot": "libs/natoursapi/fake-data/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/natoursapi/fake-data/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/natoursapi/fake-data/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {

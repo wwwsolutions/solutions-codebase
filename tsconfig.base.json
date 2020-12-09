@@ -44,7 +44,12 @@
       "@codebase/natoursapi/modules": ["libs/natoursapi/modules/src/index.ts"],
       "@codebase/natoursapi/routes": ["libs/natoursapi/routes/src/index.ts"],
       "@codebase/natoursapi/schemas": ["libs/natoursapi/schemas/src/index.ts"],
-      "@codebase/natoursapi/services": ["libs/natoursapi/services/src/index.ts"]
+      "@codebase/natoursapi/services": [
+        "libs/natoursapi/services/src/index.ts"
+      ],
+      "@codebase/natoursapi/fake-data": [
+        "libs/natoursapi/fake-data/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]

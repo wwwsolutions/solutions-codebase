@@ -1,7 +1,6 @@
 import { Router, Request, Response } from 'express';
-import { tours } from './tours-simple';
+import { toursSimple as tours } from '@codebase/natoursapi/fake-data';
 
-//'''''''''''''''''''''''''' TOURS ROUTE HANDLERS
 const getTours = (req: Request, res: Response) => {
   // console.log(req.requestTime);
 

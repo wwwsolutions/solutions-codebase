@@ -68,6 +68,9 @@
     },
     "natoursapi-services": {
       "tags": []
+    },
+    "natoursapi-fake-data": {
+      "tags": []
     }
   }
 }
