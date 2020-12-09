@@ -5,7 +5,43 @@ import morgan from 'morgan';
 // FAKE DATA
 import { tours } from './dev-data/data/tours-simple';
 
-// ROUTE HANDLER
+//'''''''''''''''''''''''''' USERS ROUTE HANDLERS
+const getUsers = (req: Request, res: Response) => {
+  res.status(500).json({
+    status: 'error',
+    message: 'This route is not yet defined.',
+  });
+};
+
+const getUser = (req: Request, res: Response) => {
+  res.status(500).json({
+    status: 'error',
+    message: 'This route is not yet defined.',
+  });
+};
+
+const createUser = (req: Request, res: Response) => {
+  res.status(500).json({
+    status: 'error',
+    message: 'This route is not yet defined.',
+  });
+};
+
+const deleteUser = (req: Request, res: Response) => {
+  res.status(500).json({
+    status: 'error',
+    message: 'This route is not yet defined.',
+  });
+};
+
+const updateUser = (req: Request, res: Response) => {
+  res.status(500).json({
+    status: 'error',
+    message: 'This route is not yet defined.',
+  });
+};
+
+//'''''''''''''''''''''''''' TOURS ROUTE HANDLERS
 const getTours = (req: Request, res: Response) => {
   console.log(req.requestTime);
 
@@ -17,7 +53,6 @@ const getTours = (req: Request, res: Response) => {
   });
 };
 
-// ROUTE HANDLER
 const getTour = (req: Request, res: Response) => {
   const { id } = req.params;
   const tour = tours.find((el) => el.id === parseInt(id));
@@ -35,10 +70,7 @@ const getTour = (req: Request, res: Response) => {
   });
 };
 
-// ROUTE HANDLER
 const createTour = (req: Request, res: Response) => {
-  // console.log(req.body);
-
   const newId = tours[tours.length - 1].id + 1;
   const newTour = Object.assign({ id: newId }, req.body);
   tours.push(newTour);
@@ -49,7 +81,6 @@ const createTour = (req: Request, res: Response) => {
   });
 };
 
-// ROUTE HANDLER
 const deleteTour = (req: Request, res: Response) => {
   const { id } = req.params;
 
@@ -66,7 +97,6 @@ const deleteTour = (req: Request, res: Response) => {
   });
 };
 
-// ROUTE HANDLER
 const updateTour = (req: Request, res: Response) => {
   const { id } = req.params;
 
@@ -106,6 +136,13 @@ app
   .get(getTour)
   .delete(deleteTour)
   .patch(updateTour);
+
+app.route('/api/v1/users').get(getUsers).post(createUser);
+app
+  .route('/api/v1/users/:id')
+  .get(getUser)
+  .delete(deleteUser)
+  .patch(updateUser);
 
 const port = process.env.port || 3333;
 const server = app.listen(port, () => {
