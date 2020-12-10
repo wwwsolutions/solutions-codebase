@@ -1,5 +1,20 @@
 import app from './app/app';
+import mongoose from 'mongoose';
+
 import { environment } from '@codebase/shared/environments';
+
+const db: string = environment.mongoConfig.dbCloudConnectionStr;
+
+mongoose
+  .connect(db, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
+  })
+  .then(() => {
+    console.log('Database connection successful!');
+  });
 
 // SERVER
 const port = environment.apiPort || 5000;

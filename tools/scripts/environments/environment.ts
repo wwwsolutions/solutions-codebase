@@ -43,7 +43,8 @@ const envConfigFile = `export const environment = {
     dbName: '${process.env.DEVELOPMENT_MONGO_DB_NAME}',
     dbUser: '${process.env.DEVELOPMENT_MONGO_DB_USER}',
     dbPassword: '${process.env.DEVELOPMENT_MONGO_DB_PWD}',
-    dbConnectionStr: 'mongodb+srv://${process.env.DEVELOPMENT_MONGO_DB_USER}:${process.env.DEVELOPMENT_MONGO_DB_PWD}@cluster0.dfmz5.mongodb.net/${process.env.DEVELOPMENT_MONGO_DB_NAME}?retryWrites=true&w=majority',
+    dbCloudConnectionStr: 'mongodb+srv://${process.env.DEVELOPMENT_MONGO_DB_USER}:${process.env.DEVELOPMENT_MONGO_DB_PWD}@cluster0.dfmz5.mongodb.net/${process.env.DEVELOPMENT_MONGO_DB_NAME}?retryWrites=true&w=majority',
+    dbLocalConnectionStr: 'mongodb://localhost:${process.env.MONGODB_PORT}/${process.env.DEVELOPMENT_MONGO_DB_NAME}',
   }
 };
 `;
