@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 // import { toursSimple as tours } from '@codebase/natoursapi/fake-data';
 
 import { Tour } from '@codebase/natoursapi/models';
+import { async } from 'rxjs';
 
 export const createTour = async (req: Request, res: Response) => {
   try {
@@ -21,15 +22,20 @@ export const createTour = async (req: Request, res: Response) => {
   }
 };
 
-export const getTours = (req: Request, res: Response) => {
-  // console.log(req.requestTime);
-
-  res.status(200).json({
-    status: 'success',
-    // requestedAt: req.requestTime,
-    // results: tours.length,
-    // data: { tours },
-  });
+export const getTours = async (req: Request, res: Response) => {
+  try {
+    const tours = await Tour.find();
+    res.status(200).json({
+      status: 'success',
+      results: tours.length,
+      data: { tours },
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: 'fail',
+      message: error,
+    });
+  }
 };
 
 export const getTour = (req: Request, res: Response) => {
