@@ -1,1 +1,1 @@
-export * from './lib/natoursapi-schemas';
+export * from './lib/tour-schema';

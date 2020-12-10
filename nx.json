@@ -74,6 +74,9 @@
     },
     "shared-environments": {
       "tags": []
+    },
+    "natoursapi-models": {
+      "tags": []
     }
   }
 }

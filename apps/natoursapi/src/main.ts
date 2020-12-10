@@ -1,7 +1,9 @@
 import app from './app/app';
-import mongoose, { Mongoose } from 'mongoose';
+import mongoose from 'mongoose';
 
 import { environment } from '@codebase/shared/environments';
+
+import { Tour } from '@codebase/natoursapi/models';
 
 const db: string = environment.mongoConfig.dbCloudConnectionStr;
 
@@ -14,34 +16,6 @@ mongoose
   })
   .then(() => {
     console.log('Database connection successful!');
-  });
-
-// SCHEMA WITH VALIDATORS
-const tourSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    unique: true,
-    required: [true, 'A tour must have a name.'],
-  },
-  rating: { type: Number, default: 4.5 },
-  price: { type: Number, required: [true, 'A tour must have a price.'] },
-});
-
-// MODEL
-const Tour = mongoose.model('Tour', tourSchema);
-
-const testTour = new Tour({
-  name: 'The Park Camper',
-  price: 997,
-});
-
-testTour
-  .save()
-  .then((doc) => {
-    console.log(doc);
-  })
-  .catch((err) => {
-    console.log('ERROR:', err);
   });
 
 // SERVER

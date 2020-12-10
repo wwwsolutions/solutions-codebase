@@ -16,5 +16,6 @@ module.exports = {
     '<rootDir>/libs/natoursapi/services',
     '<rootDir>/libs/natoursapi/fake-data',
     '<rootDir>/libs/shared/environments',
+    '<rootDir>/libs/natoursapi/models',
   ],
 };
