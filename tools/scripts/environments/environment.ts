@@ -39,6 +39,12 @@ const envConfigFile = `export const environment = {
   type: 'development',
   production: false,
   apiPort: ${process.env.PORT_API},
+  mongoConfig: {
+    dbName: '${process.env.DB_NAME}',
+    dbUser: '${process.env.DB_USER}',
+    dbPassword: '${process.env.DB_PWD}',
+    dbConnectionStr: 'mongodb+srv://${process.env.DB_USER}:${process.env.DB_PWD}@cluster0.dfmz5.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority',
+  }
 };
 `;
 
