@@ -1,10 +1,8 @@
 import app from './app/app';
-import { production } from '@codebase/shared/environments';
-
-console.log(production);
+import { environment } from '@codebase/shared/environments';
 
 // SERVER
-const port = process.env.port || 3333;
+const port = environment.apiPort || 5000;
 const server = app.listen(port, () => {
   console.log(`Listening at http://localhost:${port}/api`);
 });
