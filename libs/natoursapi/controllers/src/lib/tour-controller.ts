@@ -3,6 +3,24 @@ import { Request, Response } from 'express';
 
 import { Tour } from '@codebase/natoursapi/models';
 
+export const createTour = async (req: Request, res: Response) => {
+  try {
+    // const newTour = new Tour({})
+    // newTour.save()
+    const newTour = await Tour.create(req.body);
+
+    res.status(201).json({
+      status: 'success',
+      data: { tour: newTour },
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: 'fail',
+      message: 'Invalid data sent.',
+    });
+  }
+};
+
 export const getTours = (req: Request, res: Response) => {
   // console.log(req.requestTime);
 
@@ -23,16 +41,6 @@ export const getTour = (req: Request, res: Response) => {
   // });
 };
 
-export const createTour = (req: Request, res: Response) => {
-  // const newId = tours[tours.length - 1].id + 1;
-  // const newTour = Object.assign({ id: newId }, req.body);
-  // tours.push(newTour);
-  // res.status(201).json({
-  //   status: 'success',
-  //   data: { tour: newTour },
-  // });
-};
-
 export const deleteTour = (req: Request, res: Response) => {
   res.status(204).json({
     status: 'success',
@@ -49,22 +57,22 @@ export const updateTour = (req: Request, res: Response) => {
   });
 };
 
-export const checkId = (req: Request, res: Response, next, val) => {
-  // if (val > tours.length) {
-  //   return res.status(404).json({
-  //     status: 'fail',
-  //     message: 'Invalid ID',
-  //   });
-  // }
-  next();
-};
+// export const checkId = (req: Request, res: Response, next, val) => {
+//   // if (val > tours.length) {
+//   //   return res.status(404).json({
+//   //     status: 'fail',
+//   //     message: 'Invalid ID',
+//   //   });
+//   // }
+//   next();
+// };
 
-export const checkBody = (req: Request, res: Response, next) => {
-  if (!req.body.name || !req.body.price) {
-    return res.status(400).json({
-      status: 'fail',
-      message: 'Missing name or price.',
-    });
-  }
-  next();
-};
+// export const checkBody = (req: Request, res: Response, next) => {
+//   if (!req.body.name || !req.body.price) {
+//     return res.status(400).json({
+//       status: 'fail',
+//       message: 'Missing name or price.',
+//     });
+//   }
+//   next();
+// };
