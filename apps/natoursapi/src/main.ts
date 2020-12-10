@@ -1,5 +1,5 @@
 import app from './app/app';
-import mongoose from 'mongoose';
+import mongoose, { Mongoose } from 'mongoose';
 
 import { environment } from '@codebase/shared/environments';
 
@@ -15,6 +15,20 @@ mongoose
   .then(() => {
     console.log('Database connection successful!');
   });
+
+// SCHEMA WITH VALIDATORS
+const tourSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    unique: true,
+    required: [true, 'A tour must have a name.'],
+  },
+  rating: { type: Number, default: 4.5 },
+  price: { type: Number, required: [true, 'A tour must have a price.'] },
+});
+
+// MODEL
+const Tour = mongoose.model('Tour', tourSchema);
 
 // SERVER
 const port = environment.apiPort || 5000;
