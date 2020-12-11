@@ -3,6 +3,18 @@ import mongoose from 'mongoose';
 
 import { environment } from '@codebase/shared/environments';
 
+// GLOBAL PLUGIN (setRunValidators fix)
+function setRunValidators() {
+  this.setOptions({ runValidators: true });
+}
+
+mongoose.plugin((schema) => {
+  schema.pre('findOneAndUpdate', setRunValidators);
+  schema.pre('updateMany', setRunValidators);
+  schema.pre('updateOne', setRunValidators);
+  schema.pre('update', setRunValidators);
+});
+
 const db: string = environment.mongoConfig.dbCloudConnectionStr;
 
 mongoose
@@ -19,6 +31,6 @@ mongoose
 // SERVER
 const port = environment.apiPort || 5000;
 const server = app.listen(port, () => {
-  console.log(`Listening at http://localhost:${port}/api`);
+  console.log(`Listening at http://localhost:${port}`);
 });
 server.on('error', console.error);

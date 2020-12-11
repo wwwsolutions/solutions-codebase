@@ -12,7 +12,7 @@ export const createTour = async (req: Request, res: Response) => {
   } catch (error) {
     res.status(400).json({
       status: 'fail',
-      message: 'Invalid data sent.',
+      message: error,
     });
   }
 };
@@ -51,12 +51,15 @@ export const getTour = async (req: Request, res: Response) => {
 
 export const updateTour = async (req: Request, res: Response) => {
   try {
+    // FIXED: to test in POSTMAN >>> add header to 'Content-Type: application/json'
     console.log('req.body:', req.body);
-    const { id } = req.params;
-    const tour = await Tour.findByIdAndUpdate({ _id: id }, req.body, {
+
+    const tour = await Tour.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
-      runValidators: true,
+      // FIXED: Mongoose supports validation for update(), updateOne(), updateMany(), and findOneAndUpdate() operations.
+      // runValidators: true,
     });
+
     res.status(200).json({
       status: 'success',
       data: { tour },
@@ -69,29 +72,17 @@ export const updateTour = async (req: Request, res: Response) => {
   }
 };
 
-export const deleteTour = (req: Request, res: Response) => {
-  res.status(204).json({
-    status: 'success',
-    data: null,
-  });
+export const deleteTour = async (req: Request, res: Response) => {
+  try {
+    await Tour.findByIdAndDelete(req.params.id);
+    res.status(204).json({
+      status: 'success',
+      data: null,
+    });
+  } catch (error) {
+    res.status(404).json({
+      status: 'fail',
+      message: error,
+    });
+  }
 };
-
-// export const checkId = (req: Request, res: Response, next, val) => {
-//   // if (val > tours.length) {
-//   //   return res.status(404).json({
-//   //     status: 'fail',
-//   //     message: 'Invalid ID',
-//   //   });
-//   // }
-//   next();
-// };
-
-// export const checkBody = (req: Request, res: Response, next) => {
-//   if (!req.body.name || !req.body.price) {
-//     return res.status(400).json({
-//       status: 'fail',
-//       message: 'Missing name or price.',
-//     });
-//   }
-//   next();
-// };
