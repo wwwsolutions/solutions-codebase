@@ -1,13 +1,8 @@
 import { Request, Response } from 'express';
-// import { toursSimple as tours } from '@codebase/natoursapi/fake-data';
-
 import { Tour } from '@codebase/natoursapi/models';
-import { async } from 'rxjs';
 
 export const createTour = async (req: Request, res: Response) => {
   try {
-    // const newTour = new Tour({})
-    // newTour.save()
     const newTour = await Tour.create(req.body);
 
     res.status(201).json({
@@ -56,6 +51,7 @@ export const getTour = async (req: Request, res: Response) => {
 
 export const updateTour = async (req: Request, res: Response) => {
   try {
+    console.log('req.body:', req.body);
     const { id } = req.params;
     const tour = await Tour.findByIdAndUpdate({ _id: id }, req.body, {
       new: true,

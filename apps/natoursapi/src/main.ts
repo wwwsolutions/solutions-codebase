@@ -3,8 +3,6 @@ import mongoose from 'mongoose';
 
 import { environment } from '@codebase/shared/environments';
 
-import { Tour } from '@codebase/natoursapi/models';
-
 const db: string = environment.mongoConfig.dbCloudConnectionStr;
 
 mongoose
