@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import { Tour } from '@codebase/natoursapi/models';
-import { tourSchema } from '../../../schemas/src/lib/tour-schema';
 
 export const createTour = async (req: Request, res: Response) => {
   try {
@@ -73,29 +72,17 @@ export const updateTour = async (req: Request, res: Response) => {
   }
 };
 
-export const deleteTour = (req: Request, res: Response) => {
-  res.status(204).json({
-    status: 'success',
-    data: null,
-  });
+export const deleteTour = async (req: Request, res: Response) => {
+  try {
+    await Tour.findByIdAndDelete(req.params.id);
+    res.status(204).json({
+      status: 'success',
+      data: null,
+    });
+  } catch (error) {
+    res.status(404).json({
+      status: 'fail',
+      message: error,
+    });
+  }
 };
-
-// export const checkId = (req: Request, res: Response, next, val) => {
-//   // if (val > tours.length) {
-//   //   return res.status(404).json({
-//   //     status: 'fail',
-//   //     message: 'Invalid ID',
-//   //   });
-//   // }
-//   next();
-// };
-
-// export const checkBody = (req: Request, res: Response, next) => {
-//   if (!req.body.name || !req.body.price) {
-//     return res.status(400).json({
-//       status: 'fail',
-//       message: 'Missing name or price.',
-//     });
-//   }
-//   next();
-// };
