@@ -3,6 +3,18 @@ import mongoose from 'mongoose';
 
 import { environment } from '@codebase/shared/environments';
 
+// GLOBAL PLUGIN (setRunValidators fix)
+function setRunValidators() {
+  this.setOptions({ runValidators: true });
+}
+
+mongoose.plugin((schema) => {
+  schema.pre('findOneAndUpdate', setRunValidators);
+  schema.pre('updateMany', setRunValidators);
+  schema.pre('updateOne', setRunValidators);
+  schema.pre('update', setRunValidators);
+});
+
 const db: string = environment.mongoConfig.dbCloudConnectionStr;
 
 mongoose

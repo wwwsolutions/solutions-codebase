@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { Tour } from '@codebase/natoursapi/models';
+import { tourSchema } from '../../../schemas/src/lib/tour-schema';
 
 export const createTour = async (req: Request, res: Response) => {
   try {
@@ -51,13 +52,13 @@ export const getTour = async (req: Request, res: Response) => {
 
 export const updateTour = async (req: Request, res: Response) => {
   try {
-    // FIXME: FIXED: to test in POSTMAN add header to 'Content-Type: application/json'
+    // FIXED: to test in POSTMAN >>> add header to 'Content-Type: application/json'
     console.log('req.body:', req.body);
 
-    const { id } = req.params;
-    const tour = await Tour.findByIdAndUpdate({ _id: id }, req.body, {
+    const tour = await Tour.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
-      runValidators: true,
+      // FIXED: Mongoose supports validation for update(), updateOne(), updateMany(), and findOneAndUpdate() operations.
+      // runValidators: true,
     });
 
     res.status(200).json({
