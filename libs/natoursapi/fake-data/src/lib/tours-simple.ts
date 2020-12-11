@@ -1,6 +1,5 @@
 export const toursSimple = [
   {
-    id: 0,
     name: 'The Forest Hiker',
     duration: 5,
     maxGroupSize: 25,
@@ -16,7 +15,6 @@ export const toursSimple = [
     startDates: ['2021-04-25,10:00', '2021-07-20,10:00', '2021-10-05,10:00'],
   },
   {
-    id: 1,
     name: 'The Sea Explorer',
     duration: 7,
     maxGroupSize: 15,
@@ -32,7 +30,6 @@ export const toursSimple = [
     startDates: ['2021-06-19,10:00', '2021-07-20,10:00', '2021-08-18,10:00'],
   },
   {
-    id: 2,
     name: 'The Snow Adventurer',
     duration: 4,
     maxGroupSize: 10,
@@ -48,7 +45,6 @@ export const toursSimple = [
     startDates: ['2022-01-05,10:00', '2022-02-12,10:00', '2023-01-06,10:00'],
   },
   {
-    id: 3,
     name: 'The City Wanderer',
     duration: 9,
     maxGroupSize: 20,
@@ -64,7 +60,6 @@ export const toursSimple = [
     startDates: ['2021-03-11,10:00', '2021-05-02,10:00', '2021-06-09,10:00'],
   },
   {
-    id: 4,
     name: 'The Park Camper',
     duration: 10,
     maxGroupSize: 15,
@@ -80,7 +75,6 @@ export const toursSimple = [
     startDates: ['2021-08-05,10:00', '2022-03-20,10:00', '2022-08-12,10:00'],
   },
   {
-    id: 5,
     name: 'The Sports Lover',
     duration: 14,
     maxGroupSize: 8,
@@ -97,7 +91,6 @@ export const toursSimple = [
     startDates: ['2021-07-19,10:00', '2021-09-06,10:00', '2022-03-18,10:00'],
   },
   {
-    id: 6,
     name: 'The Wine Taster',
     duration: 5,
     maxGroupSize: 8,
@@ -114,7 +107,6 @@ export const toursSimple = [
     startDates: ['2021-02-12,10:00', '2021-04-14,10:00', '2021-09-01,10:00'],
   },
   {
-    id: 7,
     name: 'The Star Gazer',
     duration: 9,
     maxGroupSize: 8,
@@ -131,7 +123,6 @@ export const toursSimple = [
     startDates: ['2021-03-23,10:00', '2021-10-25,10:00', '2022-01-30,10:00'],
   },
   {
-    id: 8,
     name: 'The Northern Lights',
     duration: 3,
     maxGroupSize: 12,

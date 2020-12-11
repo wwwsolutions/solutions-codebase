@@ -428,6 +428,7 @@ export const tours = [
       },
     ],
   },
+
   {
     startLocation: {
       description: 'California, USA',
