@@ -51,12 +51,15 @@ export const getTour = async (req: Request, res: Response) => {
 
 export const updateTour = async (req: Request, res: Response) => {
   try {
+    // FIXME: FIXED: to test in POSTMAN add header to 'Content-Type: application/json'
     console.log('req.body:', req.body);
+
     const { id } = req.params;
     const tour = await Tour.findByIdAndUpdate({ _id: id }, req.body, {
       new: true,
       runValidators: true,
     });
+
     res.status(200).json({
       status: 'success',
       data: { tour },
