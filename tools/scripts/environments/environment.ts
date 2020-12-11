@@ -36,14 +36,15 @@ const targetPath =
 
 // `environment.ts` file structure
 const envConfigFile = `export const environment = {
-  type: 'development',
+  environmentType: 'development',
   production: false,
-  apiPort: ${process.env.PORT_API},
+  apiPort: ${process.env.DEVELOPMENT_API_PORT},
   mongoConfig: {
-    dbName: '${process.env.DB_NAME}',
-    dbUser: '${process.env.DB_USER}',
-    dbPassword: '${process.env.DB_PWD}',
-    dbConnectionStr: 'mongodb+srv://${process.env.DB_USER}:${process.env.DB_PWD}@cluster0.dfmz5.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority',
+    dbName: '${process.env.DEVELOPMENT_MONGO_DB_NAME}',
+    dbUser: '${process.env.DEVELOPMENT_MONGO_DB_USER}',
+    dbPassword: '${process.env.DEVELOPMENT_MONGO_DB_PWD}',
+    dbCloudConnectionStr: 'mongodb+srv://${process.env.DEVELOPMENT_MONGO_DB_USER}:${process.env.DEVELOPMENT_MONGO_DB_PWD}@cluster0.dfmz5.mongodb.net/${process.env.DEVELOPMENT_MONGO_DB_NAME}?retryWrites=true&w=majority',
+    dbLocalConnectionStr: 'mongodb://localhost:${process.env.MONGODB_PORT}/${process.env.DEVELOPMENT_MONGO_DB_NAME}',
   }
 };
 `;

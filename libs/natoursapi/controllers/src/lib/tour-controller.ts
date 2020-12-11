@@ -1,35 +1,72 @@
 import { Request, Response } from 'express';
-import { toursSimple as tours } from '@codebase/natoursapi/fake-data';
+import { Tour } from '@codebase/natoursapi/models';
 
-export const getTours = (req: Request, res: Response) => {
-  // console.log(req.requestTime);
+export const createTour = async (req: Request, res: Response) => {
+  try {
+    const newTour = await Tour.create(req.body);
 
-  res.status(200).json({
-    status: 'success',
-    // requestedAt: req.requestTime,
-    results: tours.length,
-    data: { tours },
-  });
+    res.status(201).json({
+      status: 'success',
+      data: { tour: newTour },
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: 'fail',
+      message: 'Invalid data sent.',
+    });
+  }
 };
 
-export const getTour = (req: Request, res: Response) => {
-  const { id } = req.params;
-  const tour = tours.find((el) => el.id === parseInt(id));
-  res.status(200).json({
-    status: 'success',
-    data: { tour },
-  });
+export const getTours = async (req: Request, res: Response) => {
+  try {
+    const tours = await Tour.find();
+    res.status(200).json({
+      status: 'success',
+      results: tours.length,
+      data: { tours },
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: 'fail',
+      message: error,
+    });
+  }
 };
 
-export const createTour = (req: Request, res: Response) => {
-  const newId = tours[tours.length - 1].id + 1;
-  const newTour = Object.assign({ id: newId }, req.body);
-  tours.push(newTour);
+export const getTour = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const tour = await Tour.findById(id);
+    res.status(200).json({
+      status: 'success',
+      data: { tour },
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: 'fail',
+      message: error,
+    });
+  }
+};
 
-  res.status(201).json({
-    status: 'success',
-    data: { tour: newTour },
-  });
+export const updateTour = async (req: Request, res: Response) => {
+  try {
+    console.log('req.body:', req.body);
+    const { id } = req.params;
+    const tour = await Tour.findByIdAndUpdate({ _id: id }, req.body, {
+      new: true,
+      runValidators: true,
+    });
+    res.status(200).json({
+      status: 'success',
+      data: { tour },
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: 'fail',
+      message: error,
+    });
+  }
 };
 
 export const deleteTour = (req: Request, res: Response) => {
@@ -39,32 +76,22 @@ export const deleteTour = (req: Request, res: Response) => {
   });
 };
 
-export const updateTour = (req: Request, res: Response) => {
-  res.status(200).json({
-    status: 'success',
-    data: {
-      tour: 'Updated tour here',
-    },
-  });
-};
+// export const checkId = (req: Request, res: Response, next, val) => {
+//   // if (val > tours.length) {
+//   //   return res.status(404).json({
+//   //     status: 'fail',
+//   //     message: 'Invalid ID',
+//   //   });
+//   // }
+//   next();
+// };
 
-export const checkId = (req: Request, res: Response, next, val) => {
-  // console.log(`Tour id: ${val}`);
-  if (val > tours.length) {
-    return res.status(404).json({
-      status: 'fail',
-      message: 'Invalid ID',
-    });
-  }
-  next();
-};
-
-export const checkBody = (req: Request, res: Response, next) => {
-  if (!req.body.name || !req.body.price) {
-    return res.status(400).json({
-      status: 'fail',
-      message: 'Missing name or price.',
-    });
-  }
-  next();
-};
+// export const checkBody = (req: Request, res: Response, next) => {
+//   if (!req.body.name || !req.body.price) {
+//     return res.status(400).json({
+//       status: 'fail',
+//       message: 'Missing name or price.',
+//     });
+//   }
+//   next();
+// };

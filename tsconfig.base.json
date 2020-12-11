@@ -50,7 +50,10 @@
       "@codebase/natoursapi/fake-data": [
         "libs/natoursapi/fake-data/src/index.ts"
       ],
-      "@codebase/shared/environments": ["libs/shared/environments/src/index.ts"]
+      "@codebase/shared/environments": [
+        "libs/shared/environments/src/index.ts"
+      ],
+      "@codebase/natoursapi/models": ["libs/natoursapi/models/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

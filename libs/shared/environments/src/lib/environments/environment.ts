@@ -1,11 +1,12 @@
 export const environment = {
-  type: 'development',
+  environmentType: 'development',
   production: false,
-  apiPort: 3333,
+  apiPort: 4001,
   mongoConfig: {
-    dbName: 'natours-app',
+    dbName: 'natours',
     dbUser: 'natoursUser',
     dbPassword: 'P@ssw0rd',
-    dbConnectionStr: 'mongodb+srv://natoursUser:P@ssw0rd@cluster0.dfmz5.mongodb.net/natours-app?retryWrites=true&w=majority',
+    dbCloudConnectionStr: 'mongodb+srv://natoursUser:P@ssw0rd@cluster0.dfmz5.mongodb.net/natours?retryWrites=true&w=majority',
+    dbLocalConnectionStr: 'mongodb://localhost:27017/natours',
   }
 };
