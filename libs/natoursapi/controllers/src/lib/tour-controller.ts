@@ -17,9 +17,30 @@ export const createTour = async (req: Request, res: Response) => {
   }
 };
 
-export const getTours = async (req: Request, res: Response) => {
+export const getTours = async (req: Request, res: Response): Promise<void> => {
+  console.log(req.query);
+  console.log(typeof req.query.duration);
+
   try {
-    const tours = await Tour.find();
+    // PREPARE QUERYSTRING
+    // TODO: use ramda implementation
+    const queryObj = { ...req.query };
+    const excludedFields = ['page', 'sort', 'limit', 'fields'];
+    excludedFields.forEach((el) => delete queryObj[el]);
+
+    const tours = await Tour.find(req.query);
+
+    // const tours = await Tour.find({
+    //   duration: 5,
+    //   difficulty: 'easy',
+    // });
+
+    // const tours = await Tour.find()
+    //   .where('duration')
+    //   .equals(5)
+    //   .where('difficulty')
+    //   .equals('easy');
+
     res.status(200).json({
       status: 'success',
       results: tours.length,
