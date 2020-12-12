@@ -20,8 +20,6 @@ export const createTour = async (req: Request, res: Response) => {
 export const getTours = async (req: Request, res: Response): Promise<void> => {
   console.log(req.query);
   try {
-    // PREPARE QUERYSTRING
-
     // BUILD QUERY
 
     // FILTERING
@@ -61,9 +59,9 @@ export const getTours = async (req: Request, res: Response): Promise<void> => {
     const page = parseInt(req.query.page.toString()) || 1;
     const limit = parseInt(req.query.limit.toString()) || 100;
     const skip = (page - 1) * limit;
-    // skip = (1 - 1) * 10 = 0 * 10 = 0
-    // skip = (2 - 1) * 10 = 1 * 10 = 10
-    // skip = (3 - 1) * 10 = 2 * 10 = 20
+    // // skip = (1 - 1) * 10 = 0 * 10 = 0
+    // // skip = (2 - 1) * 10 = 1 * 10 = 10
+    // // skip = (3 - 1) * 10 = 2 * 10 = 20
 
     query = query.skip(skip).limit(limit);
 
