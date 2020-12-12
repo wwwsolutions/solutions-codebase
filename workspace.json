@@ -425,6 +425,27 @@
           }
         }
       }
+    },
+    "natoursapi-utils": {
+      "root": "libs/natoursapi/utils",
+      "sourceRoot": "libs/natoursapi/utils/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/natoursapi/utils/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/natoursapi/utils/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {

@@ -53,7 +53,8 @@
       "@codebase/shared/environments": [
         "libs/shared/environments/src/index.ts"
       ],
-      "@codebase/natoursapi/models": ["libs/natoursapi/models/src/index.ts"]
+      "@codebase/natoursapi/models": ["libs/natoursapi/models/src/index.ts"],
+      "@codebase/natoursapi/utils": ["libs/natoursapi/utils/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
