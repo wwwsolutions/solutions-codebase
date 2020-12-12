@@ -49,10 +49,27 @@ export const getTours = async (req: Request, res: Response): Promise<void> => {
 
     // FIELD LIMITING
     if (req.query.fields) {
+      // TODO: candidate for ramda implementation
       const fields = req.query.fields.toString().split(',').join(' ');
       query = query.select(fields);
     } else {
       query = query.select('-__v');
+    }
+
+    // PAGINATION
+    // TODO: candidate for ramda implementation
+    const page = parseInt(req.query.page.toString()) || 1;
+    const limit = parseInt(req.query.limit.toString()) || 100;
+    const skip = (page - 1) * limit;
+    // skip = (1 - 1) * 10 = 0 * 10 = 0
+    // skip = (2 - 1) * 10 = 1 * 10 = 10
+    // skip = (3 - 1) * 10 = 2 * 10 = 20
+
+    query = query.skip(skip).limit(limit);
+
+    if (req.query.page) {
+      const numTours = await Tour.countDocuments();
+      if (skip >= numTours) throw new Error('This page does not exist.');
     }
 
     // EXECUTE QUERY
