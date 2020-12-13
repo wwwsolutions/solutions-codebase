@@ -1,55 +1,103 @@
 // SCHEMA WITH VALIDATORS
 import mongoose from 'mongoose';
+import slugify from 'slugify';
 
-export const tourSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    unique: true,
-    trim: true,
-    required: [true, 'A tour must have a name.'],
+export const tourSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      unique: true,
+      trim: true,
+      required: [true, 'A tour must have a name.'],
+    },
+    duration: {
+      type: Number,
+      required: [true, 'A tour must have a duration'],
+    },
+    maxGroupSize: {
+      type: Number,
+      required: [true, 'A tour must have a group size'],
+    },
+    difficulty: {
+      type: String,
+      required: [true, 'A tour must have a difficulty'],
+    },
+    ratingsAverage: {
+      type: Number,
+      default: 4.5,
+    },
+    ratingsQuantity: {
+      type: Number,
+      default: 0,
+    },
+    price: { type: Number, required: [true, 'A tour must have a price.'] },
+    priceDiscount: {
+      type: Number,
+    },
+    summary: {
+      type: String,
+      trim: true,
+      required: [true, 'A tour must have a summary'],
+    },
+    description: {
+      type: String,
+      trim: true,
+    },
+    imageCover: {
+      type: String,
+      required: [true, 'A tour must have a cover image'],
+    },
+    images: [String],
+    createdAt: {
+      type: Date,
+      default: Date.now(),
+      select: false, // hide this field from the output
+    },
+    startDates: [Date],
   },
-  duration: {
-    type: Number,
-    required: [true, 'A tour must have a duration'],
-  },
-  maxGroupSize: {
-    type: Number,
-    required: [true, 'A tour must have a group size'],
-  },
-  difficulty: {
-    type: String,
-    required: [true, 'A tour must have a difficulty'],
-  },
-  ratingsAverage: {
-    type: Number,
-    default: 4.5,
-  },
-  ratingsQuantity: {
-    type: Number,
-    default: 0,
-  },
-  price: { type: Number, required: [true, 'A tour must have a price.'] },
-  priceDiscount: {
-    type: Number,
-  },
-  summary: {
-    type: String,
-    trim: true,
-    required: [true, 'A tour must have a summary'],
-  },
-  description: {
-    type: String,
-    trim: true,
-  },
-  imageCover: {
-    type: String,
-    required: [true, 'A tour must have a cover image'],
-  },
-  images: [String],
-  createdAt: {
-    type: Date,
-    default: Date.now(),
-    select: false, // hide this field from the output
-  },
-  startDates: [Date],
+  // SCHEMA OPTIONS
+  {
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
+  }
+);
+
+// DOCUMENT MIDDLEWARE
+// runs before .save() and .create()
+// tourSchema.pre('save', function (next) {
+//   this.slug = slugify(this.name, { lower: true });
+//   next();
+// });
+
+// VIRTUAL PROPERTIES
+tourSchema.virtual('durationWeeks').get(function () {
+  return this.duration / 7;
 });
+
+// https://medium.com/@tomanagle/strongly-typed-models-with-mongoose-and-typescript-7bc2f7197722
+interface ITour extends mongoose.Document {
+  name: string;
+  duration: number;
+  maxGroupSize: number;
+  difficulty: string;
+  ratingsAverage?: number;
+  ratingsQuantity?: number;
+  price: number;
+  priceDiscount?: number;
+  summary: string;
+  description?: string;
+  imageCover: string;
+  images?: [string];
+  createdAt?: Date;
+  startDates?: [Date];
+  slug: string;
+}
+
+// https://stackoverflow.com/questions/58791115/typescript-property-slug-does-not-exist-on-type-document
+// FIXME:
+// tourSchema.pre<ITour>('save', function (next) {
+//   const err = new Error('something went wrong');
+//   // this.slug = slugify(this.name, { lower: true });
+//   console.log(err);
+//   // next(err);
+// });
