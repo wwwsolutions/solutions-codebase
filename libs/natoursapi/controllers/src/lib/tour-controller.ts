@@ -12,12 +12,7 @@ export const aliasTopTours = (req: Request, res: Response, next) => {
 
 export const createTour = async (req: Request, res: Response) => {
   try {
-    console.log('req.body:', req.body);
-
     const newTour = await Tour.create(req.body);
-
-    console.log('newTour:', newTour);
-
     // Status code 201 Created
     res.status(201).json({
       status: 'success',

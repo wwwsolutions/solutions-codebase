@@ -1,5 +1,6 @@
 // SCHEMA WITH VALIDATORS
-import { Document, Model, model, Types, Schema, Query } from 'mongoose';
+import { NextFunction } from 'express';
+import { Document, Schema, Query } from 'mongoose';
 import slugify from 'slugify';
 
 export const tourSchema = new Schema(
@@ -55,6 +56,10 @@ export const tourSchema = new Schema(
       select: false, // hide this field from the output
     },
     startDates: [Date],
+    secretTour: {
+      type: Boolean,
+      default: false,
+    },
   },
   // SCHEMA OPTIONS
   {
@@ -88,25 +93,43 @@ interface TourDocument extends Document {
   createdAt?: Date;
   startDates?: [Date];
   slug?: string;
+  secretTour?: boolean;
 }
 
 // DOCUMENT MIDDLEWARE pre and post hooks
 // https://stackoverflow.com/questions/58791115/typescript-property-slug-does-not-exist-on-type-document
 // https://easyontheweb.com/pre-and-post-hooks-in-mongoose/
+// https://thecodebarbarian.com/working-with-mongoose-in-typescript.html
 
-// tourSchema.pre<TourDocument>('save', function name(next): void {
-//   this.slug = slugify(this.name, { lower: true });
-//   const error = new Error('something went wrong');
-//   console.log(error); // FIXME:
+// FIXME: next() throwing error
+// FIXED: next() has be annotated with NextFunction imported form "express" package
+// REFERENCE: https://stackoverflow.com/questions/58200432/argument-of-type-req-request-res-iresponse-next-nextfunction-void-is
+tourSchema.pre<TourDocument>('save', function (next: NextFunction): void {
+  this.slug = slugify(this.name, { lower: true });
+  next();
+});
+
+// QUERY MIDDLEWARE pre and post hooks
+// Target hook function, by using REGEX: all strings that start with 'find'
+// FIXME: using regex throws error
+// REFERENCES: https://mongoosejs.com/docs/api.html#schema_Schema-pre
+// tourSchema.pre(/^find/, function name(next: NextFunction): void {
+//   this.find({ secretTour: { $ne: true } });
 //   next();
 // });
-// tourSchema.pre('save', () => console.log('Hello from pre save'));
 
-// tourSchema.post<TourDocument>('save', function name(doc, next) {
-//   console.log(doc);
-//   const error = new Error('something went wrong');
-//   next(error);
-// });
+tourSchema.pre('find', function name(next: NextFunction): void {
+  this.find({ secretTour: { $ne: true } });
+  next();
+});
+
+tourSchema.post('find', function name(
+  docs: TourDocument[],
+  next: NextFunction
+): void {
+  // console.log(docs);
+  next();
+});
 
 // VIRTUAL PROPERTIES
 tourSchema.virtual('durationWeeks').get(function (this: TourDocument) {
