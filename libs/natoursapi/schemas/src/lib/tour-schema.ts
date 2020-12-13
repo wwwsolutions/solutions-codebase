@@ -94,12 +94,12 @@ interface TourDocument extends Document {
 // https://stackoverflow.com/questions/58791115/typescript-property-slug-does-not-exist-on-type-document
 // https://easyontheweb.com/pre-and-post-hooks-in-mongoose/
 
-tourSchema.pre<TourDocument>('save', function name(next): void {
-  this.slug = slugify(this.name, { lower: true });
-  // const error = new Error('something went wrong');
-  // console.log(error); // FIXME:
-  // next();
-});
+// tourSchema.pre<TourDocument>('save', function name(next): void {
+//   this.slug = slugify(this.name, { lower: true });
+//   const error = new Error('something went wrong');
+//   console.log(error); // FIXME:
+//   next();
+// });
 // tourSchema.pre('save', () => console.log('Hello from pre save'));
 
 // tourSchema.post<TourDocument>('save', function name(doc, next) {
