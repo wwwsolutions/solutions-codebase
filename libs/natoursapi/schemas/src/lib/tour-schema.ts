@@ -1,8 +1,8 @@
 // SCHEMA WITH VALIDATORS
-import mongoose from 'mongoose';
+import { Document, Model, model, Types, Schema, Query } from 'mongoose';
 import slugify from 'slugify';
 
-export const tourSchema = new mongoose.Schema(
+export const tourSchema = new Schema(
   {
     name: {
       type: String,
@@ -10,6 +10,7 @@ export const tourSchema = new mongoose.Schema(
       trim: true,
       required: [true, 'A tour must have a name.'],
     },
+    slug: String,
     duration: {
       type: Number,
       required: [true, 'A tour must have a duration'],
@@ -69,13 +70,9 @@ export const tourSchema = new mongoose.Schema(
 //   next();
 // });
 
-// VIRTUAL PROPERTIES
-tourSchema.virtual('durationWeeks').get(function () {
-  return this.duration / 7;
-});
-
+// https://medium.com/@agentwhs/complete-guide-for-typescript-for-mongoose-for-node-js-8cc0a7e470c1
 // https://medium.com/@tomanagle/strongly-typed-models-with-mongoose-and-typescript-7bc2f7197722
-interface ITour extends mongoose.Document {
+interface TourDocument extends Document {
   name: string;
   duration: number;
   maxGroupSize: number;
@@ -90,14 +87,28 @@ interface ITour extends mongoose.Document {
   images?: [string];
   createdAt?: Date;
   startDates?: [Date];
-  slug: string;
+  slug?: string;
 }
 
+// DOCUMENT MIDDLEWARE pre and post hooks
 // https://stackoverflow.com/questions/58791115/typescript-property-slug-does-not-exist-on-type-document
-// FIXME:
-// tourSchema.pre<ITour>('save', function (next) {
-//   const err = new Error('something went wrong');
-//   // this.slug = slugify(this.name, { lower: true });
-//   console.log(err);
-//   // next(err);
+// https://easyontheweb.com/pre-and-post-hooks-in-mongoose/
+
+tourSchema.pre<TourDocument>('save', function name(next): void {
+  this.slug = slugify(this.name, { lower: true });
+  // const error = new Error('something went wrong');
+  // console.log(error); // FIXME:
+  // next();
+});
+// tourSchema.pre('save', () => console.log('Hello from pre save'));
+
+// tourSchema.post<TourDocument>('save', function name(doc, next) {
+//   console.log(doc);
+//   const error = new Error('something went wrong');
+//   next(error);
 // });
+
+// VIRTUAL PROPERTIES
+tourSchema.virtual('durationWeeks').get(function (this: TourDocument) {
+  return this.duration / 7;
+});

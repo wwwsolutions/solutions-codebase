@@ -12,12 +12,16 @@ export const aliasTopTours = (req: Request, res: Response, next) => {
 
 export const createTour = async (req: Request, res: Response) => {
   try {
+    console.log(req.body);
+
     const newTour = await Tour.create(req.body);
 
-    res.status(201).json({
-      status: 'success',
-      data: { tour: newTour },
-    });
+    console.log(newTour);
+
+    // res.status(201).json({
+    //   status: 'success',
+    //   data: { tour: newTour },
+    // });
   } catch (error) {
     res.status(400).json({
       status: 'fail',

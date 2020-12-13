@@ -11,15 +11,12 @@ import {
   getMonthlyPlan,
 } from '@codebase/natoursapi/controllers';
 
-export const tourRouter = Router();
+const router = Router();
 
-// VALIDATE ID
-// tourRouter.param('id', checkId);
+router.route('/tour-stats').get(getTourStats);
+router.route('/monthly-plan/:year').get(getMonthlyPlan);
+router.route('/top-5-cheap').get(aliasTopTours, getTours);
+router.route('/').get(getTours).post(createTour);
+router.route('/:id').get(getTour).delete(deleteTour).patch(updateTour);
 
-tourRouter.route('/tour-stats').get(getTourStats);
-tourRouter.route('/monthly-plan/:year').get(getMonthlyPlan);
-
-tourRouter.route('/top-5-cheap').get(aliasTopTours, getTours);
-
-tourRouter.route('/').get(getTours).post(createTour);
-tourRouter.route('/:id').get(getTour).delete(deleteTour).patch(updateTour);
+export { router as tourRouter };
