@@ -19,6 +19,8 @@ mongoose
     console.log('Database connection successful!');
   });
 
+// tourSchema.pre('save', () => console.log('Hello from pre save'));
+
 // MODELS
 const Tour: any = mongoose.model('Tour', tourSchema);
 // const User: any = mongoose.model('User', userSchema);

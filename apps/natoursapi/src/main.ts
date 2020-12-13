@@ -1,5 +1,6 @@
 import app from './app/app';
-import mongoose from 'mongoose';
+// import mongoose from 'mongoose';
+import { plugin, set, connect } from 'mongoose';
 
 import { environment } from '@codebase/shared/environments';
 
@@ -8,7 +9,7 @@ function setRunValidators() {
   this.setOptions({ runValidators: true });
 }
 
-mongoose.plugin((schema) => {
+plugin((schema) => {
   schema.pre('findOneAndUpdate', setRunValidators);
   schema.pre('updateMany', setRunValidators);
   schema.pre('updateOne', setRunValidators);
@@ -17,16 +18,18 @@ mongoose.plugin((schema) => {
 
 const db: string = environment.mongoConfig.dbCloudConnectionStr;
 
-mongoose
-  .connect(db, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true,
-    useFindAndModify: false,
-  })
-  .then(() => {
-    console.log('Database connection successful!');
-  });
+// https://stackoverflow.com/questions/50011091/how-to-create-item-if-not-exists-and-return-an-error-if-exists
+set('debug', true);
+// mongoose.Promise = global.Promise;
+
+connect(db, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true,
+  useFindAndModify: false,
+}).then(() => {
+  console.log('Database connection successful!');
+});
 
 // SERVER
 const port = environment.apiPort || 5000;
