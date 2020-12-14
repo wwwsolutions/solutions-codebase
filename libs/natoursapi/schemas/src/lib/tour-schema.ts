@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // SCHEMA WITH VALIDATORS
 import { NextFunction } from 'express';
-import { Document, Schema, Query } from 'mongoose';
+import { Document, Schema, Query, Aggregate } from 'mongoose';
 import slugify from 'slugify';
 
 export const tourSchema = new Schema(
@@ -111,7 +112,7 @@ tourSchema.pre<TourDocument>('save', function (next: NextFunction): void {
 
 // QUERY MIDDLEWARE pre and post hooks
 // Target hook function, by using REGEX: all strings that start with 'find'
-// FIXME: using regex throws error
+// FIXME: using regex as method name throws error
 // REFERENCES: https://mongoosejs.com/docs/api.html#schema_Schema-pre
 // tourSchema.pre(/^find/, function name(next: NextFunction): void {
 //   this.find({ secretTour: { $ne: true } });
@@ -130,6 +131,14 @@ tourSchema.post('find', function name(
   // console.log(docs);
   next();
 });
+
+// AGGREGATION MIDDLEWARE pre and post hooks
+// FIXME: using regex as method name throws error
+// tourSchema.pre('aggregate', function (next: NextFunction): void {
+//   console.log('this:', this._pipeline);
+//   this.getQuery();
+//   next();
+// });
 
 // VIRTUAL PROPERTIES
 tourSchema.virtual('durationWeeks').get(function (this: TourDocument) {
