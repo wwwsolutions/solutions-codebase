@@ -15,10 +15,10 @@ export class HttpException extends Error {
   constructor(message: string, statusCode: number) {
     super(message);
 
-    this.isOperational = true;
     this.statusCode = statusCode;
     this.status = `${statusCode}`.startsWith('4') ? 'fail' : 'error';
     // this.message = message; // --> comes from Error class
+    this.isOperational = true;
 
     Error.captureStackTrace(this, this.constructor);
   }
