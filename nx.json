@@ -83,6 +83,9 @@
     },
     "shared-exceptions": {
       "tags": []
+    },
+    "natoursapi-middleware": {
+      "tags": []
     }
   }
 }

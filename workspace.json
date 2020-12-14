@@ -460,6 +460,27 @@
           }
         }
       }
+    },
+    "natoursapi-middleware": {
+      "root": "libs/natoursapi/middleware",
+      "sourceRoot": "libs/natoursapi/middleware/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/natoursapi/middleware/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/natoursapi/middleware/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {

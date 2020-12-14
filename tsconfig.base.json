@@ -59,7 +59,10 @@
       ],
       "@codebase/natoursapi/models": ["libs/natoursapi/models/src/index.ts"],
       "@codebase/natoursapi/utils": ["libs/natoursapi/utils/src/index.ts"],
-      "@codebase/shared/exceptions": ["libs/shared/exceptions/src/index.ts"]
+      "@codebase/shared/exceptions": ["libs/shared/exceptions/src/index.ts"],
+      "@codebase/natoursapi/middleware": [
+        "libs/natoursapi/middleware/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]

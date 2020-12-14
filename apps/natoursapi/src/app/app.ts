@@ -5,6 +5,7 @@ import morgan from 'morgan';
 import { environment } from '@codebase/shared/environments';
 
 import { tourRouter, userRouter } from '@codebase/natoursapi/routes';
+import { errorMiddleware } from '@codebase/natoursapi/middleware';
 
 const app: Application = express();
 
@@ -22,8 +23,9 @@ app.use(express.json());
 // ROUTING
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
+
 // Default route handler, in case of all routes unresolved. Always last
-app.all('*', (req: Request, res: Response): void => {
+app.all('*', (req: Request, res: Response, next: NextFunction): void => {
   res.status(404).json({
     status: 'fail',
     message: `Can't find ${req.originalUrl} on this server!`,
@@ -31,8 +33,6 @@ app.all('*', (req: Request, res: Response): void => {
 });
 
 // ERROR HANDLING MIDDLEWARE
-app.use((err, req: Request, res: Response, next: NextFunction): void => {
-  //xxx
-});
+app.use(errorMiddleware);
 
 export default app;

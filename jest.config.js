@@ -18,5 +18,6 @@ module.exports = {
     '<rootDir>/libs/shared/environments',
     '<rootDir>/libs/natoursapi/models',
     '<rootDir>/libs/natoursapi/utils',
+    '<rootDir>/libs/natoursapi/middleware',
   ],
 };
