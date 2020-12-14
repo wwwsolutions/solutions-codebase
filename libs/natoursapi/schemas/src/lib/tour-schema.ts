@@ -11,6 +11,8 @@ export const tourSchema = new Schema(
       unique: true,
       trim: true,
       required: [true, 'A tour must have a name.'],
+      maxlength: [40, 'A tour name must have less or equal then 40 characters'],
+      minlength: [10, 'A tour name must have more or equal then 10 characters'],
     },
     slug: String,
     duration: {
@@ -24,10 +26,13 @@ export const tourSchema = new Schema(
     difficulty: {
       type: String,
       required: [true, 'A tour must have a difficulty'],
+      enum: ['easy', 'medium', 'difficult'],
     },
     ratingsAverage: {
       type: Number,
       default: 4.5,
+      min: 1,
+      max: 5,
     },
     ratingsQuantity: {
       type: Number,

@@ -77,7 +77,7 @@ export const updateTour = async (req: Request, res: Response) => {
     const tour = await Tour.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       // FIXED: Mongoose supports validation for update(), updateOne(), updateMany(), and findOneAndUpdate() operations.
-      // runValidators: true,
+      runValidators: true,
     });
 
     res.status(200).json({
