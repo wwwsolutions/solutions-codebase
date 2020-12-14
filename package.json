@@ -34,7 +34,8 @@
     "workspace-schematic": "nx workspace-schematic",
     "dep-graph": "nx dep-graph",
     "help": "nx help",
-    "serve:natoursapi": "run-s generate:environment clean.natoursapi serve.natoursapi"
+    "serve:natoursapi": "run-s generate:environment clean.natoursapi serve.natoursapi",
+    "debug:natoursapi": "ndb serve:natoursapi"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.1",
@@ -53,7 +54,8 @@
     "ramda": "^0.27.1",
     "rxjs": "^6.6.3",
     "slugify": "^1.4.6",
-    "tslib": "^2.0.0"
+    "tslib": "^2.0.0",
+    "validator": "^13.5.2"
   },
   "devDependencies": {
     "@nrwl/cli": "10.4.4",

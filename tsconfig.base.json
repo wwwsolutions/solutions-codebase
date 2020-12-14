@@ -17,20 +17,13 @@
       "node_modules/@types",
       "node_modules/@types/mongoose"
     ],
-    "lib": [
-      "es2017",
-      "dom"
-    ],
+    "lib": ["es2017", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@codebase/shared/styles": [
-        "libs/shared/styles/src/index.ts"
-      ],
-      "@codebase/shared/assets": [
-        "libs/shared/assets/src/index.ts"
-      ],
+      "@codebase/shared/styles": ["libs/shared/styles/src/index.ts"],
+      "@codebase/shared/assets": ["libs/shared/assets/src/index.ts"],
       "@codebase/todomongoapi/controllers": [
         "libs/todomongoapi/controllers/src/index.ts"
       ],
@@ -52,15 +45,9 @@
       "@codebase/natoursapi/controllers": [
         "libs/natoursapi/controllers/src/index.ts"
       ],
-      "@codebase/natoursapi/modules": [
-        "libs/natoursapi/modules/src/index.ts"
-      ],
-      "@codebase/natoursapi/routes": [
-        "libs/natoursapi/routes/src/index.ts"
-      ],
-      "@codebase/natoursapi/schemas": [
-        "libs/natoursapi/schemas/src/index.ts"
-      ],
+      "@codebase/natoursapi/modules": ["libs/natoursapi/modules/src/index.ts"],
+      "@codebase/natoursapi/routes": ["libs/natoursapi/routes/src/index.ts"],
+      "@codebase/natoursapi/schemas": ["libs/natoursapi/schemas/src/index.ts"],
       "@codebase/natoursapi/services": [
         "libs/natoursapi/services/src/index.ts"
       ],
@@ -70,16 +57,13 @@
       "@codebase/shared/environments": [
         "libs/shared/environments/src/index.ts"
       ],
-      "@codebase/natoursapi/models": [
-        "libs/natoursapi/models/src/index.ts"
-      ],
-      "@codebase/natoursapi/utils": [
-        "libs/natoursapi/utils/src/index.ts"
+      "@codebase/natoursapi/models": ["libs/natoursapi/models/src/index.ts"],
+      "@codebase/natoursapi/utils": ["libs/natoursapi/utils/src/index.ts"],
+      "@codebase/shared/exceptions": ["libs/shared/exceptions/src/index.ts"],
+      "@codebase/natoursapi/middleware": [
+        "libs/natoursapi/middleware/src/index.ts"
       ]
     }
   },
-  "exclude": [
-    "node_modules",
-    "tmp"
-  ]
+  "exclude": ["node_modules", "tmp"]
 }

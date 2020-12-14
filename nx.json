@@ -80,6 +80,12 @@
     },
     "natoursapi-utils": {
       "tags": []
+    },
+    "shared-exceptions": {
+      "tags": []
+    },
+    "natoursapi-middleware": {
+      "tags": []
     }
   }
 }
