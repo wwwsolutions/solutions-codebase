@@ -1,6 +1,6 @@
 // import path from 'path';
 import express from 'express';
-import { Application, Request, Response } from 'express';
+import { Application, Request, Response, NextFunction } from 'express';
 import morgan from 'morgan';
 import { environment } from '@codebase/shared/environments';
 
@@ -28,6 +28,11 @@ app.all('*', (req: Request, res: Response): void => {
     status: 'fail',
     message: `Can't find ${req.originalUrl} on this server!`,
   });
+});
+
+// ERROR HANDLING MIDDLEWARE
+app.use((err, req: Request, res: Response, next: NextFunction): void => {
+  //xxx
 });
 
 export default app;

@@ -10,9 +10,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/shared/styles/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/shared/styles/**/*.ts"]
           }
         }
       }
@@ -26,9 +24,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/shared/assets/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/shared/assets/**/*.ts"]
           }
         }
       }
@@ -46,9 +42,7 @@
             "outputPath": "dist/apps/todomongoapi",
             "main": "apps/todomongoapi/src/main.ts",
             "tsConfig": "apps/todomongoapi/tsconfig.app.json",
-            "assets": [
-              "apps/todomongoapi/src/assets"
-            ]
+            "assets": ["apps/todomongoapi/src/assets"]
           },
           "configurations": {
             "production": {
@@ -73,9 +67,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/todomongoapi/**/*.ts"
-            ]
+            "lintFilePatterns": ["apps/todomongoapi/**/*.ts"]
           }
         },
         "test": {
@@ -96,9 +88,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/todomongoapi/controllers/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/todomongoapi/controllers/**/*.ts"]
           }
         },
         "test": {
@@ -119,9 +109,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/todomongoapi/modules/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/todomongoapi/modules/**/*.ts"]
           }
         },
         "test": {
@@ -142,9 +130,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/todomongoapi/routes/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/todomongoapi/routes/**/*.ts"]
           }
         },
         "test": {
@@ -165,9 +151,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/shared/data-access-models/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/shared/data-access-models/**/*.ts"]
           }
         },
         "test": {
@@ -188,9 +172,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/todomongoapi/services/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/todomongoapi/services/**/*.ts"]
           }
         },
         "test": {
@@ -211,9 +193,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/todomongoapi/schemas/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/todomongoapi/schemas/**/*.ts"]
           }
         },
         "test": {
@@ -266,9 +246,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/natoursapi/**/*.ts"
-            ]
+            "lintFilePatterns": ["apps/natoursapi/**/*.ts"]
           }
         },
         "test": {
@@ -289,9 +267,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/natoursapi/controllers/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/natoursapi/controllers/**/*.ts"]
           }
         },
         "test": {
@@ -312,9 +288,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/natoursapi/modules/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/natoursapi/modules/**/*.ts"]
           }
         },
         "test": {
@@ -335,9 +309,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/natoursapi/routes/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/natoursapi/routes/**/*.ts"]
           }
         },
         "test": {
@@ -358,9 +330,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/natoursapi/schemas/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/natoursapi/schemas/**/*.ts"]
           }
         },
         "test": {
@@ -381,9 +351,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/natoursapi/services/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/natoursapi/services/**/*.ts"]
           }
         },
         "test": {
@@ -404,9 +372,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/natoursapi/fake-data/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/natoursapi/fake-data/**/*.ts"]
           }
         },
         "test": {
@@ -427,9 +393,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/shared/environments/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/shared/environments/**/*.ts"]
           }
         },
         "test": {
@@ -450,9 +414,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/natoursapi/models/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/natoursapi/models/**/*.ts"]
           }
         },
         "test": {
@@ -473,9 +435,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/natoursapi/utils/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/natoursapi/utils/**/*.ts"]
           }
         },
         "test": {
@@ -483,6 +443,20 @@
           "options": {
             "jestConfig": "libs/natoursapi/utils/jest.config.js",
             "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "shared-exceptions": {
+      "root": "libs/shared/exceptions",
+      "sourceRoot": "libs/shared/exceptions/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/shared/exceptions/**/*.ts"]
           }
         }
       }
