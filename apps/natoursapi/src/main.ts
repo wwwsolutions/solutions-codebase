@@ -19,7 +19,7 @@ plugin((schema) => {
 const db: string = environment.mongoConfig.dbCloudConnectionStr;
 
 // https://stackoverflow.com/questions/50011091/how-to-create-item-if-not-exists-and-return-an-error-if-exists
-set('debug', true);
+// set('debug', true);
 // mongoose.Promise = global.Promise;
 
 connect(db, {
@@ -37,3 +37,5 @@ const server = app.listen(port, () => {
   console.log(`Listening at http://localhost:${port}`);
 });
 server.on('error', console.error);
+
+

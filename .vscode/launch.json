@@ -1,0 +1,14 @@
+{
+  "name": "Debug Node App",
+  "type": "node",
+  "request": "attach",
+  "port": 7777,
+  "configurations": [
+    {
+      "name": "Attach to Chrome",
+      "port": 9222,
+      "request": "attach",
+      "type": "pwa-chrome"
+    }
+  ]
+}

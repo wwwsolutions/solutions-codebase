@@ -1,6 +1,6 @@
 // import path from 'path';
 import express from 'express';
-import { Application } from 'express';
+import { Application, Request, Response } from 'express';
 import morgan from 'morgan';
 import { environment } from '@codebase/shared/environments';
 
@@ -22,5 +22,12 @@ app.use(express.json());
 // ROUTING
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
+// Default route handler, in case of all routes unresolved. Always last
+app.all('*', (req: Request, res: Response): void => {
+  res.status(404).json({
+    status: 'fail',
+    message: `Can't find ${req.originalUrl} on this server!`,
+  });
+});
 
 export default app;
