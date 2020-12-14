@@ -3,6 +3,7 @@
 import { NextFunction } from 'express';
 import { Document, Schema, Query, Aggregate } from 'mongoose';
 import slugify from 'slugify';
+import validator from 'validator';
 
 export const tourSchema = new Schema(
   {
@@ -41,6 +42,13 @@ export const tourSchema = new Schema(
     price: { type: Number, required: [true, 'A tour must have a price.'] },
     priceDiscount: {
       type: Number,
+      validate: {
+        validator: function (val) {
+          // CAVEAT: 'this' only points to current doc on NEW document creation
+          return val < this.price;
+        },
+        message: 'Discount price ({VALUE}) should not be below regular price',
+      },
     },
     summary: {
       type: String,
