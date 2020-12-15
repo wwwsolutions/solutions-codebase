@@ -53,7 +53,7 @@ const sendErrorDev = (err, res) => {
 };
 
 export const errorMiddleware = (
-  err: HttpException,
+  err,
   req: Request,
   res: Response
   // next: NextFunction
@@ -65,11 +65,13 @@ export const errorMiddleware = (
 
   if (!environment.production) {
     sendErrorDev(err, res);
+
+    // PRODUCTION
   } else {
     let error = { ...err };
 
     if (error.name === 'CastError') error = handleCastErrorDB(error);
-    // if (error.code === 11000) error = handleDuplicateFieldsDB(error);
+    if (error.code === 11000) error = handleDuplicateFieldsDB(error);
     if (error.name === 'ValidationError')
       error = handleValidationErrorDB(error);
 
