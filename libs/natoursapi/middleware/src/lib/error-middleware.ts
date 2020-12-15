@@ -15,6 +15,7 @@ const handleDuplicateFieldsDB = (err) => {
   return new HttpException(message, 400);
 };
 const handleValidationErrorDB = (err) => {
+  // TODO: Ramda candidate pluck()
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const errors = Object.values<any>(err.errors).map((el) => el.message);
 
