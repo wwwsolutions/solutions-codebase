@@ -3,6 +3,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { Tour } from '@codebase/natoursapi/models';
 import { ApiFeatures, catchAsync } from '@codebase/natoursapi/utils';
+import { HttpException } from '@codebase/shared/exceptions';
 
 // MIDDLEWARE ALIAS ROUTE
 export const aliasTopTours = (req: Request, res: Response, next) => {
@@ -14,26 +15,17 @@ export const aliasTopTours = (req: Request, res: Response, next) => {
 
 export const createTour = catchAsync(
   async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-    // try {
     const newTour = await Tour.create(req.body);
     // Status code 201 Created
     res.status(201).json({
       status: 'success',
       data: { tour: newTour },
     });
-    // } catch (error) {
-    //   res.status(400).json({
-    //     status: 'fail',
-    //     message: error,
-    //   });
-    // }
   }
 );
 
 export const getTours = catchAsync(
   async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-    console.log(req.query);
-    // try {
     // EXTEND QUERY
     const features = new ApiFeatures(Tour.find(), req.query)
       .filter()
@@ -50,36 +42,27 @@ export const getTours = catchAsync(
       results: tours.length,
       data: { tours },
     });
-    // } catch (error) {
-    //   res.status(400).json({
-    //     status: 'fail',
-    //     message: error,
-    //   });
-    // }
   }
 );
 
 export const getTour = catchAsync(
   async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-    // try {
     const { id } = req.params;
     const tour = await Tour.findById(id);
+
+    if (!tour) {
+      return next(new HttpException('No tour found', 404));
+    }
+
     res.status(200).json({
       status: 'success',
       data: { tour },
     });
-    // } catch (error) {
-    //   res.status(400).json({
-    //     status: 'fail',
-    //     message: error,
-    //   });
-    // }
   }
 );
 
 export const updateTour = catchAsync(
   async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-    // try {
     // FIXED: to test in POSTMAN >>> add header to 'Content-Type: application/json'
     console.log('req.body:', req.body);
 
@@ -89,39 +72,34 @@ export const updateTour = catchAsync(
       runValidators: true,
     });
 
+    if (!tour) {
+      return next(new HttpException('No tour found', 404));
+    }
+
     res.status(200).json({
       status: 'success',
       data: { tour },
     });
-    // } catch (error) {
-    //   res.status(400).json({
-    //     status: 'fail',
-    //     message: error,
-    //   });
-    // }
   }
 );
 
 export const deleteTour = catchAsync(
   async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-    // try {
-    await Tour.findByIdAndDelete(req.params.id);
+    const tour = await Tour.findByIdAndDelete(req.params.id);
+
+    if (!tour) {
+      return next(new HttpException('No tour found', 404));
+    }
+
     res.status(204).json({
       status: 'success',
       data: null,
     });
-    // } catch (error) {
-    //   res.status(404).json({
-    //     status: 'fail',
-    //     message: error,
-    //   });
-    // }
   }
 );
 
 export const getTourStats = catchAsync(
   async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-    // try {
     const stats = await Tour.aggregate([
       {
         $match: { ratingsAverage: { $gte: 4.5 } },
@@ -150,18 +128,11 @@ export const getTourStats = catchAsync(
       status: 'success',
       data: { stats },
     });
-    // } catch (error) {
-    //   res.status(404).json({
-    //     status: 'fail',
-    //     message: error,
-    //   });
-    // }
   }
 );
 
 export const getMonthlyPlan = catchAsync(
   async (req: Request, res: Response) => {
-    // try {
     const year: number = +req.params.year;
     const plan = await Tour.aggregate([
       {
@@ -200,11 +171,5 @@ export const getMonthlyPlan = catchAsync(
       status: 'success',
       data: { plan },
     });
-    // } catch (error) {
-    //   res.status(404).json({
-    //     status: 'fail',
-    //     message: error,
-    //   });
-    // }
   }
 );
