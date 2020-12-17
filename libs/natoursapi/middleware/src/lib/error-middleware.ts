@@ -15,6 +15,7 @@ const handleDuplicateFieldsDB = (err) => {
   return new HttpException(message, 400);
 };
 const handleValidationErrorDB = (err) => {
+  // TODO: Ramda candidate pluck()
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const errors = Object.values<any>(err.errors).map((el) => el.message);
 
@@ -53,7 +54,7 @@ const sendErrorDev = (err, res) => {
 };
 
 export const errorMiddleware = (
-  err: HttpException,
+  err,
   req: Request,
   res: Response
   // next: NextFunction
@@ -65,11 +66,13 @@ export const errorMiddleware = (
 
   if (!environment.production) {
     sendErrorDev(err, res);
+
+    // PRODUCTION
   } else {
     let error = { ...err };
 
     if (error.name === 'CastError') error = handleCastErrorDB(error);
-    // if (error.code === 11000) error = handleDuplicateFieldsDB(error);
+    if (error.code === 11000) error = handleDuplicateFieldsDB(error);
     if (error.name === 'ValidationError')
       error = handleValidationErrorDB(error);
 
