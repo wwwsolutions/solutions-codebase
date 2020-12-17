@@ -1,6 +1,11 @@
 // import path from 'path';
 import express from 'express';
-import { Application, Request, Response, NextFunction } from 'express';
+import {
+  Application,
+  // Request,
+  // Response,
+  // NextFunction
+} from 'express';
 import morgan from 'morgan';
 
 import { environment } from '@codebase/shared/environments';
