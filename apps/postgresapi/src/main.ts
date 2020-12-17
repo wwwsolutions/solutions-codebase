@@ -1,15 +1,11 @@
-/**
- * This is not a production server yet!
- * This is only a minimal backend to get started.
- */
-
-import express from 'express';
 import { environment } from '@codebase/shared/environments';
 
-const app = express();
+import app from './app/app';
+
+// const db: string = environment.postgreConfig.dbCloudConnectionStr;
 
 app.get('/api', (req, res) => {
-  res.send({ message: 'Welcome to postgresapi!' });
+  res.send({ message: `Welcome to Postgresapi!` });
 });
 
 const port = environment.apiPort || 5000;
