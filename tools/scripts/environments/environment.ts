@@ -45,6 +45,9 @@ const envConfigFile = `export const environment = {
     dbPassword: '${process.env.DEVELOPMENT_MONGO_DB_PWD}',
     dbCloudConnectionStr: 'mongodb+srv://${process.env.DEVELOPMENT_MONGO_DB_USER}:${process.env.DEVELOPMENT_MONGO_DB_PWD}@cluster0.dfmz5.mongodb.net/${process.env.DEVELOPMENT_MONGO_DB_NAME}?retryWrites=true&w=majority',
     dbLocalConnectionStr: 'mongodb://localhost:${process.env.MONGODB_PORT}/${process.env.DEVELOPMENT_MONGO_DB_NAME}',
+  },
+  postgreConfig: {
+    dbLocalConnectionStr: 'postgres://${process.env.DEVELOPMENT_POSTGRES_DB_USER}:${process.env.DEVELOPMENT_POSTGRES_DB_PWD}@localhost:${process.env.POSTGRES_PORT}/${process.env.DEVELOPMENT_POSTGRES_DB_NAME}',
   }
 };
 `;
