@@ -86,6 +86,9 @@
     },
     "natoursapi-middleware": {
       "tags": []
+    },
+    "postgresapi": {
+      "tags": []
     }
   }
 }

@@ -13,6 +13,8 @@
     "generate:environments": "run-s generate:environment generate:environment.prod generate:environment.stage",
     "clean.natoursapi": "npx rimraf dist/apps/natoursapi",
     "serve.natoursapi": "nx serve natoursapi",
+    "clean.postgresapi": "npx rimraf dist/apps/postgresapi",
+    "serve.postgresapi": "nx serve postgresapi",
     "nx": "nx",
     "start": "nx serve",
     "build": "nx build",
@@ -35,6 +37,7 @@
     "dep-graph": "nx dep-graph",
     "help": "nx help",
     "serve:natoursapi": "run-s generate:environment clean.natoursapi serve.natoursapi",
+    "serve:postgresapi": "run-s generate:environment clean.postgresapi serve.postgresapi",
     "debug:natoursapi": "ndb serve:natoursapi"
   },
   "dependencies": {
