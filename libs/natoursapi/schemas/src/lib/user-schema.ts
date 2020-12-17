@@ -24,7 +24,7 @@ export const userSchema = new Schema(
       unique: true,
       lowercase: true,
       required: [true, "can't be blank"],
-      validate: [validator.isEmail],
+      // validate: [validator.isEmail], FIXME:
       index: true,
     },
     password: {
