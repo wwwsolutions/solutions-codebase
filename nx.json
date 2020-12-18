@@ -89,6 +89,9 @@
     },
     "postgresapi": {
       "tags": []
+    },
+    "postgresapi-models": {
+      "tags": []
     }
   }
 }
