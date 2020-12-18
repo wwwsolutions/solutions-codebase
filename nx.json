@@ -110,6 +110,9 @@
     },
     "postgresapi-services": {
       "tags": []
+    },
+    "postgresapi-utils": {
+      "tags": []
     }
   }
 }
