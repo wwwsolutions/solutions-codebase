@@ -1,5 +1,11 @@
-import { CourseModel } from '@codebase/postgresapi/models';
+import { CourseModel, LessonModel } from '@codebase/postgresapi/models';
 
 export function findCourseDetail(id: number) {
-  // return CourseModel.findAll({ order: ['seqNo'] });
+  return CourseModel.findByPk(id, {
+    include: [
+      {
+        model: LessonModel,
+      },
+    ],
+  });
 }

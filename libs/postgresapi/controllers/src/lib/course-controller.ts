@@ -28,16 +28,13 @@ export const getCourses = ({
     );
 };
 
-export const getCourseDetail = ({
-  req,
-  res,
-  next,
-}: {
-  req: Request;
-  res: Response;
-  next: NextFunction;
-}): void => {
-  const courseId = parseInt(req.params.id);
+export const getCourseDetail = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { id } = req.params;
+  const courseId = parseInt(id);
 
   findCourseDetail(courseId)
     .then(partial(onSuccess, [res]))
