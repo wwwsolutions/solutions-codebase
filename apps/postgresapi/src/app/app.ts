@@ -13,7 +13,7 @@ import { environment } from '@codebase/shared/environments';
 
 import { courseRouter } from '@codebase/postgresapi/routes';
 // import { CourseModel } from '@codebase/postgresapi/models';
-import { findAllCourses } from '@codebase/postgresapi/queries';
+// import { findAllCourses } from '@codebase/postgresapi/queries';
 
 const app: Application = express();
 
@@ -23,9 +23,6 @@ if (!environment.production) {
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-
-// GET DATA TODO: refactor
-findAllCourses().then((results) => console.log(JSON.stringify(results)));
 
 // ROUTING
 app.use('/api/v1/courses', courseRouter);

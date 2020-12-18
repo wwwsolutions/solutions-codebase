@@ -2,12 +2,17 @@
 import { Request, Response, NextFunction } from 'express';
 // import { ApiFeatures, catchAsync } from '@codebase/postgresapi/utils';
 // import { HttpException } from '@codebase/shared/exceptions';
-import { CourseModel } from '@codebase/postgresapi/models';
+import { findAllCourses } from '@codebase/postgresapi/queries';
 
 export const getCourses = (req: Request, res: Response, next: NextFunction) => {
-  // const output = CourseModel.findAll().then((results) =>
-  //   console.log(JSON.stringify(results))
-  // );
+  findAllCourses().then((courses) => {
+    // SEND RESPONSE
+    res.status(200).json({
+      status: 'success',
+      results: courses.length,
+      data: { courses },
+    });
+  });
 };
 
 // const CourseModel = initCourseModel(sequelize);
