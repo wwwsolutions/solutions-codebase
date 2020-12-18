@@ -19,3 +19,17 @@ export const getCourses = ({
     .then(partial(onSuccess, [res]))
     .catch(partial(onError, [res, 'Find all courses failed.']));
 };
+
+export const getCourseDetail = ({
+  req,
+  res,
+  next,
+}: {
+  req: Request;
+  res: Response;
+  next: NextFunction;
+}): void => {
+  // findAllCourses()
+  //   .then(partial(onSuccess, [res]))
+  //   .catch(partial(onError, [res, 'Find all courses failed.']));
+};
