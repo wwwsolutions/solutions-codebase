@@ -636,6 +636,27 @@
           }
         }
       }
+    },
+    "postgresapi-schemas": {
+      "root": "libs/postgresapi/schemas",
+      "sourceRoot": "libs/postgresapi/schemas/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/postgresapi/schemas/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/postgresapi/schemas/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {

@@ -104,6 +104,9 @@
     },
     "postgresapi-routes": {
       "tags": []
+    },
+    "postgresapi-schemas": {
+      "tags": []
     }
   }
 }
