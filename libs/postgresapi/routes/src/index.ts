@@ -1,1 +1,2 @@
-export * from './lib/postgresapi-routes';
+export * from './lib/course-routes';
+// export * from './lib/lesson-routes';
