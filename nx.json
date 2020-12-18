@@ -113,6 +113,9 @@
     },
     "postgresapi-utils": {
       "tags": []
+    },
+    "postgresapi-queries": {
+      "tags": []
     }
   }
 }

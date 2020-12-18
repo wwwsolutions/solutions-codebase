@@ -28,5 +28,6 @@ module.exports = {
     '<rootDir>/libs/postgresapi/schemas',
     '<rootDir>/libs/postgresapi/services',
     '<rootDir>/libs/postgresapi/utils',
+    '<rootDir>/libs/postgresapi/queries',
   ],
 };

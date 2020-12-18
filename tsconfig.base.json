@@ -76,7 +76,8 @@
       "@codebase/postgresapi/services": [
         "libs/postgresapi/services/src/index.ts"
       ],
-      "@codebase/postgresapi/utils": ["libs/postgresapi/utils/src/index.ts"]
+      "@codebase/postgresapi/utils": ["libs/postgresapi/utils/src/index.ts"],
+      "@codebase/postgresapi/queries": ["libs/postgresapi/queries/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

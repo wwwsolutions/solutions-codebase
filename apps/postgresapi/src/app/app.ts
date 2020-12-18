@@ -12,7 +12,8 @@ import { environment } from '@codebase/shared/environments';
 // import { HttpException } from '@codebase/shared/exceptions';
 
 import { courseRouter } from '@codebase/postgresapi/routes';
-import { CourseModel } from '@codebase/postgresapi/models';
+// import { CourseModel } from '@codebase/postgresapi/models';
+import { findAllCourses } from '@codebase/postgresapi/queries';
 
 const app: Application = express();
 
@@ -24,7 +25,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 // GET DATA TODO: refactor
-CourseModel.findAll().then((results) => console.log(JSON.stringify(results)));
+findAllCourses().then((results) => console.log(JSON.stringify(results)));
 
 // ROUTING
 app.use('/api/v1/courses', courseRouter);
