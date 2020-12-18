@@ -98,6 +98,12 @@
     },
     "postgresapi-fake-data": {
       "tags": []
+    },
+    "postgresapi-middleware": {
+      "tags": []
+    },
+    "postgresapi-routes": {
+      "tags": []
     }
   }
 }
