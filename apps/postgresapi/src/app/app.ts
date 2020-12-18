@@ -11,7 +11,7 @@ import { environment } from '@codebase/shared/environments';
 import { errorMiddleware } from '@codebase/postgresapi/middleware';
 // import { HttpException } from '@codebase/shared/exceptions';
 
-import { courseRouter } from '@codebase/postgresapi/routes';
+import { courseRouter, lessonRouter } from '@codebase/postgresapi/routes';
 
 const app: Application = express();
 
@@ -24,7 +24,7 @@ app.use(express.json());
 
 // ROUTING
 app.use('/api/v1/courses', courseRouter);
-// app.use('/api/v1/lessons', userRouter);
+app.use('/api/v1/lessons', lessonRouter);
 
 // Default route handler, in case of all routes unresolved. Always last
 // app.all('*', (req: Request, res: Response, next: NextFunction): void => {

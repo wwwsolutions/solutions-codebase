@@ -1,11 +1,5 @@
 import { Router } from 'express';
-import {
-  getCourses,
-  getCourseDetail,
-  // createCourse,
-  // deleteCourse,
-  // updateCourse
-} from '@codebase/postgresapi/controllers';
+import { getCourses, getCourseDetail } from '@codebase/postgresapi/controllers';
 
 const router = Router();
 
