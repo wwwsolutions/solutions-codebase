@@ -1,1 +1,1 @@
-export * from './lib/postgresapi-models';
+export * from './lib/model';
