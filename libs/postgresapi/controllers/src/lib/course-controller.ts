@@ -2,8 +2,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { partial } from 'ramda';
 import { findAllCourses } from '@codebase/postgresapi/queries';
-
-import { onError } from '@codebase/postgresapi/utils';
+import { onError, onSuccess } from '@codebase/postgresapi/utils';
 
 // TODO: refactor: use async await useCatchAsync util fn
 
@@ -16,16 +15,7 @@ export const getCourses = ({
   res: Response;
   next: NextFunction;
 }): void => {
-  // throw new Error('Error Ocurred!');
-
   findAllCourses()
-    .then((courses) => {
-      // SEND RESPONSE
-      res.status(200).json({
-        status: 'success',
-        // results: courses.length,
-        data: { courses },
-      });
-    })
+    .then(partial(onSuccess, [res]))
     .catch(partial(onError, [res, 'Find all courses failed.']));
 };
