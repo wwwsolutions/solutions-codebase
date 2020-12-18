@@ -573,6 +573,27 @@
           }
         }
       }
+    },
+    "postgresapi-fake-data": {
+      "root": "libs/postgresapi/fake-data",
+      "sourceRoot": "libs/postgresapi/fake-data/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/postgresapi/fake-data/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/postgresapi/fake-data/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {

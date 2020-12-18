@@ -62,6 +62,9 @@
       "@codebase/postgresapi/models": ["libs/postgresapi/models/src/index.ts"],
       "@codebase/postgresapi/controllers": [
         "libs/postgresapi/controllers/src/index.ts"
+      ],
+      "@codebase/postgresapi/fake-data": [
+        "libs/postgresapi/fake-data/src/index.ts"
       ]
     }
   },

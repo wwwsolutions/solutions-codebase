@@ -22,5 +22,6 @@ module.exports = {
     '<rootDir>/apps/postgresapi',
     '<rootDir>/libs/postgresapi/models',
     '<rootDir>/libs/postgresapi/controllers',
+    '<rootDir>/libs/postgresapi/fake-data',
   ],
 };
