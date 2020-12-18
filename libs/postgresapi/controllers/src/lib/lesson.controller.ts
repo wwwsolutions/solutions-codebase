@@ -4,6 +4,9 @@ import { partial } from 'ramda';
 import { createLesson } from '@codebase/postgresapi/queries';
 import { onError, onSuccess } from '@codebase/postgresapi/utils';
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const hri = require('human-readable-ids').hri;
+
 // TODO: refactor: use async await useCatchAsync util fn
 
 export const createLessonController = (
@@ -13,6 +16,15 @@ export const createLessonController = (
 ) => {
   createLesson(req.body)
     .then(partial(onSuccess, [res]))
+    .catch((err) => {
+      const id = hri.random();
+
+      console.log('Database error ocurred', id, err);
+      res.status(500).json({
+        code: 'ERR-002',
+        message: `Creation of lesson failed with error code: ${id}`,
+      });
+    })
     .catch(partial(onError, [res, 'Could not create lesson.']));
 };
 
