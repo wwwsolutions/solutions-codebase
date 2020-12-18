@@ -92,6 +92,9 @@
     },
     "postgresapi-models": {
       "tags": []
+    },
+    "postgresapi-controllers": {
+      "tags": []
     }
   }
 }

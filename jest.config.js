@@ -21,5 +21,6 @@ module.exports = {
     '<rootDir>/libs/natoursapi/middleware',
     '<rootDir>/apps/postgresapi',
     '<rootDir>/libs/postgresapi/models',
+    '<rootDir>/libs/postgresapi/controllers',
   ],
 };

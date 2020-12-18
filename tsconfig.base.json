@@ -59,7 +59,10 @@
       "@codebase/natoursapi/middleware": [
         "libs/natoursapi/middleware/src/index.ts"
       ],
-      "@codebase/postgresapi/models": ["libs/postgresapi/models/src/index.ts"]
+      "@codebase/postgresapi/models": ["libs/postgresapi/models/src/index.ts"],
+      "@codebase/postgresapi/controllers": [
+        "libs/postgresapi/controllers/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]
