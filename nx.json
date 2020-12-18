@@ -89,6 +89,33 @@
     },
     "postgresapi": {
       "tags": []
+    },
+    "postgresapi-models": {
+      "tags": []
+    },
+    "postgresapi-controllers": {
+      "tags": []
+    },
+    "postgresapi-fake-data": {
+      "tags": []
+    },
+    "postgresapi-middleware": {
+      "tags": []
+    },
+    "postgresapi-routes": {
+      "tags": []
+    },
+    "postgresapi-schemas": {
+      "tags": []
+    },
+    "postgresapi-services": {
+      "tags": []
+    },
+    "postgresapi-utils": {
+      "tags": []
+    },
+    "postgresapi-queries": {
+      "tags": []
     }
   }
 }

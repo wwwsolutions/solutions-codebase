@@ -12,24 +12,14 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "typeRoots": [
-      "custom_typings/",
-      "node_modules/@types"
-    ],
-    "lib": [
-      "es2017",
-      "dom"
-    ],
+    "typeRoots": ["custom_typings/", "node_modules/@types"],
+    "lib": ["es2017", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@codebase/shared/styles": [
-        "libs/shared/styles/src/index.ts"
-      ],
-      "@codebase/shared/assets": [
-        "libs/shared/assets/src/index.ts"
-      ],
+      "@codebase/shared/styles": ["libs/shared/styles/src/index.ts"],
+      "@codebase/shared/assets": ["libs/shared/assets/src/index.ts"],
       "@codebase/todomongoapi/controllers": [
         "libs/todomongoapi/controllers/src/index.ts"
       ],
@@ -51,15 +41,9 @@
       "@codebase/natoursapi/controllers": [
         "libs/natoursapi/controllers/src/index.ts"
       ],
-      "@codebase/natoursapi/modules": [
-        "libs/natoursapi/modules/src/index.ts"
-      ],
-      "@codebase/natoursapi/routes": [
-        "libs/natoursapi/routes/src/index.ts"
-      ],
-      "@codebase/natoursapi/schemas": [
-        "libs/natoursapi/schemas/src/index.ts"
-      ],
+      "@codebase/natoursapi/modules": ["libs/natoursapi/modules/src/index.ts"],
+      "@codebase/natoursapi/routes": ["libs/natoursapi/routes/src/index.ts"],
+      "@codebase/natoursapi/schemas": ["libs/natoursapi/schemas/src/index.ts"],
       "@codebase/natoursapi/services": [
         "libs/natoursapi/services/src/index.ts"
       ],
@@ -69,22 +53,32 @@
       "@codebase/shared/environments": [
         "libs/shared/environments/src/index.ts"
       ],
-      "@codebase/natoursapi/models": [
-        "libs/natoursapi/models/src/index.ts"
-      ],
-      "@codebase/natoursapi/utils": [
-        "libs/natoursapi/utils/src/index.ts"
-      ],
-      "@codebase/shared/exceptions": [
-        "libs/shared/exceptions/src/index.ts"
-      ],
+      "@codebase/natoursapi/models": ["libs/natoursapi/models/src/index.ts"],
+      "@codebase/natoursapi/utils": ["libs/natoursapi/utils/src/index.ts"],
+      "@codebase/shared/exceptions": ["libs/shared/exceptions/src/index.ts"],
       "@codebase/natoursapi/middleware": [
         "libs/natoursapi/middleware/src/index.ts"
-      ]
+      ],
+      "@codebase/postgresapi/models": ["libs/postgresapi/models/src/index.ts"],
+      "@codebase/postgresapi/controllers": [
+        "libs/postgresapi/controllers/src/index.ts"
+      ],
+      "@codebase/postgresapi/fake-data": [
+        "libs/postgresapi/fake-data/src/index.ts"
+      ],
+      "@codebase/postgresapi/middleware": [
+        "libs/postgresapi/middleware/src/index.ts"
+      ],
+      "@codebase/postgresapi/routes": ["libs/postgresapi/routes/src/index.ts"],
+      "@codebase/postgresapi/schemas": [
+        "libs/postgresapi/schemas/src/index.ts"
+      ],
+      "@codebase/postgresapi/services": [
+        "libs/postgresapi/services/src/index.ts"
+      ],
+      "@codebase/postgresapi/utils": ["libs/postgresapi/utils/src/index.ts"],
+      "@codebase/postgresapi/queries": ["libs/postgresapi/queries/src/index.ts"]
     }
   },
-  "exclude": [
-    "node_modules",
-    "tmp"
-  ]
+  "exclude": ["node_modules", "tmp"]
 }

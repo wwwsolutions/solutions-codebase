@@ -7,12 +7,11 @@ import {
   // NextFunction
 } from 'express';
 import morgan from 'morgan';
-
 import { environment } from '@codebase/shared/environments';
-
-// import { tourRouter, userRouter } from '@codebase/natoursapi/routes';
-// import { errorMiddleware } from '@codebase/natoursapi/middleware';
+import { errorMiddleware } from '@codebase/postgresapi/middleware';
 // import { HttpException } from '@codebase/shared/exceptions';
+
+import { courseRouter, lessonRouter } from '@codebase/postgresapi/routes';
 
 const app: Application = express();
 
@@ -23,13 +22,9 @@ if (!environment.production) {
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-// SERVE STATIC FILES TODO:
-// app.use(express.static(path.join(__dirname, '/dist/natoursapi')));
-// console.log(path.join(__dirname, ''));
-
 // ROUTING
-// app.use('/api/v1/tours', tourRouter);
-// app.use('/api/v1/users', userRouter);
+app.use('/api/v1/courses', courseRouter);
+app.use('/api/v1/lessons', lessonRouter);
 
 // Default route handler, in case of all routes unresolved. Always last
 // app.all('*', (req: Request, res: Response, next: NextFunction): void => {
@@ -37,6 +32,6 @@ app.use(express.json());
 // });
 
 // ERROR HANDLING MIDDLEWARE
-// app.use(errorMiddleware);
+app.use(errorMiddleware);
 
 export default app;
