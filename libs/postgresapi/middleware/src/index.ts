@@ -1,1 +1,1 @@
-export * from './lib/postgresapi-middleware';
+export * from './lib/error-middleware';

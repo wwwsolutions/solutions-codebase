@@ -2,7 +2,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { findAllCourses } from '@codebase/postgresapi/queries';
 
-// TODO: refactor: use async await with useCatchAsync util fn
+// TODO: refactor: use async await useCatchAsync util fn
 
 export const getCourses = ({
   req,
@@ -13,6 +13,8 @@ export const getCourses = ({
   res: Response;
   next: NextFunction;
 }): void => {
+  // throw new Error('Error Ocurred!');
+
   findAllCourses().then((courses) => {
     // SEND RESPONSE
     res.status(200).json({

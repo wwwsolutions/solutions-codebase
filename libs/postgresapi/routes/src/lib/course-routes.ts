@@ -11,7 +11,6 @@ const router = Router();
 
 // router.route('/').get(getCourses).post(createCourse);
 // router.route('/:id').get(getCourse).delete(deleteCourse).patch(updateCourse);
-
 router.route('/').get(getCourses);
 
 export { router as courseRouter };

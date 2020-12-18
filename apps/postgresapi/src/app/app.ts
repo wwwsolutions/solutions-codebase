@@ -8,12 +8,10 @@ import {
 } from 'express';
 import morgan from 'morgan';
 import { environment } from '@codebase/shared/environments';
-// import { errorMiddleware } from '@codebase/natoursapi/middleware';
+import { errorMiddleware } from '@codebase/postgresapi/middleware';
 // import { HttpException } from '@codebase/shared/exceptions';
 
 import { courseRouter } from '@codebase/postgresapi/routes';
-// import { CourseModel } from '@codebase/postgresapi/models';
-// import { findAllCourses } from '@codebase/postgresapi/queries';
 
 const app: Application = express();
 
@@ -34,6 +32,6 @@ app.use('/api/v1/courses', courseRouter);
 // });
 
 // ERROR HANDLING MIDDLEWARE
-// app.use(errorMiddleware);
+app.use(errorMiddleware);
 
 export default app;
