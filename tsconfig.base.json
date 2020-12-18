@@ -70,7 +70,12 @@
         "libs/postgresapi/middleware/src/index.ts"
       ],
       "@codebase/postgresapi/routes": ["libs/postgresapi/routes/src/index.ts"],
-      "@codebase/postgresapi/schemas": ["libs/postgresapi/schemas/src/index.ts"]
+      "@codebase/postgresapi/schemas": [
+        "libs/postgresapi/schemas/src/index.ts"
+      ],
+      "@codebase/postgresapi/services": [
+        "libs/postgresapi/services/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]

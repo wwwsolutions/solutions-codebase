@@ -107,6 +107,9 @@
     },
     "postgresapi-schemas": {
       "tags": []
+    },
+    "postgresapi-services": {
+      "tags": []
     }
   }
 }
