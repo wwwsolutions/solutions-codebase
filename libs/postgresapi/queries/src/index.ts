@@ -1,3 +1,3 @@
-export * from './lib/find-all-courses';
-export * from './lib/find-course-detail';
+export * from './lib/find-all-courses.query';
+export * from './lib/find-course-detail.query';
 export * from './lib/create-lesson.query';

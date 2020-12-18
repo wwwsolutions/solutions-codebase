@@ -9,7 +9,7 @@ import { onError, onSuccess } from '@codebase/postgresapi/utils';
 
 // TODO: refactor: use async await useCatchAsync util fn
 
-export const getCourses = ({
+export const getCoursesController = ({
   req,
   res,
   next,
@@ -28,7 +28,7 @@ export const getCourses = ({
     );
 };
 
-export const getCourseDetail = (
+export const getCourseDetailController = (
   req: Request,
   res: Response,
   next: NextFunction
