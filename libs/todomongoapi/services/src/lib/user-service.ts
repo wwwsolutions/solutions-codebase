@@ -1,8 +1,8 @@
-import { IUser } from '@codebase/shared/data-access-models';
+import { User } from '@codebase/shared/data-access-models';
 import { users } from '@codebase/todomongoapi/schemas';
 
 export class UserService {
-  public createUser(user_params: IUser, callback: any) {
+  public createUser(user_params: User, callback: any) {
     const _session = new users(user_params);
     _session.save(callback);
   }
@@ -11,7 +11,7 @@ export class UserService {
     users.findOne(query, callback);
   }
 
-  public updateUser(user_params: IUser, callback: any) {
+  public updateUser(user_params: User, callback: any) {
     const query = { _id: user_params._id };
     users.findOneAndUpdate(query, user_params, callback);
   }
