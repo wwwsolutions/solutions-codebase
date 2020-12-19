@@ -2,7 +2,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Request, Response, NextFunction } from 'express';
 import { partial } from 'ramda';
-import { createLesson, updateLesson } from '@codebase/postgresapi/queries';
+import {
+  createLesson,
+  updateLesson,
+  deleteLesson,
+} from '@codebase/postgresapi/queries';
 import {
   onError,
   onSuccess,
@@ -10,6 +14,20 @@ import {
 } from '@codebase/postgresapi/utils';
 
 // TODO: refactor: use async await useCatchAsync util fn
+
+export const deleteLessonController = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { id } = req.params;
+  const lessonId = parseInt(id);
+
+  deleteLesson(lessonId)
+    .then(partial(onSuccess, [res]))
+    .catch(partial(databaseErrorHandler, [res]))
+    .catch(partial(onError, [res, 'Could not delete lesson.']));
+};
 
 export const updateLessonController = (
   req: Request,
@@ -21,6 +39,7 @@ export const updateLessonController = (
 
   updateLesson(lessonId, req.body)
     .then(partial(onSuccess, [res]))
+    .catch(partial(databaseErrorHandler, [res]))
     .catch(partial(onError, [res, 'Could not update lesson.']));
 };
 
