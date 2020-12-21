@@ -1,6 +1,6 @@
 import { Sequelize } from 'sequelize';
-import { environment } from '@codebase/shared/environments';
 
+import { environment } from '@codebase/shared/environments';
 import { initCourseModel } from './init-course-model';
 import { initLessonModel } from './init-lesson-model';
 

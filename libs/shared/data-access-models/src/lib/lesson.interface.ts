@@ -1,6 +1,7 @@
 export interface Lesson {
-  courseId: number;
+  readonly id: number;
   readonly url: string;
+  courseId: number;
   description: string;
   duration: string;
   seqNo: number;
