@@ -5,10 +5,17 @@
   "port": 7777,
   "configurations": [
     {
-      "name": "Attach to Chrome",
-      "port": 9222,
-      "request": "attach",
-      "type": "pwa-chrome"
+      "type": "node",
+      "request": "launch",
+      "name": "Debug Node App",
+      "runtimeArgs": [
+        "-r",
+        "ts-node/register"
+      ],
+      "args": [
+        "${workspaceFolder}/apps/nedbapi/src/Lanucher.ts"
+      ],
+      "cwd": "${workspaceFolder}"
     }
   ]
 }
