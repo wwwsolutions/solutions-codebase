@@ -6,7 +6,7 @@ import {
   failureResponse,
   UserService,
 } from '@codebase/todomongoapi/services';
-import { IUser } from '@codebase/shared/data-access-models';
+import { User } from '@codebase/shared/data-access-models';
 // import e = require('express');
 
 export class UserController {
@@ -23,7 +23,7 @@ export class UserController {
       req.body.phone_number &&
       req.body.gender
     ) {
-      const user_params: IUser = {
+      const user_params: User = {
         name: {
           first_name: req.body.name.first_name,
           middle_name: req.body.name.middle_name,
@@ -40,16 +40,13 @@ export class UserController {
           },
         ],
       };
-      this.user_service.createUser(
-        user_params,
-        (err: any, user_data: IUser) => {
-          if (err) {
-            mongoError(err, res);
-          } else {
-            successResponse('create user successful', user_data, res);
-          }
+      this.user_service.createUser(user_params, (err: any, user_data: User) => {
+        if (err) {
+          mongoError(err, res);
+        } else {
+          successResponse('create user successful', user_data, res);
         }
-      );
+      });
     } else {
       // error response if some fields are missing in request body
       insufficientParameters(res);
@@ -59,16 +56,13 @@ export class UserController {
   public getUser(req: Request, res: Response) {
     if (req.params.id) {
       const user_filter = { _id: req.params.id };
-      this.user_service.filterUser(
-        user_filter,
-        (err: any, user_data: IUser) => {
-          if (err) {
-            mongoError(err, res);
-          } else {
-            successResponse('get user successful', user_data, res);
-          }
+      this.user_service.filterUser(user_filter, (err: any, user_data: User) => {
+        if (err) {
+          mongoError(err, res);
+        } else {
+          successResponse('get user successful', user_data, res);
         }
-      );
+      });
     } else {
       insufficientParameters(res);
     }
@@ -85,54 +79,51 @@ export class UserController {
       req.body.gender
     ) {
       const user_filter = { _id: req.params.id };
-      this.user_service.filterUser(
-        user_filter,
-        (err: any, user_data: IUser) => {
-          if (err) {
-            mongoError(err, res);
-          } else if (user_data) {
-            user_data.modification_notes.push({
-              modified_on: new Date(Date.now()),
-              modified_by: null,
-              modification_note: 'User data updated',
-            });
-            const user_params: IUser = {
-              _id: req.params.id,
-              name: req.body.name
-                ? {
-                    first_name: req.body.name.first_name
-                      ? req.body.name.first_name
-                      : user_data.name.first_name,
-                    middle_name: req.body.name.first_name
-                      ? req.body.name.middle_name
-                      : user_data.name.middle_name,
-                    last_name: req.body.name.first_name
-                      ? req.body.name.last_name
-                      : user_data.name.last_name,
-                  }
-                : user_data.name,
-              email: req.body.email ? req.body.email : user_data.email,
-              phone_number: req.body.phone_number
-                ? req.body.phone_number
-                : user_data.phone_number,
-              gender: req.body.gender ? req.body.gender : user_data.gender,
-              is_deleted: req.body.is_deleted
-                ? req.body.is_deleted
-                : user_data.is_deleted,
-              modification_notes: user_data.modification_notes,
-            };
-            this.user_service.updateUser(user_params, (err: any) => {
-              if (err) {
-                mongoError(err, res);
-              } else {
-                successResponse('update user successful', null, res);
-              }
-            });
-          } else {
-            failureResponse('invalid user', null, res);
-          }
+      this.user_service.filterUser(user_filter, (err: any, user_data: User) => {
+        if (err) {
+          mongoError(err, res);
+        } else if (user_data) {
+          user_data.modification_notes.push({
+            modified_on: new Date(Date.now()),
+            modified_by: null,
+            modification_note: 'User data updated',
+          });
+          const user_params: User = {
+            _id: req.params.id,
+            name: req.body.name
+              ? {
+                  first_name: req.body.name.first_name
+                    ? req.body.name.first_name
+                    : user_data.name.first_name,
+                  middle_name: req.body.name.first_name
+                    ? req.body.name.middle_name
+                    : user_data.name.middle_name,
+                  last_name: req.body.name.first_name
+                    ? req.body.name.last_name
+                    : user_data.name.last_name,
+                }
+              : user_data.name,
+            email: req.body.email ? req.body.email : user_data.email,
+            phone_number: req.body.phone_number
+              ? req.body.phone_number
+              : user_data.phone_number,
+            gender: req.body.gender ? req.body.gender : user_data.gender,
+            is_deleted: req.body.is_deleted
+              ? req.body.is_deleted
+              : user_data.is_deleted,
+            modification_notes: user_data.modification_notes,
+          };
+          this.user_service.updateUser(user_params, (err: any) => {
+            if (err) {
+              mongoError(err, res);
+            } else {
+              successResponse('update user successful', null, res);
+            }
+          });
+        } else {
+          failureResponse('invalid user', null, res);
         }
-      );
+      });
     } else {
       insufficientParameters(res);
     }
