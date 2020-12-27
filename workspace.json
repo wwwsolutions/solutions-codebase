@@ -10,7 +10,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/shared/styles/**/*.ts"]
+            "lintFilePatterns": [
+              "libs/shared/styles/**/*.ts"
+            ]
           }
         }
       }
@@ -24,7 +26,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/shared/assets/**/*.ts"]
+            "lintFilePatterns": [
+              "libs/shared/assets/**/*.ts"
+            ]
           }
         }
       }
@@ -42,7 +46,9 @@
             "outputPath": "dist/apps/todomongoapi",
             "main": "apps/todomongoapi/src/main.ts",
             "tsConfig": "apps/todomongoapi/tsconfig.app.json",
-            "assets": ["apps/todomongoapi/src/assets"]
+            "assets": [
+              "apps/todomongoapi/src/assets"
+            ]
           },
           "configurations": {
             "production": {
@@ -67,7 +73,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/todomongoapi/**/*.ts"]
+            "lintFilePatterns": [
+              "apps/todomongoapi/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -88,7 +96,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/todomongoapi/controllers/**/*.ts"]
+            "lintFilePatterns": [
+              "libs/todomongoapi/controllers/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -109,7 +119,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/todomongoapi/modules/**/*.ts"]
+            "lintFilePatterns": [
+              "libs/todomongoapi/modules/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -130,7 +142,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/todomongoapi/routes/**/*.ts"]
+            "lintFilePatterns": [
+              "libs/todomongoapi/routes/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -151,7 +165,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/shared/data-access-models/**/*.ts"]
+            "lintFilePatterns": [
+              "libs/shared/data-access-models/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -172,7 +188,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/todomongoapi/services/**/*.ts"]
+            "lintFilePatterns": [
+              "libs/todomongoapi/services/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -193,7 +211,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/todomongoapi/schemas/**/*.ts"]
+            "lintFilePatterns": [
+              "libs/todomongoapi/schemas/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -246,7 +266,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/natoursapi/**/*.ts"]
+            "lintFilePatterns": [
+              "apps/natoursapi/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -267,7 +289,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/natoursapi/controllers/**/*.ts"]
+            "lintFilePatterns": [
+              "libs/natoursapi/controllers/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -288,7 +312,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/natoursapi/modules/**/*.ts"]
+            "lintFilePatterns": [
+              "libs/natoursapi/modules/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -309,7 +335,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/natoursapi/routes/**/*.ts"]
+            "lintFilePatterns": [
+              "libs/natoursapi/routes/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -330,7 +358,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/natoursapi/schemas/**/*.ts"]
+            "lintFilePatterns": [
+              "libs/natoursapi/schemas/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -351,7 +381,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/natoursapi/services/**/*.ts"]
+            "lintFilePatterns": [
+              "libs/natoursapi/services/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -372,7 +404,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/natoursapi/fake-data/**/*.ts"]
+            "lintFilePatterns": [
+              "libs/natoursapi/fake-data/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -393,7 +427,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/shared/environments/**/*.ts"]
+            "lintFilePatterns": [
+              "libs/shared/environments/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -414,7 +450,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/natoursapi/models/**/*.ts"]
+            "lintFilePatterns": [
+              "libs/natoursapi/models/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -435,7 +473,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/natoursapi/utils/**/*.ts"]
+            "lintFilePatterns": [
+              "libs/natoursapi/utils/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -456,7 +496,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/shared/exceptions/**/*.ts"]
+            "lintFilePatterns": [
+              "libs/shared/exceptions/**/*.ts"
+            ]
           }
         }
       }
@@ -470,7 +512,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/natoursapi/middleware/**/*.ts"]
+            "lintFilePatterns": [
+              "libs/natoursapi/middleware/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -495,7 +539,9 @@
             "outputPath": "dist/apps/postgresapi",
             "main": "apps/postgresapi/src/main.ts",
             "tsConfig": "apps/postgresapi/tsconfig.app.json",
-            "assets": ["apps/postgresapi/src/assets"]
+            "assets": [
+              "apps/postgresapi/src/assets"
+            ]
           },
           "configurations": {
             "production": {
@@ -520,7 +566,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/postgresapi/**/*.ts"]
+            "lintFilePatterns": [
+              "apps/postgresapi/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -541,7 +589,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/postgresapi/models/**/*.ts"]
+            "lintFilePatterns": [
+              "libs/postgresapi/models/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -562,7 +612,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/postgresapi/controllers/**/*.ts"]
+            "lintFilePatterns": [
+              "libs/postgresapi/controllers/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -583,7 +635,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/postgresapi/fake-data/**/*.ts"]
+            "lintFilePatterns": [
+              "libs/postgresapi/fake-data/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -604,7 +658,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/postgresapi/middleware/**/*.ts"]
+            "lintFilePatterns": [
+              "libs/postgresapi/middleware/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -625,7 +681,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/postgresapi/routes/**/*.ts"]
+            "lintFilePatterns": [
+              "libs/postgresapi/routes/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -646,7 +704,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/postgresapi/schemas/**/*.ts"]
+            "lintFilePatterns": [
+              "libs/postgresapi/schemas/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -667,7 +727,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/postgresapi/services/**/*.ts"]
+            "lintFilePatterns": [
+              "libs/postgresapi/services/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -688,7 +750,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/postgresapi/utils/**/*.ts"]
+            "lintFilePatterns": [
+              "libs/postgresapi/utils/**/*.ts"
+            ]
           }
         },
         "test": {
@@ -709,7 +773,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/postgresapi/queries/**/*.ts"]
+            "lintFilePatterns": [
+              "libs/postgresapi/queries/**/*.ts"
+            ]
           }
         },
         "test": {
