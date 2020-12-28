@@ -59,9 +59,6 @@ export const getTour = catchAsync(
 
 export const updateTour = catchAsync(
   async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-    // FIXED: to test in POSTMAN >>> add header to 'Content-Type: application/json'
-    console.log('req.body:', req.body);
-
     const tour = await Tour.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       // FIXED: Mongoose supports validation for update(), updateOne(), updateMany(), and findOneAndUpdate() operations.
@@ -72,10 +69,7 @@ export const updateTour = catchAsync(
       return next(new HttpException('No tour found', 404));
     }
 
-    res.status(200).json({
-      status: 'success',
-      data: { tour },
-    });
+    res.status(200).json({ status: 'success', data: { tour } });
   }
 );
 
