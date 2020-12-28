@@ -81,10 +81,7 @@ export const deleteTour = catchAsync(
       return next(new HttpException('No tour found', 404));
     }
 
-    res.status(204).json({
-      status: 'success',
-      data: null,
-    });
+    res.status(204).json({ status: 'success', data: null });
   }
 );
 
