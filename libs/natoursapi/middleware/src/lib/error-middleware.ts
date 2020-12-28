@@ -14,6 +14,7 @@ const handleDuplicateFieldsDB = (err) => {
   const message = `Duplicate field value: ${value}. Please use another value!`;
   return new HttpException(message, 400);
 };
+
 const handleValidationErrorDB = (err) => {
   // TODO: Ramda candidate pluck()
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
