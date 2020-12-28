@@ -1,24 +1,22 @@
-// export class HttpException extends Error {
-//   status: number;
-//   message: string;
-//   constructor(status: number, message: string) {
-//     super(message);
-//     this.status = status;
-//     this.message = message;
-//   }
-// }
-
 export class HttpException extends Error {
-  isOperational: boolean;
-  status: string;
-  statusCode: number;
-  constructor(message: string, statusCode: number) {
+  private isOperational: boolean;
+  private status: string;
+  // statusCode: number;
+
+  constructor(message: string, public statusCode: number) {
     super(message);
 
-    this.statusCode = statusCode;
-    this.status = `${statusCode}`.startsWith('4') ? 'fail' : 'error';
     this.isOperational = true;
 
+    // this.statusCode = statusCode;
+    this.status = `${statusCode}`.startsWith('4') ? 'fail' : 'error';
+
     Error.captureStackTrace(this, this.constructor);
+
+    // console.log(
+    //   'Hello from HttpException Class!',
+    //   'statusCode:',
+    //   this.statusCode
+    // );
   }
 }

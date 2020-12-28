@@ -27,8 +27,13 @@ app.use('/api/v1/users', userRouter);
 
 // Default route handler, in case of all routes unresolved. Always last
 app.all('*', (req: Request, res: Response, next: NextFunction): void => {
+  // res.status(404).json({
+  //   status: 'fail',
+  //   message: `Can't find ${req.originalUrl} on this server!`,
+  // });
   next(new HttpException(`Can't find ${req.originalUrl} on this server!`, 404));
 });
+// END ROUTING
 
 // ERROR HANDLING MIDDLEWARE
 app.use(errorMiddleware);
