@@ -111,10 +111,7 @@ export const getTourStats = catchAsync(
       // },
     ]);
 
-    res.status(200).json({
-      status: 'success',
-      data: { stats },
-    });
+    res.status(200).json({ status: 'success', data: { stats } });
   }
 );
 
