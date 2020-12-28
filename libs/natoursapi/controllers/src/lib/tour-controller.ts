@@ -24,7 +24,7 @@ export const createTour = catchAsync(
   }
 );
 
-export const getTours = catchAsync(
+export const getAllTours = catchAsync(
   async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     // EXTEND QUERY
     const features = new ApiFeatures(Tour.find(), req.query)
