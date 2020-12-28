@@ -1,6 +1,6 @@
 export const environment = {
   environmentType: 'development',
-  production: false,
+  production: true,
   apiPort: 4001,
   mongoConfig: {
     dbName: 'natours',
