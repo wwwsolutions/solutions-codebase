@@ -142,7 +142,7 @@ tourSchema.post('find', function name(
   docs: TourDocument[],
   next: NextFunction
 ): void {
-  console.log(docs);
+  // console.log(docs);
   next();
 });
 

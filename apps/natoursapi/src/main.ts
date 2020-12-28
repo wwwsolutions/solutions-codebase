@@ -1,5 +1,5 @@
 import app from './app/app';
-// import mongoose from 'mongoose';
+import mongoose from 'mongoose';
 import { plugin, set, connect } from 'mongoose';
 
 import { environment } from '@codebase/shared/environments';
@@ -10,6 +10,10 @@ process.on('uncaughtException', (err) => {
   console.log('UNCAUGHT EXCEPTION! Shutting down...');
   process.exit(1);
 });
+
+// https://stackoverflow.com/questions/50011091/how-to-create-item-if-not-exists-and-return-an-error-if-exists
+set('debug', true);
+mongoose.Promise = global.Promise;
 
 // GLOBAL PLUGIN (setRunValidators fix)
 function setRunValidators() {
@@ -24,10 +28,6 @@ plugin((schema) => {
 });
 
 const db: string = environment.mongoConfig.dbCloudConnectionStr;
-
-// https://stackoverflow.com/questions/50011091/how-to-create-item-if-not-exists-and-return-an-error-if-exists
-// set('debug', true);
-// mongoose.Promise = global.Promise;
 
 connect(db, {
   useNewUrlParser: true,

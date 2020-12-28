@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { HttpException } from '@codebase/shared/exceptions';
 import { environment } from '@codebase/shared/environments';
 
@@ -54,10 +54,12 @@ const sendErrorDev = (err, res) => {
 };
 
 export const errorMiddleware = (
-  err,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  err: any,
   req: Request,
-  res: Response
-  // next: NextFunction
+  res: Response,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  next: NextFunction
 ): void => {
   console.log('Hello form errorMiddleware');
 
@@ -65,10 +67,14 @@ export const errorMiddleware = (
   err.status = err.status || 'error';
 
   if (!environment.production) {
+    console.log('production error', environment.production);
+
     sendErrorDev(err, res);
 
     // PRODUCTION
   } else {
+    console.log('production error', environment.production);
+
     let error = { ...err };
 
     if (error.name === 'CastError') error = handleCastErrorDB(error);
