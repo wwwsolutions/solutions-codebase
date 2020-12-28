@@ -15,12 +15,8 @@ export const aliasTopTours = (req: Request, res: Response, next) => {
 
 export const createTour = catchAsync(
   async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-    const newTour = await Tour.create(req.body);
-    // Status code 201 Created
-    res.status(201).json({
-      status: 'success',
-      data: { tour: newTour },
-    });
+    const tour = await Tour.create(req.body);
+    res.status(201).json({ status: 'success', data: { tour } });
   }
 );
 
