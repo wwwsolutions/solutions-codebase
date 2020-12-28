@@ -4,16 +4,16 @@ import { plugin, set, connect } from 'mongoose';
 
 import { environment } from '@codebase/shared/environments';
 
+// https://stackoverflow.com/questions/50011091/how-to-create-item-if-not-exists-and-return-an-error-if-exists
+// set('debug', true);
+// mongoose.Promise = global.Promise;
+
 // HANDLE GLOBAL EXCEPTIONS
 process.on('uncaughtException', (err) => {
   console.log(err.name, err.message);
   console.log('UNCAUGHT EXCEPTION! Shutting down...');
   process.exit(1);
 });
-
-// https://stackoverflow.com/questions/50011091/how-to-create-item-if-not-exists-and-return-an-error-if-exists
-set('debug', true);
-mongoose.Promise = global.Promise;
 
 // GLOBAL PLUGIN (setRunValidators fix)
 function setRunValidators() {

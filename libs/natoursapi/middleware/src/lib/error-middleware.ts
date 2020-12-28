@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request, Response, NextFunction } from 'express';
 import { HttpException } from '@codebase/shared/exceptions';
 import { environment } from '@codebase/shared/environments';
@@ -17,71 +19,48 @@ const handleDuplicateFieldsDB = (err) => {
 
 const handleValidationErrorDB = (err) => {
   // TODO: Ramda candidate pluck()
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const errors = Object.values<any>(err.errors).map((el) => el.message);
-
   const message = `Invalid input data. ${errors.join('. ')}`;
   return new HttpException(message, 400);
 };
 
-const sendErrorProd = (err, res) => {
-  // Operational, trusted error: send message to the client
-  if (err.isOperational) {
-    res.status(err.statusCode).json({
-      status: err.status,
-      message: err.message,
-    });
+const sendErrorProd = (err, res: Response): void => {
+  const { isOperational, statusCode, status, message } = err;
 
-    // Programming or other error: don't leak details to the client
+  if (isOperational) {
+    res.status(statusCode).json({ status, message });
   } else {
-    // LOG ERROR
-    console.error('ERROR 💥', err);
-
-    // SEND GENERIC MESSAGE
-    res.status(500).json({
-      status: 'error',
-      message: 'Something went very wrong!',
-    });
+    console.error('💥 💥 💥 ERROR:', err); // LOG ERROR
+    const status = `error`;
+    const message = `Something went very wrong!`;
+    res.status(500).json({ status, message }); // SEND GENERIC MESSAGE
   }
 };
 
-const sendErrorDev = (err, res) => {
-  res.status(err.statusCode).json({
-    status: err.status,
-    error: err,
-    message: err.message,
-    stack: err.stack,
-  });
+const sendErrorDev = (err, res: Response) => {
+  const { status, message, stack } = err;
+  const error = err;
+  res.status(err.statusCode).json({ error, status, message, stack });
 };
 
 export const errorMiddleware = (
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   err: any,
   req: Request,
   res: Response,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   next: NextFunction
 ): void => {
-  console.log('Hello form errorMiddleware');
-
   err.statusCode = err.statusCode || 500;
   err.status = err.status || 'error';
 
   if (!environment.production) {
-    console.log('production error', environment.production);
-
     sendErrorDev(err, res);
-
-    // PRODUCTION
   } else {
-    console.log('production error', environment.production);
-
+    // PRODUCTION
     let error = { ...err };
-
-    if (error.name === 'CastError') error = handleCastErrorDB(error);
-    if (error.code === 11000) error = handleDuplicateFieldsDB(error);
-    if (error.name === 'ValidationError')
-      error = handleValidationErrorDB(error);
+    const { name, code } = error;
+    if (name === 'CastError') error = handleCastErrorDB(error);
+    if (name === 'ValidationError') error = handleValidationErrorDB(error);
+    if (code === 11000) error = handleDuplicateFieldsDB(error);
 
     sendErrorProd(error, res);
   }
