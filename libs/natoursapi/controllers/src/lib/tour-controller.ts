@@ -46,8 +46,10 @@ export const getTour = catchAsync(
     const { id } = req.params;
     const tour = await Tour.findById(id);
 
+    // FIXME: if error occurred, it is processed by catchAsync() wrapper function & errorMiddleware
+    // error does not reach this code
     if (!tour) {
-      return next(new HttpException('No tour found', 404));
+      return next(new HttpException('No tour found with that ID', 404));
     }
 
     res.status(200).json({
