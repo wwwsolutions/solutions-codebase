@@ -260,7 +260,8 @@
         "serve": {
           "builder": "@nrwl/node:execute",
           "options": {
-            "buildTarget": "natoursapi:build"
+            "buildTarget": "natoursapi:build",
+            "inspect": true
           }
         },
         "lint": {

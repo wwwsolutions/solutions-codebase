@@ -1,8 +1,8 @@
 {
   "workbench.colorCustomizations": {
-    "activityBar.background": "#17168C",
-    "titleBar.activeBackground": "#201FC4",
-    "titleBar.activeForeground": "#FAFAFE"
+    "activityBar.background": "#f06a20",
+    "titleBar.activeBackground": "#d03a20",
+    "titleBar.activeForeground": "#F9FBFE"
   },
   "cSpell.words": [
     "todoreactapp"

@@ -1,0 +1,22 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug natoursapi",
+      "program": "${workspaceFolder}/apps/natoursapi/src/main.ts",
+      "preLaunchTask": "tsc: watch - apps/natoursapi/tsconfig.json",
+      "outFiles": [
+        "${workspaceFolder}/dist/apps/natoursapi/**/*.js"
+      ],
+      "skipFiles": [
+        "${workspaceFolder}/node_modules/**/*.js",
+        "<node_internals>/**/*.js"
+      ]
+    }
+  ]
+}
