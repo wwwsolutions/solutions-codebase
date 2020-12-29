@@ -3,6 +3,7 @@
 import { NextFunction } from 'express';
 import { Document, Schema } from 'mongoose';
 import validator from 'validator';
+import * as bcrypt from 'bcryptjs';
 
 export const userSchema: Schema = new Schema(
   {
@@ -41,23 +42,33 @@ export const userSchema: Schema = new Schema(
         message: 'Passwords are not the same!',
       } as any,
     },
+  },
+  // SCHEMA OPTIONS
+  {
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
+    timestamps: true,
   }
-  // // SCHEMA OPTIONS
-  // {
-  //   toJSON: { virtuals: true },
-  //   toObject: { virtuals: true },
-  //   timestamps: true,
-  // }
 );
 
-// interface UserDocument extends Document {
-//   name: string;
-//   email: string;
-//   photo: string;
-//   password: string;
-//   passwordConfirm: string;
-// }
+interface UserDocument extends Document {
+  name: string;
+  email: string;
+  photo?: string;
+  password: string;
+  passwordConfirm: string;
+}
 
-userSchema.pre('save', function (next) {
+userSchema.pre<UserDocument>('save', async function name(
+  next: NextFunction
+): Promise<void> {
+  // IF PASSWORD HAS NOT BEEN MODIFIED --> EXIT
   if (!this.isModified('password')) return next();
+
+  // GENERATE HASH
+  this.password = await bcrypt.hash(this.password, 12);
+  // DELETE NOW UNNECESSARY FIELD
+  this.passwordConfirm = undefined;
+
+  next();
 });
