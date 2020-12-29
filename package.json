@@ -42,6 +42,7 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.1",
+    "bcryptjs": "^2.4.3",
     "bluebird": "^3.7.2",
     "bootstrap": "^4.5.3",
     "document-register-element": "1.14.10",
