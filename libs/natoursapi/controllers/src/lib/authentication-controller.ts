@@ -3,12 +3,12 @@ import { Request, Response, NextFunction } from 'express';
 import { User } from '@codebase/natoursapi/models';
 import { catchAsync } from '@codebase/natoursapi/utils';
 
-export const signUp = catchAsync(
+export const signup = catchAsync(
   async (
     req: Request,
     res: Response
     // next: NextFunction
-  ) => {
+  ): Promise<void> => {
     const newUser = await User.create(req.body);
     res.status(201).json({ status: 'success', data: { user: newUser } });
   }

@@ -1,6 +1,7 @@
-import { Router, Request, Response } from 'express';
+import { Router } from 'express';
 
 import {
+  signup,
   getUsers,
   getUser,
   createUser,
@@ -8,6 +9,10 @@ import {
   updateUser,
 } from '@codebase/natoursapi/controllers';
 
-export const userRouter = Router();
-userRouter.route('/').get(getUsers).post(createUser);
-userRouter.route('/:id').get(getUser).delete(deleteUser).patch(updateUser);
+const router: Router = Router();
+
+router.route('/signup').post(signup);
+router.route('/').get(getUsers).post(createUser);
+router.route('/:id').get(getUser).delete(deleteUser).patch(updateUser);
+
+export { router as userRouter };
