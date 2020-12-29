@@ -3,15 +3,7 @@ import { NextFunction } from 'express';
 import { Document, Schema, Query, Aggregate } from 'mongoose';
 import validator from 'validator';
 
-interface UserDocument extends Document {
-  name: string;
-  email: string;
-  photo: string;
-  password: string;
-  passwordConfirm: boolean;
-}
-
-export const userSchema = new Schema(
+export const userSchema: Schema = new Schema(
   {
     name: {
       type: String,
@@ -23,21 +15,23 @@ export const userSchema = new Schema(
       type: String,
       unique: true,
       lowercase: true,
-      required: [true, "can't be blank"],
-      // validate: [validator.isEmail], FIXME:
+      required: [true, "Can't be blank."],
+      validate: [validator.isEmail],
+      index: true,
+    } as unknown,
+    photo: {
+      type: String,
       index: true,
     },
     password: {
       type: String,
-      required: [true, "can't be blank"],
+      required: [true, "Can't be blank."],
       index: true,
+      minlength: 8,
     },
     passwordConfirm: {
       type: Boolean,
-    },
-    photo: {
-      type: String,
-      index: true,
+      required: [true, `Please confirm your password.`],
     },
   },
   // SCHEMA OPTIONS
@@ -47,3 +41,11 @@ export const userSchema = new Schema(
     timestamps: true,
   }
 );
+
+interface UserDocument extends Document {
+  name: string;
+  email: string;
+  photo: string;
+  password: string;
+  passwordConfirm: boolean;
+}
