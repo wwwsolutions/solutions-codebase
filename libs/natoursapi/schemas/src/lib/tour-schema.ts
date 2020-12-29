@@ -5,28 +5,34 @@ import { Document, Schema, Query, Aggregate } from 'mongoose';
 import slugify from 'slugify';
 import validator from 'validator';
 
-export const tourSchema = new Schema(
+export const tourSchema: Schema = new Schema(
   {
     name: {
       type: String,
       unique: true,
       trim: true,
       required: [true, 'A tour must have a name.'],
-      maxlength: [40, 'A tour name must have less or equal then 40 characters'],
-      minlength: [10, 'A tour name must have more or equal then 10 characters'],
+      maxlength: [
+        40,
+        'A tour name must have less or equal then 40 characters.',
+      ],
+      minlength: [
+        10,
+        'A tour name must have more or equal then 10 characters.',
+      ],
     },
     slug: String,
     duration: {
       type: Number,
-      required: [true, 'A tour must have a duration'],
+      required: [true, 'A tour must have a duration.'],
     },
     maxGroupSize: {
       type: Number,
-      required: [true, 'A tour must have a group size'],
+      required: [true, 'A tour must have a group size.'],
     },
     difficulty: {
       type: String,
-      required: [true, 'A tour must have a difficulty'],
+      required: [true, 'A tour must have a difficulty.'],
       enum: ['easy', 'medium', 'difficult'],
     },
     ratingsAverage: {
@@ -47,13 +53,13 @@ export const tourSchema = new Schema(
           // CAVEAT: 'this' only points to current doc on NEW document creation
           return val < this.price;
         },
-        message: 'Discount price ({VALUE}) should not be below regular price',
+        message: 'Discount price ({VALUE}) should not be below regular price.',
       },
     },
     summary: {
       type: String,
       trim: true,
-      required: [true, 'A tour must have a summary'],
+      required: [true, 'A tour must have a summary.'],
     },
     description: {
       type: String,
@@ -61,7 +67,7 @@ export const tourSchema = new Schema(
     },
     imageCover: {
       type: String,
-      required: [true, 'A tour must have a cover image'],
+      required: [true, 'A tour must have a cover image.'],
     },
     images: [String],
     createdAt: {
