@@ -28,8 +28,9 @@ const sendErrorProd = (err, res: Response): void => {
   const { isOperational, statusCode, status, message } = err;
 
   if (isOperational) {
-    res.status(statusCode).json({ status, message });
+    res.status(statusCode).json({ status, message }); // OPERATIONAL ERROR, SEND FULL MESSAGE
   } else {
+    // TODO: find & use external logging lib
     console.error('💥 💥 💥 ERROR:', err); // LOG ERROR
     const status = `error`;
     const message = `Something went very wrong!`;
@@ -53,15 +54,16 @@ export const errorMiddleware = (
   err.status = err.status || 'error';
 
   if (!environment.production) {
-    sendErrorDev(err, res);
+    sendErrorDev(err, res); // DEVELOPMENT, SEND UNFILTERED ERRORS
   } else {
-    // PRODUCTION
     let error = { ...err };
     const { name, code } = error;
+
+    // FILTER AND HANDLE ERRORS
     if (name === 'CastError') error = handleCastErrorDB(error);
     if (name === 'ValidationError') error = handleValidationErrorDB(error);
     if (code === 11000) error = handleDuplicateFieldsDB(error);
 
-    sendErrorProd(error, res);
+    sendErrorProd(error, res); // PRODUCTION, SEND FILTERED ERRORS
   }
 };
