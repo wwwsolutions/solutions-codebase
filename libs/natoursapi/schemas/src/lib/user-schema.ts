@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { NextFunction } from 'express';
-import { Document, Schema, Query, Aggregate } from 'mongoose';
+import { Document, Schema } from 'mongoose';
 import validator from 'validator';
 
 export const userSchema: Schema = new Schema(
@@ -16,8 +16,8 @@ export const userSchema: Schema = new Schema(
       unique: true,
       lowercase: true,
       required: [true, "Can't be blank."],
-      validate: [validator.isEmail],
-      index: true,
+      // validate: [validator.isEmail],
+      // index: true,
     } as unknown,
     photo: {
       type: String,
@@ -30,7 +30,7 @@ export const userSchema: Schema = new Schema(
       minlength: 8,
     },
     passwordConfirm: {
-      type: Boolean,
+      type: String,
       required: [true, `Please confirm your password.`],
     },
   },
@@ -47,5 +47,5 @@ interface UserDocument extends Document {
   email: string;
   photo: string;
   password: string;
-  passwordConfirm: boolean;
+  passwordConfirm: string;
 }
