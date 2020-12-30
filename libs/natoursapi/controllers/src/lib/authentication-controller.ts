@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Request, Response, NextFunction } from 'express';
-
 import { catchAsync } from '@codebase/natoursapi/utils';
+import * as jwt from 'jsonwebtoken';
 import { User, UserDocument } from '@codebase/natoursapi/models';
+import { environment } from '@codebase/shared/environments';
 
 export const signup = catchAsync(
   async (
@@ -10,6 +12,7 @@ export const signup = catchAsync(
     // next: NextFunction
   ): Promise<void> => {
     const { name, email, password, passwordConfirm } = req.body;
+    const { secret, expiresIn } = environment.jwt;
 
     const newUser = await User.create({
       name,
@@ -17,6 +20,8 @@ export const signup = catchAsync(
       password,
       passwordConfirm,
     } as UserDocument);
+
+    const token = jwt.sign({ id: newUser._id }, secret, { expiresIn });
 
     res.status(201).json({ status: 'success', data: { user: newUser } });
   }
