@@ -65,37 +65,32 @@ export const login = catchAsync(
   }
 );
 
-// export const getUsers = (req: Request, res: Response) => {
-//   res.status(500).json({
-//     status: 'error',
-//     message: 'This user is not yet defined.',
-//   });
-// };
+export const protect = catchAsync(
+  async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    const authorization = <string>req.headers.authorization;
 
-// export const getUser = (req: Request, res: Response) => {
-//   res.status(500).json({
-//     status: 'error',
-//     message: 'This user is not yet defined.',
-//   });
-// };
+    // GET TOKEN AND
+    const token =
+      authorization && authorization.startsWith('Bearer')
+        ? authorization.split(' ')[1]
+        : null;
 
-// export const createUser = (req: Request, res: Response) => {
-//   res.status(500).json({
-//     status: 'error',
-//     message: 'This user is not yet defined.',
-//   });
-// };
+    // CHECK IF TOKEN EXISTS
+    if (!token) {
+      return next(
+        new HttpException(
+          `Your are not logged in! Please log in to gain access.`,
+          401
+        )
+      ); // UNAUTHORIZED
+    }
 
-// export const deleteUser = (req: Request, res: Response) => {
-//   res.status(500).json({
-//     status: 'error',
-//     message: 'This user is not yet defined.',
-//   });
-// };
+    // TOKEN VERIFICATION
 
-// export const updateUser = (req: Request, res: Response) => {
-//   res.status(500).json({
-//     status: 'error',
-//     message: 'This user is not yet defined.',
-//   });
-// };
+    // CHECK IF USER STILL EXISTS
+
+    // CHECK IF USER CHANGED PASSWORD AFTER TOKEN WAS ISSUED
+
+    next();
+  }
+);

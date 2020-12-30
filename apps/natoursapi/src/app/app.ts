@@ -21,6 +21,12 @@ app.use(express.json());
 // app.use(express.static(path.join(__dirname, '/dist/natoursapi')));
 // console.log(path.join(__dirname, ''));
 
+app.use((req: Request, res: Response, next: NextFunction) => {
+  req.requestTime = new Date().toISOString();
+  console.log('req.headers', req.headers);
+  next();
+});
+
 // ROUTING
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
