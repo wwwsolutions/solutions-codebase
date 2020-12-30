@@ -23,7 +23,7 @@ export const signup = catchAsync(
 
     const token = jwt.sign({ id: newUser._id }, secret, { expiresIn });
 
-    res.status(201).json({ status: 'success', data: { user: newUser } });
+    res.status(201).json({ status: 'success', token, data: { user: newUser } });
   }
 );
 
