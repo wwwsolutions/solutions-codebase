@@ -5,12 +5,18 @@ import mongoose, { Document, Schema } from 'mongoose';
 import validator from 'validator';
 import * as bcrypt from 'bcryptjs';
 
-export interface UserDocument extends Document {
+interface CorrectPassword {
+  correctPassword(
+    candidatePassword: string,
+    userPassword: string
+  ): Promise<boolean>;
+}
+export interface UserDocument extends Document, CorrectPassword {
   name: string;
   email: string;
   photo?: string;
   password: string;
-  passwordConfirm: string;
+  passwordConfirm?: string;
 }
 
 export const userSchema: Schema = new Schema(
@@ -38,6 +44,7 @@ export const userSchema: Schema = new Schema(
       required: [true, "Can't be blank."],
       index: true,
       minlength: 8,
+      select: false,
     },
     passwordConfirm: {
       type: String,
@@ -72,6 +79,14 @@ userSchema.pre<UserDocument>('save', async function name(
 
   next();
 });
+
+// METHODS
+userSchema.methods.correctPassword = async function name(
+  candidatePassword: string,
+  userPassword: string
+): Promise<boolean> {
+  return await bcrypt.compare(candidatePassword, userPassword);
+};
 
 // MODEL
 export const User = mongoose.model('User', userSchema);
