@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { User } from '@codebase/shared/data-access-models';
 import { users } from '@codebase/todomongoapi/schemas';
 
