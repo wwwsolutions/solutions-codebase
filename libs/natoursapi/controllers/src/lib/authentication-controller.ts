@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { promisify } from 'util';
 import { Request, Response, NextFunction } from 'express';
 import { catchAsync } from '@codebase/natoursapi/utils';
 import * as jwt from 'jsonwebtoken';
@@ -86,6 +87,9 @@ export const protect = catchAsync(
     }
 
     // TOKEN VERIFICATION
+    const decoded = await promisify(jwt.verify)(token, secret);
+
+    console.log('decoded', decoded);
 
     // CHECK IF USER STILL EXISTS
 
