@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import { environment } from '../../../../libs/shared/environments/src/index';
 
 // SCHEMAS
-import { tourSchema } from '../../../../libs/natoursapi/schemas/src/lib/tour-schema';
+import { tourSchema } from '../../../../libs/natoursapi/models/src/lib/tour-model';
 // DATA
 import { toursSimple } from '../../../../libs/natoursapi/fake-data/src/lib/tours-simple';
 

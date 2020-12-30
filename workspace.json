@@ -350,29 +350,6 @@
         }
       }
     },
-    "natoursapi-schemas": {
-      "root": "libs/natoursapi/schemas",
-      "sourceRoot": "libs/natoursapi/schemas/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/natoursapi/schemas/**/*.ts"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/natoursapi/schemas/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
     "natoursapi-services": {
       "root": "libs/natoursapi/services",
       "sourceRoot": "libs/natoursapi/services/src",
