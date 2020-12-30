@@ -38,6 +38,10 @@ const targetPath =
 const envConfigFile = `export const environment = {
   environmentType: 'development',
   production: false,
+  jwt: {
+    secret: '${process.env.JWT_SECRET}',
+    expiresIn: '${process.env.JWT_EXPIRES_IN}',
+  },
   apiPort: ${process.env.DEVELOPMENT_API_PORT},
   mongoConfig: {
     dbName: '${process.env.DEVELOPMENT_MONGO_DB_NAME}',
