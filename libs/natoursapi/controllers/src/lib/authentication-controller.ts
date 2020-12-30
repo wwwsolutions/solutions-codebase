@@ -9,8 +9,15 @@ export const signup = catchAsync(
     res: Response
     // next: NextFunction
   ): Promise<void> => {
-    // const { name, email, password, passwordConfirm }: UserDocument = req.body;
-    const newUser = await User.create(req.body);
+    const { name, email, password, passwordConfirm } = req.body;
+
+    const newUser = await User.create({
+      name,
+      email,
+      password,
+      passwordConfirm,
+    } as UserDocument);
+
     res.status(201).json({ status: 'success', data: { user: newUser } });
   }
 );
