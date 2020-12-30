@@ -4,6 +4,12 @@ import { Request, Response, NextFunction } from 'express';
 import { HttpException } from '@codebase/shared/exceptions';
 import { environment } from '@codebase/shared/environments';
 
+const handleJwtError = (err) =>
+  new HttpException(`Invalid token. Please log in again.`, 401); // UNAUTHORIZED
+
+const handleJwtExpiredError = (err) =>
+  new HttpException(`Token expired. Please log in again.`, 401); // UNAUTHORIZED
+
 const handleCastErrorDB = (err) => {
   const message = `Invalid ${err.path}: ${err.value}.`;
   return new HttpException(message, 400);
@@ -63,6 +69,8 @@ export const errorMiddleware = (
     if (name === 'CastError') error = handleCastErrorDB(error);
     if (name === 'ValidationError') error = handleValidationErrorDB(error);
     if (code === 11000) error = handleDuplicateFieldsDB(error);
+    if (code === 'JsonWebTokenError') error = handleJwtError(error);
+    if (code === 'TokenExpiredError') error = handleJwtExpiredError(error);
 
     sendErrorProd(error, res); // PRODUCTION, SEND FILTERED ERRORS
   }

@@ -23,7 +23,6 @@ app.use(express.json());
 
 app.use((req: Request, res: Response, next: NextFunction) => {
   req.requestTime = new Date().toISOString();
-  console.log('req.headers', req.headers);
   next();
 });
 
