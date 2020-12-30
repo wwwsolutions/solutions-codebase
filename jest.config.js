@@ -12,7 +12,6 @@ module.exports = {
     '<rootDir>/libs/natoursapi/controllers',
     '<rootDir>/libs/natoursapi/modules',
     '<rootDir>/libs/natoursapi/routes',
-    '<rootDir>/libs/natoursapi/schemas',
     '<rootDir>/libs/natoursapi/services',
     '<rootDir>/libs/natoursapi/fake-data',
     '<rootDir>/libs/shared/environments',
