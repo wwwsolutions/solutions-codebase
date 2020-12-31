@@ -20,6 +20,7 @@ export interface UserDocument extends Document, CorrectPassword {
   photo?: string;
   password: string;
   passwordConfirm?: string;
+  role: string;
 }
 
 export const userSchema: Schema = new Schema(
@@ -41,6 +42,11 @@ export const userSchema: Schema = new Schema(
     photo: {
       type: String,
       index: true,
+    },
+    role: {
+      type: String,
+      enum: ['user', 'guide', 'lead-guide', 'admin'],
+      default: 'user',
     },
     password: {
       type: String,

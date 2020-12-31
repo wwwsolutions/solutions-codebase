@@ -5,7 +5,7 @@ import { plugin, set, connect } from 'mongoose';
 import { environment } from '@codebase/shared/environments';
 
 // https://stackoverflow.com/questions/50011091/how-to-create-item-if-not-exists-and-return-an-error-if-exists
-set('debug', true);
+// set('debug', true);
 // mongoose.Promise = global.Promise;
 
 // HANDLE GLOBAL EXCEPTIONS

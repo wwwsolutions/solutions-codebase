@@ -10,6 +10,29 @@ import { HttpException } from '@codebase/shared/exceptions';
 
 const app: Application = express();
 
+// declare global {
+//   namespace Express {
+//     interface Request {
+//       token: any;
+//       requestTime: any;
+//       user?: any;
+//     }
+
+//     interface Response {
+//       token: any;
+//       requestTime: any;
+//     }
+
+//     // interface AuthenticatedRequest extends Request {
+//     //   user: any;
+//     // }
+
+//     // interface UnauthenticatedRequest extends Request {
+//     //   user?: undefined;
+//     // }
+//   }
+// }
+
 if (!environment.production) {
   app.use(morgan('dev'));
 }

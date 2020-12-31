@@ -1,15 +1,18 @@
 // Extend Express Request and Response : Typescript Declaration Merging
 // https://stackoverflow.com/questions/37377731/extend-express-request-object-using-typescript
-// https://truetocode.com/extend-express-request-and-response-typescript-declaration-merging/
+// https://dev.to/kwabenberko/extend-express-s-request-object-with-typescript-declaration-merging-1nn5
+// https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/passport/index.d.ts
 
 declare namespace Express {
-  export interface Request {
+  interface Request {
     token: any;
     requestTime: any;
+    user: any;
   }
 
-  export interface Response {
+  interface Response {
     token: any;
     requestTime: any;
+    user?: any;
   }
 }
