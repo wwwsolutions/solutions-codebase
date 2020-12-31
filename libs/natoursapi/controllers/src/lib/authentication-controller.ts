@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-namespace */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { promisify } from 'util';
@@ -7,6 +8,7 @@ import jwt from 'jsonwebtoken';
 import { User, UserDocument } from '@codebase/natoursapi/models';
 import { HttpException } from '@codebase/shared/exceptions';
 import { environment } from '@codebase/shared/environments';
+
 interface JsonWebToken {
   id: string;
   iat: Date;
@@ -67,47 +69,112 @@ export const login = catchAsync(
 
 export const protect = catchAsync(
   async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    //   const authorization = <string>req.headers.authorization;
+
+    //   // GET TOKEN AND
+    //   const token =
+    //     authorization && authorization.startsWith('Bearer')
+    //       ? authorization.split(' ')[1]
+    //       : null;
+
+    //   // CHECK IF TOKEN EXISTS
+    //   if (!token) {
+    //     return next(
+    //       new HttpException(
+    //         `Your are not logged in! Please log in to gain access.`,
+    //         401
+    //       )
+    //     ); // UNAUTHORIZED
+    //   }
+
+    //   // TOKEN VERIFICATION
+    //   const decoded = (await promisify(jwt.verify)(
+    //     token,
+    //     secret
+    //   )) as JsonWebToken;
+    //   console.log('decoded', decoded);
+
+    //   // CHECK IF USER STILL EXISTS
+    //   const freshUser = (await User.findById(decoded.id)) as UserDocument;
+
+    //   if (!freshUser) {
+    //     return next(
+    //       new HttpException(
+    //         `The user belonging to this token does not longer exist.`,
+    //         401
+    //       )
+    //     ); // UNAUTHORIZED
+    //   }
+
+    //   // CHECK IF USER CHANGED PASSWORD AFTER TOKEN WAS ISSUED
+    //   freshUser.changedPasswordAfter(decoded.iat);
+    //   console.log('freshUser', freshUser);
+
+    //   next();
+
+    // 1) Getting token and check of it's there
+
     const authorization = <string>req.headers.authorization;
+    let token;
+    if (authorization && authorization.startsWith('Bearer')) {
+      token = authorization.split(' ')[1];
+    }
 
-    // GET TOKEN AND
-    const token =
-      authorization && authorization.startsWith('Bearer')
-        ? authorization.split(' ')[1]
-        : null;
-
-    // CHECK IF TOKEN EXISTS
     if (!token) {
       return next(
         new HttpException(
-          `Your are not logged in! Please log in to gain access.`,
+          'You are not logged in! Please log in to get access.',
           401
         )
-      ); // UNAUTHORIZED
+      );
     }
 
-    // TOKEN VERIFICATION
+    // 2) Verification token
     const decoded = (await promisify(jwt.verify)(
       token,
-      secret
+      process.env.JWT_SECRET
     )) as JsonWebToken;
-    console.log('decoded', decoded);
 
-    // CHECK IF USER STILL EXISTS
-    const freshUser = (await User.findById(decoded.id)) as UserDocument;
-
-    if (!freshUser) {
+    // 3) Check if user still exists
+    const currentUser = (await User.findById(decoded.id)) as UserDocument;
+    if (!currentUser) {
       return next(
         new HttpException(
-          `The user belonging to this token does not longer exist.`,
+          'The user belonging to this token does no longer exist.',
           401
         )
-      ); // UNAUTHORIZED
+      );
     }
 
-    // CHECK IF USER CHANGED PASSWORD AFTER TOKEN WAS ISSUED
-    freshUser.changedPasswordAfter(decoded.iat);
-    console.log('freshUser', freshUser);
+    // 4) Check if user changed password after the token was issued
+    if (currentUser.changedPasswordAfter(decoded.iat)) {
+      return next(
+        new HttpException(
+          'User recently changed password! Please log in again.',
+          401
+        )
+      );
+    }
 
+    // GRANT ACCESS TO PROTECTED ROUTE
+    req.body.user = currentUser;
+    console.log('req.body.user >>>', req.body.user);
+    // req.user = currentUser;
     next();
   }
 );
+
+export const restrictTo = (...roles) => {
+  return (req: Request, res: Response, next: NextFunction): void => {
+    console.log('restrictTo = req.body.user :::', req.body.user);
+    if (!roles.includes(req.body.user.role)) {
+      return next(
+        new HttpException(
+          `You do not have permission to perform this action.`,
+          403
+        )
+      ); // FORBIDDEN
+    }
+    next();
+  };
+};
