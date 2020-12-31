@@ -11,7 +11,10 @@ interface CorrectPassword {
     userPassword: string
   ): Promise<boolean>;
 }
+
 export interface UserDocument extends Document, CorrectPassword {
+  correctPassword(password: string, userPassword: string): Promise<boolean>;
+  changedPasswordAfter(iat: Date);
   name: string;
   email: string;
   photo?: string;
@@ -29,20 +32,19 @@ export const userSchema: Schema = new Schema(
     },
     email: {
       type: String,
+      required: [true, 'Please provide your email'],
       unique: true,
       lowercase: true,
-      required: [true, "Can't be blank."],
-      validate: [validator.isEmail],
-      index: true,
-    } as any,
+      validate: [validator.isEmail, 'Please provide a valid email'],
+    },
+    // } as any,
     photo: {
       type: String,
       index: true,
     },
     password: {
       type: String,
-      required: [true, "Can't be blank."],
-      index: true,
+      required: [true, 'Please provide a password'],
       minlength: 8,
       select: false,
     },
@@ -57,6 +59,7 @@ export const userSchema: Schema = new Schema(
         message: 'Passwords are not the same!',
       } as any,
     },
+    passwordChangedAt: Date,
   },
   // SCHEMA OPTIONS
   {
@@ -74,6 +77,7 @@ userSchema.pre<UserDocument>('save', async function name(
 
   // GENERATE HASH
   this.password = await bcrypt.hash(this.password, 12);
+
   // DELETE NOW UNNECESSARY FIELD
   this.passwordConfirm = undefined;
 
@@ -81,11 +85,24 @@ userSchema.pre<UserDocument>('save', async function name(
 });
 
 // METHODS
-userSchema.methods.correctPassword = async function name(
+userSchema.methods.correctPassword = async function (
   candidatePassword: string,
   userPassword: string
 ): Promise<boolean> {
   return await bcrypt.compare(candidatePassword, userPassword);
+};
+
+// METHODS
+userSchema.methods.changedPasswordAfter = function (
+  JwtTimestamp: string
+): boolean {
+  if (this.passwordChangedAt) {
+    const changedTimestamp = +this.passwordChangedAt.getTime() / 1000;
+    return +JwtTimestamp < changedTimestamp;
+  }
+
+  // FALSE MEANS NOT CHANGED
+  return false;
 };
 
 // MODEL

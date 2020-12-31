@@ -4,12 +4,6 @@ import { Request, Response, NextFunction } from 'express';
 import { HttpException } from '@codebase/shared/exceptions';
 import { environment } from '@codebase/shared/environments';
 
-const handleJwtError = (err) =>
-  new HttpException(`Invalid token. Please log in again.`, 401); // UNAUTHORIZED
-
-const handleJwtExpiredError = (err) =>
-  new HttpException(`Token expired. Please log in again.`, 401); // UNAUTHORIZED
-
 const handleCastErrorDB = (err) => {
   const message = `Invalid ${err.path}: ${err.value}.`;
   return new HttpException(message, 400);
@@ -30,6 +24,19 @@ const handleValidationErrorDB = (err) => {
   return new HttpException(message, 400);
 };
 
+const handleJwtError = () =>
+  new HttpException(`Invalid token. Please log in again.`, 401); // UNAUTHORIZED
+
+const handleJwtExpiredError = () =>
+  new HttpException(`Token has expired. Please log in again.`, 401); // UNAUTHORIZED
+
+const sendErrorDev = (err: any, res: Response) => {
+  const { statusCode, status, message, stack } = err;
+  const error = err;
+
+  res.status(statusCode).json({ error, status, message, stack });
+};
+
 const sendErrorProd = (err, res: Response): void => {
   const { isOperational, statusCode, status, message } = err;
 
@@ -37,17 +44,14 @@ const sendErrorProd = (err, res: Response): void => {
     res.status(statusCode).json({ status, message }); // OPERATIONAL ERROR, SEND FULL MESSAGE
   } else {
     // TODO: find & use external logging lib
-    console.error('💥 💥 💥 ERROR:', err); // LOG ERROR
-    const status = `error`;
-    const message = `Something went very wrong!`;
-    res.status(500).json({ status, message }); // SEND GENERIC MESSAGE
-  }
-};
+    // LOG ERROR
+    console.error('💥 💥 💥 ERROR:', err);
 
-const sendErrorDev = (err, res: Response) => {
-  const { status, message, stack } = err;
-  const error = err;
-  res.status(err.statusCode).json({ error, status, message, stack });
+    // SEND GENERIC MESSAGE
+    res
+      .status(500)
+      .json({ status: 'error', message: `Something went very wrong!` });
+  }
 };
 
 export const errorMiddleware = (
@@ -56,21 +60,22 @@ export const errorMiddleware = (
   res: Response,
   next: NextFunction
 ): void => {
-  err.statusCode = err.statusCode || 500;
-  err.status = err.status || 'error';
+  const { isOperational, statusCode, status, message } = err;
+  err.statusCode = statusCode || 500;
+  err.status = status || 'error';
 
   if (!environment.production) {
     sendErrorDev(err, res); // DEVELOPMENT, SEND UNFILTERED ERRORS
   } else {
     let error = { ...err };
-    const { name, code } = error;
 
     // FILTER AND HANDLE ERRORS
-    if (name === 'CastError') error = handleCastErrorDB(error);
-    if (name === 'ValidationError') error = handleValidationErrorDB(error);
-    if (code === 11000) error = handleDuplicateFieldsDB(error);
-    if (code === 'JsonWebTokenError') error = handleJwtError(error);
-    if (code === 'TokenExpiredError') error = handleJwtExpiredError(error);
+    if (error.code === 11000) error = handleDuplicateFieldsDB(error);
+    if (error.name === 'CastError') error = handleCastErrorDB(error);
+    if (error.name === 'ValidationError')
+      error = handleValidationErrorDB(error);
+    if (error.code === 'JsonWebTokenError') error = handleJwtError();
+    if (error.code === 'TokenExpiredError') error = handleJwtExpiredError();
 
     sendErrorProd(error, res); // PRODUCTION, SEND FILTERED ERRORS
   }
