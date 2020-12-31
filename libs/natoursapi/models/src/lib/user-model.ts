@@ -18,9 +18,9 @@ export interface UserDocument extends Document, CorrectPassword {
   name: string;
   email: string;
   photo?: string;
+  role: string;
   password: string;
   passwordConfirm?: string;
-  role: string;
 }
 
 export const userSchema: Schema = new Schema(
