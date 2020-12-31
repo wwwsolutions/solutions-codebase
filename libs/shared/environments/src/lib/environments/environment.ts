@@ -3,7 +3,7 @@ export const environment = {
   production: false,
   jwt: {
     secret: 'Unique-String-AtLeast-32-Characters-Long',
-    expiresIn: '3s',
+    expiresIn: '90d',
   },
   apiPort: 4001,
   mongoConfig: {

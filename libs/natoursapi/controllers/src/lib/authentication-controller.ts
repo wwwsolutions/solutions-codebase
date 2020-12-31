@@ -3,10 +3,15 @@
 import { promisify } from 'util';
 import { Request, Response, NextFunction } from 'express';
 import { catchAsync } from '@codebase/natoursapi/utils';
-import * as jwt from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 import { User, UserDocument } from '@codebase/natoursapi/models';
 import { HttpException } from '@codebase/shared/exceptions';
 import { environment } from '@codebase/shared/environments';
+interface JsonWebToken {
+  id: string;
+  iat: Date;
+  exp: Date;
+}
 
 const { secret, expiresIn } = environment.jwt;
 
@@ -15,11 +20,7 @@ const signToken = (id) => {
 };
 
 export const signup = catchAsync(
-  async (
-    req: Request,
-    res: Response
-    // next: NextFunction
-  ): Promise<void> => {
+  async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     const { name, email, password, passwordConfirm } = req.body;
 
     const newUser = await User.create({
@@ -29,7 +30,6 @@ export const signup = catchAsync(
       passwordConfirm,
     } as UserDocument);
 
-    // const token = jwt.sign({ id: newUser._id }, secret, { expiresIn });
     const token = signToken(newUser._id);
 
     res.status(201).json({ status: 'success', token, data: { user: newUser } });
@@ -39,7 +39,6 @@ export const signup = catchAsync(
 export const login = catchAsync(
   async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     const { email, password } = req.body;
-    const { secret, expiresIn } = environment.jwt;
 
     // CHECK BODY ::: THERE IS NO email OR NO password IN REQ.BODY?
     if (!email || !password) {
@@ -87,13 +86,27 @@ export const protect = catchAsync(
     }
 
     // TOKEN VERIFICATION
-    const decoded = await promisify(jwt.verify)(token, secret);
-
+    const decoded = (await promisify(jwt.verify)(
+      token,
+      secret
+    )) as JsonWebToken;
     console.log('decoded', decoded);
 
     // CHECK IF USER STILL EXISTS
+    const freshUser = (await User.findById(decoded.id)) as UserDocument;
+
+    if (!freshUser) {
+      return next(
+        new HttpException(
+          `The user belonging to this token does not longer exist.`,
+          401
+        )
+      ); // UNAUTHORIZED
+    }
 
     // CHECK IF USER CHANGED PASSWORD AFTER TOKEN WAS ISSUED
+    freshUser.changedPasswordAfter(decoded.iat);
+    console.log('freshUser', freshUser);
 
     next();
   }
