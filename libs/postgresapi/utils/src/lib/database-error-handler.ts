@@ -3,6 +3,7 @@
 import { Response } from 'express';
 const hri = require('human-readable-ids').hri;
 
+// TODO: refactor: make it generic
 export function databaseErrorHandler(res: Response, err: any) {
   const id = hri.random();
   console.log('Database error ocurred', id, err);
