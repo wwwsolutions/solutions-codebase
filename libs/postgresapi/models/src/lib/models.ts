@@ -16,6 +16,6 @@ export const LessonModel = initLessonModel(sequelize);
 
 // RELATIONSHIPS
 
-// BIDIRECTIONAL RELATIONSHIP DEFINITION [one to many]
+// BIDIRECTIONAL RELATIONSHIP DEFINITION [one to many ]
 CourseModel.hasMany(LessonModel, { foreignKey: 'courseId' });
 LessonModel.belongsTo(CourseModel, { foreignKey: 'courseId' });

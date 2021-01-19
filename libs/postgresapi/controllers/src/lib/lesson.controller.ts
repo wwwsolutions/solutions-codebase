@@ -12,14 +12,11 @@ import {
   deleteLesson,
 } from '@codebase/postgresapi/queries';
 
-export const deleteLessonController = (req: Request, res: Response) => {
-  const { id } = req.params;
-  const lessonId = parseInt(id);
-
-  deleteLesson(lessonId)
+export const createLessonController = (req: Request, res: Response) => {
+  createLesson(req.body)
     .then(partial(onSuccess, [res]))
     .catch(partial(databaseErrorHandler, [res]))
-    .catch(partial(onError, [res, 'Could not delete lesson.']));
+    .catch(partial(onError, [res, 'Could not create lesson.']));
 };
 
 export const updateLessonController = (req: Request, res: Response) => {
@@ -32,9 +29,12 @@ export const updateLessonController = (req: Request, res: Response) => {
     .catch(partial(onError, [res, 'Could not update lesson.']));
 };
 
-export const createLessonController = (req: Request, res: Response) => {
-  createLesson(req.body)
+export const deleteLessonController = (req: Request, res: Response) => {
+  const { id } = req.params;
+  const lessonId = parseInt(id);
+
+  deleteLesson(lessonId)
     .then(partial(onSuccess, [res]))
     .catch(partial(databaseErrorHandler, [res]))
-    .catch(partial(onError, [res, 'Could not create lesson.']));
+    .catch(partial(onError, [res, 'Could not delete lesson.']));
 };
