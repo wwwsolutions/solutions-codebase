@@ -1,8 +1,8 @@
 import {
   CourseModel,
-  CourseSummary,
   createCourseSummaries,
 } from '@codebase/postgresapi/models';
+import { CourseSummary } from '@codebase/shared/data-access-models';
 
 // https://www.zleptnig.com/blog/the-power-of-bluebirds-promise-map
 // https://itnext.io/bluebirds-bad-practice-docs-f9cc94b1af9
