@@ -7,15 +7,11 @@ import {
 } from '@codebase/postgresapi/queries';
 import { onError, onSuccess } from '@codebase/postgresapi/utils';
 
-export const getCoursesController = ({
-  req,
-  res,
-  next,
-}: {
-  req: Request;
-  res: Response;
-  next: NextFunction;
-}): void => {
+export const getCoursesController = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): void => {
   findAllCourses()
     .then(partial(onSuccess, [res]))
     .catch(
@@ -30,7 +26,7 @@ export const getCourseDetailController = (
   req: Request,
   res: Response,
   next: NextFunction
-) => {
+): void => {
   const { id } = req.params;
   const courseId = parseInt(id);
 
