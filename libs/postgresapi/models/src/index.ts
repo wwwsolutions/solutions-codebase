@@ -1,4 +1,4 @@
-export * from './lib/init-course-model';
-export * from './lib/init-lesson-model';
-
 export * from './lib/models';
+
+export * from './lib/course.model';
+export * from './lib/lesson.model';

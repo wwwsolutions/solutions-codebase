@@ -25,7 +25,7 @@ app.all('*', (req: Request, res: Response, next: NextFunction): void => {
   next(new HttpException(`Can't find ${req.originalUrl} on this server!`, 404));
 });
 
-// ERROR HANDLING MIDDLEWARE
+// GLOBAL ERROR HANDLER
 app.use(errorMiddleware);
 
 export default app;

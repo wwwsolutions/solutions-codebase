@@ -1,23 +1,18 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response } from 'express';
 import { partial } from 'ramda';
-import {
-  createLesson,
-  updateLesson,
-  deleteLesson,
-} from '@codebase/postgresapi/queries';
+
 import {
   onError,
   onSuccess,
   databaseErrorHandler,
 } from '@codebase/postgresapi/utils';
+import {
+  createLesson,
+  updateLesson,
+  deleteLesson,
+} from '@codebase/postgresapi/queries';
 
-export const deleteLessonController = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const deleteLessonController = (req: Request, res: Response) => {
   const { id } = req.params;
   const lessonId = parseInt(id);
 
@@ -27,11 +22,7 @@ export const deleteLessonController = (
     .catch(partial(onError, [res, 'Could not delete lesson.']));
 };
 
-export const updateLessonController = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const updateLessonController = (req: Request, res: Response) => {
   const { id } = req.params;
   const lessonId = parseInt(id);
 
@@ -41,11 +32,7 @@ export const updateLessonController = (
     .catch(partial(onError, [res, 'Could not update lesson.']));
 };
 
-export const createLessonController = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const createLessonController = (req: Request, res: Response) => {
   createLesson(req.body)
     .then(partial(onSuccess, [res]))
     .catch(partial(databaseErrorHandler, [res]))
