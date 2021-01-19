@@ -106,12 +106,6 @@
     "postgresapi-routes": {
       "tags": []
     },
-    "postgresapi-schemas": {
-      "tags": []
-    },
-    "postgresapi-services": {
-      "tags": []
-    },
     "postgresapi-utils": {
       "tags": []
     },

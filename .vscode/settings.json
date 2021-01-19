@@ -3,8 +3,5 @@
     "activityBar.background": "#f06a20",
     "titleBar.activeBackground": "#d03a20",
     "titleBar.activeForeground": "#F9FBFE"
-  },
-  "cSpell.words": [
-    "todoreactapp"
-  ]
+  }
 }
