@@ -94,9 +94,6 @@
       "@codebase/postgresapi/schemas": [
         "libs/postgresapi/schemas/src/index.ts"
       ],
-      "@codebase/postgresapi/services": [
-        "libs/postgresapi/services/src/index.ts"
-      ],
       "@codebase/postgresapi/utils": [
         "libs/postgresapi/utils/src/index.ts"
       ],
