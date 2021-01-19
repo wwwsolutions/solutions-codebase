@@ -1,15 +1,16 @@
 import { Request, Response } from 'express';
 import { partial } from 'ramda';
-import {
-  createLesson,
-  updateLesson,
-  deleteLesson,
-} from '@codebase/postgresapi/queries';
+
 import {
   onError,
   onSuccess,
   databaseErrorHandler,
 } from '@codebase/postgresapi/utils';
+import {
+  createLesson,
+  updateLesson,
+  deleteLesson,
+} from '@codebase/postgresapi/queries';
 
 export const deleteLessonController = (req: Request, res: Response) => {
   const { id } = req.params;
