@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response } from 'express';
 import { partial } from 'ramda';
 import {
   findAllCourses,
@@ -7,11 +6,7 @@ import {
 } from '@codebase/postgresapi/queries';
 import { onError, onSuccess } from '@codebase/postgresapi/utils';
 
-export const getCoursesController = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-): void => {
+export const getCoursesController = (req: Request, res: Response): void => {
   findAllCourses()
     .then(partial(onSuccess, [res]))
     .catch(
@@ -24,8 +19,7 @@ export const getCoursesController = (
 
 export const getCourseDetailController = (
   req: Request,
-  res: Response,
-  next: NextFunction
+  res: Response
 ): void => {
   const { id } = req.params;
   const courseId = parseInt(id);
