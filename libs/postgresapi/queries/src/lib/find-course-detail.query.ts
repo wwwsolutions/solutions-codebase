@@ -1,11 +1,7 @@
 import { CourseModel, LessonModel } from '@codebase/postgresapi/models';
 
-export function findCourseDetail(id: number) {
-  return CourseModel.findByPk(id, {
-    include: [
-      {
-        model: LessonModel,
-      },
-    ],
+export function findCourseDetail(courseId: number) {
+  return CourseModel.findByPk(courseId, {
+    include: [{ model: LessonModel }], // DEFINE JOINT
   });
 }
