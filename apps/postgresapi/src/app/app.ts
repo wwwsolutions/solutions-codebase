@@ -22,6 +22,8 @@ app.use('/api/v1/lessons', lessonRouter);
 
 // Default route handler, in case of all routes unresolved. Always last
 app.all('*', (req: Request, res: Response, next: NextFunction): void => {
+  console.log(':::req.originalUrl::: ', req.originalUrl);
+
   next(new HttpException(`Can't find ${req.originalUrl} on this server!`, 404));
 });
 

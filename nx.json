@@ -100,9 +100,6 @@
     "postgresapi-controllers": {
       "tags": []
     },
-    "postgresapi-fake-data": {
-      "tags": []
-    },
     "postgresapi-middleware": {
       "tags": []
     },

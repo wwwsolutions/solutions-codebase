@@ -7,8 +7,6 @@ import {
 } from '@codebase/postgresapi/queries';
 import { onError, onSuccess } from '@codebase/postgresapi/utils';
 
-// TODO: refactor: use async await useCatchAsync util fn
-
 export const getCoursesController = ({
   req,
   res,

@@ -13,8 +13,6 @@ import {
   databaseErrorHandler,
 } from '@codebase/postgresapi/utils';
 
-// TODO: refactor: use async await useCatchAsync util fn
-
 export const deleteLessonController = (
   req: Request,
   res: Response,

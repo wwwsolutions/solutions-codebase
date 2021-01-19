@@ -10,3 +10,8 @@
 [MongoDB](#anchor)
 
 TODO list.
+
+## CURRENT STATUS
+
+> 19 Serving Files Statically
+

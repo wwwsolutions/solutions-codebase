@@ -10,5 +10,7 @@ import {
 import Bluebird from 'bluebird';
 
 export function findAllCourses(): Bluebird<CourseSummary[]> {
-  return CourseModel.findAll({ order: [`seqNo`] }).then(createCourseSummaries);
+  return CourseModel.findAll({ order: [`seqNo`] }).then(
+    createCourseSummaries
+  ) as Bluebird<CourseSummary[]>;
 }
