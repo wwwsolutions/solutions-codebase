@@ -1,14 +1,9 @@
 {
   "npmScope": "codebase",
-  "affected": {
-    "defaultBase": "master"
-  },
+  "affected": { "defaultBase": "master" },
   "implicitDependencies": {
     "workspace.json": "*",
-    "package.json": {
-      "dependencies": "*",
-      "devDependencies": "*"
-    },
+    "package.json": { "dependencies": "*", "devDependencies": "*" },
     "tsconfig.base.json": "*",
     "tslint.json": "*",
     ".eslintrc.json": "*",
@@ -17,100 +12,45 @@
   "tasksRunnerOptions": {
     "default": {
       "runner": "@nrwl/workspace/tasks-runners/default",
-      "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e"]
-      }
+      "options": { "cacheableOperations": ["build", "lint", "test", "e2e"] }
     }
   },
   "projects": {
-    "shared-styles": {
-      "tags": []
-    },
-    "shared-assets": {
-      "tags": []
-    },
+    "shared-styles": { "tags": [] },
+    "shared-assets": { "tags": [] },
     "todomongoapi": {
       "tags": [],
       "implicitDependencies": ["shared-data-access-models"]
     },
-    "todomongoapi-controllers": {
-      "tags": []
-    },
-    "todomongoapi-modules": {
-      "tags": []
-    },
-    "todomongoapi-routes": {
-      "tags": []
-    },
-    "shared-data-access-models": {
-      "tags": []
-    },
-    "todomongoapi-services": {
-      "tags": []
-    },
-    "todomongoapi-schemas": {
-      "tags": []
-    },
-    "natoursapi": {
-      "tags": []
-    },
-    "natoursapi-controllers": {
-      "tags": []
-    },
-    "natoursapi-modules": {
-      "tags": []
-    },
-    "natoursapi-routes": {
-      "tags": []
-    },
-    "natoursapi-services": {
-      "tags": []
-    },
-    "natoursapi-fake-data": {
-      "tags": []
-    },
-    "shared-environments": {
-      "tags": []
-    },
-    "natoursapi-models": {
-      "tags": []
-    },
-    "natoursapi-utils": {
-      "tags": []
-    },
-    "shared-exceptions": {
-      "tags": []
-    },
-    "natoursapi-middleware": {
-      "tags": []
-    },
-    "postgresapi": {
-      "tags": []
-    },
-    "postgresapi-models": {
-      "tags": []
-    },
-    "postgresapi-controllers": {
-      "tags": []
-    },
-    "postgresapi-middleware": {
-      "tags": []
-    },
-    "postgresapi-routes": {
-      "tags": []
-    },
-    "postgresapi-utils": {
-      "tags": []
-    },
-    "postgresapi-queries": {
-      "tags": []
-    },
-    "postgres-ng-app": {
-      "tags": []
-    },
+    "todomongoapi-controllers": { "tags": [] },
+    "todomongoapi-modules": { "tags": [] },
+    "todomongoapi-routes": { "tags": [] },
+    "shared-data-access-models": { "tags": [] },
+    "todomongoapi-services": { "tags": [] },
+    "todomongoapi-schemas": { "tags": [] },
+    "natoursapi": { "tags": [] },
+    "natoursapi-controllers": { "tags": [] },
+    "natoursapi-modules": { "tags": [] },
+    "natoursapi-routes": { "tags": [] },
+    "natoursapi-services": { "tags": [] },
+    "natoursapi-fake-data": { "tags": [] },
+    "shared-environments": { "tags": [] },
+    "natoursapi-models": { "tags": [] },
+    "natoursapi-utils": { "tags": [] },
+    "shared-exceptions": { "tags": [] },
+    "natoursapi-middleware": { "tags": [] },
+    "postgresapi": { "tags": [] },
+    "postgresapi-models": { "tags": [] },
+    "postgresapi-controllers": { "tags": [] },
+    "postgresapi-middleware": { "tags": [] },
+    "postgresapi-routes": { "tags": [] },
+    "postgresapi-utils": { "tags": [] },
+    "postgresapi-queries": { "tags": [] },
+    "postgres-ng-app": { "tags": [] },
     "postgres-ng-app-e2e": {
       "tags": [],
       "implicitDependencies": ["postgres-ng-app"]
-    }
+    },
+    "postgres-ng-app-ui": { "tags": [] }
   }
 }

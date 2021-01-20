@@ -782,6 +782,32 @@
           }
         }
       }
+    },
+    "postgres-ng-app-ui": {
+      "projectType": "library",
+      "root": "libs/postgres-ng-app/ui",
+      "sourceRoot": "libs/postgres-ng-app/ui/src",
+      "prefix": "codebase",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/postgres-ng-app/ui/tsconfig.lib.json",
+              "libs/postgres-ng-app/ui/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/postgres-ng-app/ui/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/postgres-ng-app/ui"],
+          "options": {
+            "jestConfig": "libs/postgres-ng-app/ui/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {

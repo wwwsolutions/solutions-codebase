@@ -36,10 +36,11 @@
     "update": "nx migrate latest",
     "dep-graph": "nx dep-graph",
     "help": "nx help",
+    "postinstall": "ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points",
     "serve:natoursapi": "run-s generate:environment clean.natoursapi serve.natoursapi",
-    "serve:postgresapi": "run-s generate:environment clean.postgresapi serve.postgresapi",
     "debug:natoursapi": "ndb serve:natoursapi",
-    "postinstall": "ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points"
+    "serve:postgresapi": "run-s generate:environment clean.postgresapi serve.postgresapi",
+    "serve:postgres-ng-app": "nx serve postgres-ng-app"
   },
   "dependencies": {
     "@angular/animations": "^11.0.0",
