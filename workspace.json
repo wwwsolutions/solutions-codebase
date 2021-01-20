@@ -10,9 +10,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/shared/styles/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/shared/styles/**/*.ts"]
           }
         }
       }
@@ -26,9 +24,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/shared/assets/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/shared/assets/**/*.ts"]
           }
         }
       }
@@ -46,9 +42,7 @@
             "outputPath": "dist/apps/todomongoapi",
             "main": "apps/todomongoapi/src/main.ts",
             "tsConfig": "apps/todomongoapi/tsconfig.app.json",
-            "assets": [
-              "apps/todomongoapi/src/assets"
-            ]
+            "assets": ["apps/todomongoapi/src/assets"]
           },
           "configurations": {
             "production": {
@@ -63,9 +57,7 @@
               ]
             }
           },
-          "outputs": [
-            "{options.outputPath}"
-          ]
+          "outputs": ["{options.outputPath}"]
         },
         "serve": {
           "builder": "@nrwl/node:execute",
@@ -76,9 +68,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/todomongoapi/**/*.ts"
-            ]
+            "lintFilePatterns": ["apps/todomongoapi/**/*.ts"]
           }
         },
         "test": {
@@ -87,9 +77,7 @@
             "jestConfig": "apps/todomongoapi/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/apps/todomongoapi"
-          ]
+          "outputs": ["coverage/apps/todomongoapi"]
         }
       }
     },
@@ -102,9 +90,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/todomongoapi/controllers/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/todomongoapi/controllers/**/*.ts"]
           }
         },
         "test": {
@@ -113,9 +99,7 @@
             "jestConfig": "libs/todomongoapi/controllers/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/todomongoapi/controllers"
-          ]
+          "outputs": ["coverage/libs/todomongoapi/controllers"]
         }
       }
     },
@@ -128,9 +112,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/todomongoapi/modules/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/todomongoapi/modules/**/*.ts"]
           }
         },
         "test": {
@@ -139,9 +121,7 @@
             "jestConfig": "libs/todomongoapi/modules/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/todomongoapi/modules"
-          ]
+          "outputs": ["coverage/libs/todomongoapi/modules"]
         }
       }
     },
@@ -154,9 +134,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/todomongoapi/routes/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/todomongoapi/routes/**/*.ts"]
           }
         },
         "test": {
@@ -165,9 +143,7 @@
             "jestConfig": "libs/todomongoapi/routes/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/todomongoapi/routes"
-          ]
+          "outputs": ["coverage/libs/todomongoapi/routes"]
         }
       }
     },
@@ -180,9 +156,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/shared/data-access-models/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/shared/data-access-models/**/*.ts"]
           }
         },
         "test": {
@@ -191,9 +165,7 @@
             "jestConfig": "libs/shared/data-access-models/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/shared/data-access-models"
-          ]
+          "outputs": ["coverage/libs/shared/data-access-models"]
         }
       }
     },
@@ -206,9 +178,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/todomongoapi/services/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/todomongoapi/services/**/*.ts"]
           }
         },
         "test": {
@@ -217,9 +187,7 @@
             "jestConfig": "libs/todomongoapi/services/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/todomongoapi/services"
-          ]
+          "outputs": ["coverage/libs/todomongoapi/services"]
         }
       }
     },
@@ -232,9 +200,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/todomongoapi/schemas/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/todomongoapi/schemas/**/*.ts"]
           }
         },
         "test": {
@@ -243,9 +209,7 @@
             "jestConfig": "libs/todomongoapi/schemas/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/todomongoapi/schemas"
-          ]
+          "outputs": ["coverage/libs/todomongoapi/schemas"]
         }
       }
     },
@@ -280,9 +244,7 @@
               ]
             }
           },
-          "outputs": [
-            "{options.outputPath}"
-          ]
+          "outputs": ["{options.outputPath}"]
         },
         "serve": {
           "builder": "@nrwl/node:execute",
@@ -294,9 +256,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/natoursapi/**/*.ts"
-            ]
+            "lintFilePatterns": ["apps/natoursapi/**/*.ts"]
           }
         },
         "test": {
@@ -305,9 +265,7 @@
             "jestConfig": "apps/natoursapi/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/apps/natoursapi"
-          ]
+          "outputs": ["coverage/apps/natoursapi"]
         }
       }
     },
@@ -320,9 +278,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/natoursapi/controllers/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/natoursapi/controllers/**/*.ts"]
           }
         },
         "test": {
@@ -331,9 +287,7 @@
             "jestConfig": "libs/natoursapi/controllers/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/natoursapi/controllers"
-          ]
+          "outputs": ["coverage/libs/natoursapi/controllers"]
         }
       }
     },
@@ -346,9 +300,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/natoursapi/modules/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/natoursapi/modules/**/*.ts"]
           }
         },
         "test": {
@@ -357,9 +309,7 @@
             "jestConfig": "libs/natoursapi/modules/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/natoursapi/modules"
-          ]
+          "outputs": ["coverage/libs/natoursapi/modules"]
         }
       }
     },
@@ -372,9 +322,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/natoursapi/routes/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/natoursapi/routes/**/*.ts"]
           }
         },
         "test": {
@@ -383,9 +331,7 @@
             "jestConfig": "libs/natoursapi/routes/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/natoursapi/routes"
-          ]
+          "outputs": ["coverage/libs/natoursapi/routes"]
         }
       }
     },
@@ -398,9 +344,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/natoursapi/services/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/natoursapi/services/**/*.ts"]
           }
         },
         "test": {
@@ -409,9 +353,7 @@
             "jestConfig": "libs/natoursapi/services/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/natoursapi/services"
-          ]
+          "outputs": ["coverage/libs/natoursapi/services"]
         }
       }
     },
@@ -424,9 +366,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/natoursapi/fake-data/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/natoursapi/fake-data/**/*.ts"]
           }
         },
         "test": {
@@ -435,9 +375,7 @@
             "jestConfig": "libs/natoursapi/fake-data/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/natoursapi/fake-data"
-          ]
+          "outputs": ["coverage/libs/natoursapi/fake-data"]
         }
       }
     },
@@ -450,9 +388,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/shared/environments/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/shared/environments/**/*.ts"]
           }
         },
         "test": {
@@ -461,9 +397,7 @@
             "jestConfig": "libs/shared/environments/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/shared/environments"
-          ]
+          "outputs": ["coverage/libs/shared/environments"]
         }
       }
     },
@@ -476,9 +410,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/natoursapi/models/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/natoursapi/models/**/*.ts"]
           }
         },
         "test": {
@@ -487,9 +419,7 @@
             "jestConfig": "libs/natoursapi/models/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/natoursapi/models"
-          ]
+          "outputs": ["coverage/libs/natoursapi/models"]
         }
       }
     },
@@ -502,9 +432,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/natoursapi/utils/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/natoursapi/utils/**/*.ts"]
           }
         },
         "test": {
@@ -513,9 +441,7 @@
             "jestConfig": "libs/natoursapi/utils/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/natoursapi/utils"
-          ]
+          "outputs": ["coverage/libs/natoursapi/utils"]
         }
       }
     },
@@ -528,9 +454,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/shared/exceptions/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/shared/exceptions/**/*.ts"]
           }
         }
       }
@@ -544,9 +468,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/natoursapi/middleware/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/natoursapi/middleware/**/*.ts"]
           }
         },
         "test": {
@@ -555,9 +477,7 @@
             "jestConfig": "libs/natoursapi/middleware/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/natoursapi/middleware"
-          ]
+          "outputs": ["coverage/libs/natoursapi/middleware"]
         }
       }
     },
@@ -574,9 +494,7 @@
             "outputPath": "dist/apps/postgresapi",
             "main": "apps/postgresapi/src/main.ts",
             "tsConfig": "apps/postgresapi/tsconfig.app.json",
-            "assets": [
-              "apps/postgresapi/src/assets"
-            ]
+            "assets": ["apps/postgresapi/src/assets"]
           },
           "configurations": {
             "production": {
@@ -591,9 +509,7 @@
               ]
             }
           },
-          "outputs": [
-            "{options.outputPath}"
-          ]
+          "outputs": ["{options.outputPath}"]
         },
         "serve": {
           "builder": "@nrwl/node:execute",
@@ -604,9 +520,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/postgresapi/**/*.ts"
-            ]
+            "lintFilePatterns": ["apps/postgresapi/**/*.ts"]
           }
         },
         "test": {
@@ -615,9 +529,7 @@
             "jestConfig": "apps/postgresapi/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/apps/postgresapi"
-          ]
+          "outputs": ["coverage/apps/postgresapi"]
         }
       }
     },
@@ -630,9 +542,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/postgresapi/models/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/postgresapi/models/**/*.ts"]
           }
         },
         "test": {
@@ -641,9 +551,7 @@
             "jestConfig": "libs/postgresapi/models/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/postgresapi/models"
-          ]
+          "outputs": ["coverage/libs/postgresapi/models"]
         }
       }
     },
@@ -656,9 +564,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/postgresapi/controllers/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/postgresapi/controllers/**/*.ts"]
           }
         },
         "test": {
@@ -667,9 +573,7 @@
             "jestConfig": "libs/postgresapi/controllers/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/postgresapi/controllers"
-          ]
+          "outputs": ["coverage/libs/postgresapi/controllers"]
         }
       }
     },
@@ -682,9 +586,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/postgresapi/middleware/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/postgresapi/middleware/**/*.ts"]
           }
         },
         "test": {
@@ -693,9 +595,7 @@
             "jestConfig": "libs/postgresapi/middleware/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/postgresapi/middleware"
-          ]
+          "outputs": ["coverage/libs/postgresapi/middleware"]
         }
       }
     },
@@ -708,9 +608,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/postgresapi/routes/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/postgresapi/routes/**/*.ts"]
           }
         },
         "test": {
@@ -719,9 +617,7 @@
             "jestConfig": "libs/postgresapi/routes/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/postgresapi/routes"
-          ]
+          "outputs": ["coverage/libs/postgresapi/routes"]
         }
       }
     },
@@ -734,9 +630,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/postgresapi/utils/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/postgresapi/utils/**/*.ts"]
           }
         },
         "test": {
@@ -745,9 +639,7 @@
             "jestConfig": "libs/postgresapi/utils/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/postgresapi/utils"
-          ]
+          "outputs": ["coverage/libs/postgresapi/utils"]
         }
       }
     },
@@ -760,9 +652,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/postgresapi/queries/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/postgresapi/queries/**/*.ts"]
           }
         },
         "test": {
@@ -771,9 +661,125 @@
             "jestConfig": "libs/postgresapi/queries/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": [
-            "coverage/libs/postgresapi/queries"
-          ]
+          "outputs": ["coverage/libs/postgresapi/queries"]
+        }
+      }
+    },
+    "postgres-ng-app": {
+      "projectType": "application",
+      "root": "apps/postgres-ng-app",
+      "sourceRoot": "apps/postgres-ng-app/src",
+      "prefix": "codebase",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/postgres-ng-app",
+            "index": "apps/postgres-ng-app/src/index.html",
+            "main": "apps/postgres-ng-app/src/main.ts",
+            "polyfills": "apps/postgres-ng-app/src/polyfills.ts",
+            "tsConfig": "apps/postgres-ng-app/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/postgres-ng-app/src/favicon.ico",
+              "apps/postgres-ng-app/src/assets"
+            ],
+            "styles": ["apps/postgres-ng-app/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/postgres-ng-app/src/environments/environment.ts",
+                  "with": "apps/postgres-ng-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "postgres-ng-app:build",
+            "proxyConfig": "apps/postgres-ng-app/proxy.conf.json"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "postgres-ng-app:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "postgres-ng-app:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/postgres-ng-app/tsconfig.app.json",
+              "apps/postgres-ng-app/tsconfig.spec.json",
+              "apps/postgres-ng-app/tsconfig.editor.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/postgres-ng-app/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/postgres-ng-app"],
+          "options": {
+            "jestConfig": "apps/postgres-ng-app/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "postgres-ng-app-e2e": {
+      "root": "apps/postgres-ng-app-e2e",
+      "sourceRoot": "apps/postgres-ng-app-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/postgres-ng-app-e2e/cypress.json",
+            "tsConfig": "apps/postgres-ng-app-e2e/tsconfig.e2e.json",
+            "devServerTarget": "postgres-ng-app:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "postgres-ng-app:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["apps/postgres-ng-app-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/postgres-ng-app-e2e/**/*"]
+          }
         }
       }
     }
@@ -781,5 +787,17 @@
   "cli": {
     "defaultCollection": "@nrwl/web"
   },
-  "defaultProject": "natoursapi"
+  "defaultProject": "natoursapi",
+  "schematics": {
+    "@nrwl/angular:application": {
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "unitTestRunner": "jest"
+    },
+    "@nrwl/angular:component": {
+      "style": "scss"
+    }
+  }
 }

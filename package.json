@@ -38,9 +38,18 @@
     "help": "nx help",
     "serve:natoursapi": "run-s generate:environment clean.natoursapi serve.natoursapi",
     "serve:postgresapi": "run-s generate:environment clean.postgresapi serve.postgresapi",
-    "debug:natoursapi": "ndb serve:natoursapi"
+    "debug:natoursapi": "ndb serve:natoursapi",
+    "postinstall": "ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points"
   },
   "dependencies": {
+    "@angular/animations": "^11.0.0",
+    "@angular/common": "^11.0.0",
+    "@angular/compiler": "^11.0.0",
+    "@angular/core": "^11.0.0",
+    "@angular/forms": "^11.0.0",
+    "@angular/platform-browser": "^11.0.0",
+    "@angular/platform-browser-dynamic": "^11.0.0",
+    "@angular/router": "^11.0.0",
     "@fortawesome/fontawesome-free": "^5.15.1",
     "bcryptjs": "^2.4.3",
     "bluebird": "^3.7.2",
@@ -62,9 +71,14 @@
     "sequelize": "^6.3.5",
     "slugify": "^1.4.6",
     "tslib": "^2.0.0",
-    "validator": "^13.5.2"
+    "validator": "^13.5.2",
+    "zone.js": "^0.10.2"
   },
   "devDependencies": {
+    "@angular-devkit/build-angular": "~0.1100.1",
+    "@angular/compiler-cli": "^11.0.0",
+    "@angular/language-service": "^11.0.0",
+    "@nrwl/angular": "^11.1.5",
     "@nrwl/cli": "11.1.5",
     "@nrwl/cypress": "11.1.5",
     "@nrwl/eslint-plugin-nx": "11.1.5",
@@ -85,6 +99,7 @@
     "@types/validator": "^13.1.1",
     "@typescript-eslint/eslint-plugin": "4.3.0",
     "@typescript-eslint/parser": "4.3.0",
+    "codelyzer": "^6.0.0",
     "colors": "^1.4.0",
     "concurrently": "^5.3.0",
     "cypress": "^6.0.1",
@@ -94,6 +109,7 @@
     "eslint-config-prettier": "6.0.0",
     "eslint-plugin-cypress": "^2.10.3",
     "jest": "^26.6.3",
+    "jest-preset-angular": "8.3.1",
     "ndb": "^1.1.5",
     "node-sass": "^5.0.0",
     "npm-run-all": "^4.1.5",
