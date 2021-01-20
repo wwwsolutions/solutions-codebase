@@ -15,9 +15,7 @@ export class CoursesService {
 
   // https://stackoverflow.com/questions/46005430/property-json-does-not-exist-on-type-object
   loadCourseDetail(courseId: number): Observable<CourseDetail> {
-    return this.http
-      .get<CourseDetail>(`/api/v1/courses/${courseId}`)
-      .pipe(map((res) => res));
+    return this.http.get<CourseDetail>(`/api/v1/courses/${courseId}`);
   }
 
   // this.httpService.postWithHeadersInResponse(URI_LOGIN, credentials)

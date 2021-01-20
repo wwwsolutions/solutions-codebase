@@ -12,7 +12,8 @@ export class AppComponent implements OnInit {
   constructor(private coursesService: CoursesService) {}
 
   ngOnInit() {
-    const result = this.coursesService.loadCourseDetail(2);
-    console.log(result);
+    this.coursesService
+      .loadCourseDetail(2)
+      .subscribe((data) => console.log(data));
   }
 }
