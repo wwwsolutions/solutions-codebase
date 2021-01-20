@@ -25,7 +25,5 @@ module.exports = {
     '<rootDir>/libs/postgresapi/routes',
     '<rootDir>/libs/postgresapi/utils',
     '<rootDir>/libs/postgresapi/queries',
-    '<rootDir>/apps/postgres-ng-app',
-    '<rootDir>/libs/postgres-ng-app/ui',
   ],
 };
