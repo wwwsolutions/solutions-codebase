@@ -10,6 +10,11 @@ export interface CourseDetail extends CourseSummary {
   lessons: Lesson[];
 }
 
+export interface Data<T> {
+  status: string;
+  payload: T;
+}
+
 function createLessonFromDbModel({
   id,
   url,

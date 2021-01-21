@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+
+import { CourseDetail } from '@codebase/shared/data-access-models';
 
 @Component({
   selector: 'course-detail',
@@ -6,6 +8,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./course-detail.component.scss'],
 })
 export class CourseDetailComponent implements OnInit {
+  @Input()
+  courseDetail: CourseDetail;
+
   constructor() {}
 
   ngOnInit(): void {}

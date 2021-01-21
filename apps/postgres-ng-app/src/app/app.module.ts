@@ -8,11 +8,7 @@ import { CoursesService } from './courses.service';
 
 @NgModule({
   declarations: [AppComponent, CourseDetailComponent],
-  imports: [
-    BrowserModule,
-    // import HttpClientModule after BrowserModule.
-    HttpClientModule,
-  ],
+  imports: [BrowserModule, HttpClientModule],
   providers: [CoursesService],
   bootstrap: [AppComponent],
 })
