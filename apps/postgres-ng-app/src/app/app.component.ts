@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { CoursesService } from './courses.service';
-
+import { Observable } from 'rxjs';
+import { CourseDetail } from '@codebase/shared/data-access-models';
 @Component({
   selector: 'codebase-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  title = 'postgres-ng-app';
+  course$: Observable<CourseDetail>;
 
   constructor(private coursesService: CoursesService) {}
 
-  ngOnInit() {
-    const result = this.coursesService.loadCourseDetail(2);
-    console.log(result);
+  ngOnInit(): void {
+    this.course$ = this.coursesService.loadCourseDetail(1);
   }
 }
