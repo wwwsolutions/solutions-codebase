@@ -21,12 +21,6 @@ export class CoursesService {
   loadCourseDetail(courseId: number): Observable<CourseDetail> {
     return this.http
       .get<Data<CourseDetail>>(`/api/v1/courses/${courseId}`)
-      .pipe(
-        map(
-          (data): CourseDetail => {
-            return data.payload;
-          }
-        )
-      );
+      .pipe(map((data): CourseDetail => data.payload));
   }
 }
