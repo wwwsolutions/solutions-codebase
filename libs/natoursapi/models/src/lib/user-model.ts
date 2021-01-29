@@ -1,10 +1,10 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { NextFunction } from 'express';
 import mongoose, { Document, Schema } from 'mongoose';
 import validator from 'validator';
 import * as bcrypt from 'bcryptjs';
 
+// INTERFACES
+//--------------------------------------------------------------------------------------------------
 interface CorrectPassword {
   correctPassword(
     candidatePassword: string,
@@ -23,6 +23,8 @@ export interface UserDocument extends Document, CorrectPassword {
   passwordConfirm?: string;
 }
 
+// SCHEMA
+//--------------------------------------------------------------------------------------------------
 export const userSchema: Schema = new Schema(
   {
     name: {
@@ -38,7 +40,6 @@ export const userSchema: Schema = new Schema(
       lowercase: true,
       validate: [validator.isEmail, 'Please provide a valid email'],
     },
-    // } as any,
     photo: {
       type: String,
       index: true,
@@ -54,16 +55,16 @@ export const userSchema: Schema = new Schema(
       minlength: 8,
       select: false,
     },
-    passwordConfirm: {
+    passwordConfirm: <unknown>{
       type: String,
       required: [true, `Please confirm your password.`],
       validate: {
-        // it only works on 'create()'  and 'save()'
         validator: function (el) {
+          // it only works on 'create()'  and 'save()'
           return el === this.password;
         },
         message: 'Passwords are not the same!',
-      } as any,
+      },
     },
     passwordChangedAt: Date,
   },
@@ -75,22 +76,26 @@ export const userSchema: Schema = new Schema(
   }
 );
 
-userSchema.pre<UserDocument>('save', async function name(
-  next: NextFunction
-): Promise<void> {
-  // IF PASSWORD HAS NOT BEEN MODIFIED --> EXIT
-  if (!this.isModified('password')) return next();
+// HOOKS
+//--------------------------------------------------------------------------------------------------
+userSchema.pre<UserDocument>(
+  'save',
+  async function name(next: NextFunction): Promise<void> {
+    // IF PASSWORD HAS NOT BEEN MODIFIED --> EXIT
+    if (!this.isModified('password')) return next();
 
-  // GENERATE HASH
-  this.password = await bcrypt.hash(this.password, 12);
+    // GENERATE HASH
+    this.password = await bcrypt.hash(this.password, 12);
 
-  // DELETE NOW UNNECESSARY FIELD
-  this.passwordConfirm = undefined;
+    // DELETE NOW UNNECESSARY FIELD
+    this.passwordConfirm = undefined;
 
-  next();
-});
+    next();
+  }
+);
 
 // METHODS
+//--------------------------------------------------------------------------------------------------
 userSchema.methods.correctPassword = async function (
   candidatePassword: string,
   userPassword: string
@@ -98,7 +103,6 @@ userSchema.methods.correctPassword = async function (
   return await bcrypt.compare(candidatePassword, userPassword);
 };
 
-// METHODS
 userSchema.methods.changedPasswordAfter = function (
   JwtTimestamp: string
 ): boolean {
