@@ -21,8 +21,11 @@ const signToken = (id) => {
   return jwt.sign({ id }, secret, { expiresIn });
 };
 
-export const signup = catchAsync(
-  async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+// @desc    Sign up new user & get token
+// @route   POST /api/users/signup
+// @access  Public
+export const signupController = catchAsync(
+  async (req: Request, res: Response): Promise<void> => {
     const { name, email, password, passwordConfirm } = req.body;
 
     const newUser = await User.create({
@@ -38,7 +41,7 @@ export const signup = catchAsync(
   }
 );
 
-export const login = catchAsync(
+export const loginController = catchAsync(
   async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     const { email, password } = req.body;
 
@@ -113,12 +116,12 @@ export const protect = catchAsync(
     //   next();
 
     // 1) Getting token and check of it's there
-
     const authorization = <string>req.headers.authorization;
-    let token;
-    if (authorization && authorization.startsWith('Bearer')) {
-      token = authorization.split(' ')[1];
-    }
+
+    const token =
+      authorization && authorization.startsWith('Bearer')
+        ? authorization.split(' ')[1]
+        : null;
 
     if (!token) {
       return next(
@@ -130,10 +133,15 @@ export const protect = catchAsync(
     }
 
     // 2) Verification token
-    const decoded = (await promisify(jwt.verify)(
+    const decoded = (await jwt.verify(
       token,
       process.env.JWT_SECRET
-    )) as JsonWebToken;
+    )) as JsonWebToken; // TODO: FIX TYPES
+
+    // const decoded = (await promisify(jwt.verify)(
+    //   token,
+    //   process.env.JWT_SECRET
+    // )) as JsonWebToken;
 
     // 3) Check if user still exists
     const currentUser = (await User.findById(decoded.id)) as UserDocument;

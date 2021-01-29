@@ -1,3 +1,6 @@
+// natoursapi
+export * from './lib/modification-note.interface';
+
 // postgresapi
 export * from './lib/postgresapi/course-detail.interface';
 export * from './lib/postgresapi/course-summary.interface';
