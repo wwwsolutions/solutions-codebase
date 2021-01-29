@@ -18,12 +18,7 @@
     "default": {
       "runner": "@nrwl/workspace/tasks-runners/default",
       "options": {
-        "cacheableOperations": [
-          "build",
-          "lint",
-          "test",
-          "e2e"
-        ]
+        "cacheableOperations": ["build", "lint", "test", "e2e"]
       }
     }
   },
@@ -36,9 +31,7 @@
     },
     "todomongoapi": {
       "tags": [],
-      "implicitDependencies": [
-        "shared-data-access-models"
-      ]
+      "implicitDependencies": ["shared-data-access-models"]
     },
     "todomongoapi-controllers": {
       "tags": []
@@ -100,19 +93,10 @@
     "postgresapi-controllers": {
       "tags": []
     },
-    "postgresapi-fake-data": {
-      "tags": []
-    },
     "postgresapi-middleware": {
       "tags": []
     },
     "postgresapi-routes": {
-      "tags": []
-    },
-    "postgresapi-schemas": {
-      "tags": []
-    },
-    "postgresapi-services": {
       "tags": []
     },
     "postgresapi-utils": {
@@ -120,6 +104,13 @@
     },
     "postgresapi-queries": {
       "tags": []
+    },
+    "postgres-ng-app": {
+      "tags": []
+    },
+    "postgres-ng-app-e2e": {
+      "tags": [],
+      "implicitDependencies": ["postgres-ng-app"]
     }
   }
 }
