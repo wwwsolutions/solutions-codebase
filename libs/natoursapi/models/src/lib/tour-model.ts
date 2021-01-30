@@ -71,8 +71,7 @@ export const tourSchema: Schema = new Schema(
       type: Number,
       validate: {
         validator: function (val) {
-          // CAVEAT: 'this' only points to current doc on NEW document creation
-          return val < this.price;
+          return val < this.price; // CAVEAT: 'this' only points to current doc on NEW document creation
         },
         message: 'Discount price ({VALUE}) should not be below regular price.',
       },

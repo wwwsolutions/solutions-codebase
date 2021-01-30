@@ -20,19 +20,22 @@ export const createTour = catchAsync(
   }
 );
 
-export const getAllTours = catchAsync(
-  async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-    // EXTEND QUERY
+// @desc    Get all tours
+// @route   POST /api/tours
+// @access  Public
+export const getAllToursController = catchAsync(
+  async (req: Request, res: Response): Promise<void> => {
+    // extend query
     const features = new ApiFeatures(Tour.find(), req.query)
       .filter()
       .sort()
       .limitFields()
       .paginate();
 
-    // EXECUTE QUERY
+    // execute query
     const tours = await features.query;
 
-    // SEND RESPONSE
+    // send tours
     res.status(200).json({
       status: 'success',
       results: tours.length,
@@ -41,17 +44,21 @@ export const getAllTours = catchAsync(
   }
 );
 
+// @desc    Get single tour by id
+// @route   POST /api/tours/:id
+// @access  Public
 export const getTour = catchAsync(
   async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     const { id } = req.params;
+
     const tour = await Tour.findById(id);
 
-    // FIXME: if error occurred, it is processed by catchAsync() wrapper function & errorMiddleware
-    // error does not reach this code
+    // no tour?
     if (!tour) {
-      return next(new HttpException('No tour found with that ID', 404));
+      return next(new HttpException('No tour found with that ID', 404)); // NOT FOUND
     }
 
+    // send tour
     res.status(200).json({
       status: 'success',
       data: { tour },
