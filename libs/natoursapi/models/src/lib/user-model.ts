@@ -1,3 +1,4 @@
+import crypto from 'crypto';
 import { NextFunction } from 'express';
 import mongoose, { Document, Schema } from 'mongoose';
 import validator from 'validator';
@@ -15,6 +16,7 @@ interface hasCorrectPassword {
 export interface UserDocument extends Document, hasCorrectPassword {
   hasCorrectPassword(password: string, userPassword: string): Promise<boolean>;
   changedPasswordAfter(iat: Date);
+  createPasswordResetToken();
   name: string;
   email: string;
   photo?: string;
@@ -68,9 +70,9 @@ export const userSchema: Schema = new Schema(
         message: 'Passwords are not the same!',
       },
     },
-    passwordChangedAt: {
-      type: Date,
-    },
+    passwordChangedAt: Date,
+    passwordResetToken: String,
+    passwordResetExpired: Date,
   },
   // SCHEMA OPTIONS
   {
@@ -96,7 +98,7 @@ userSchema.pre<UserDocument>('save', async function name(
   next();
 });
 
-// METHODS
+// INSTANCE METHODS
 //--------------------------------------------------------------------------------------------------
 userSchema.methods.hasCorrectPassword = async function (
   candidatePassword: string,
@@ -109,7 +111,6 @@ userSchema.methods.changedPasswordAfter = function (
   JwtTimestamp: string
 ): boolean {
   console.log('changedTimestamp: ', JwtTimestamp);
-  // FIXME: this.passwordChangedAt:  undefined
   console.log('this.passwordChangedAt: ', this.passwordChangedAt);
 
   if (this.passwordChangedAt) {
@@ -119,6 +120,25 @@ userSchema.methods.changedPasswordAfter = function (
 
   // user has never changed the password
   return false;
+};
+
+userSchema.methods.createPasswordResetToken = function () {
+  // generate reset token
+  const resetToken = crypto.randomBytes(32).toString('hex');
+
+  // store encrypted version of the token into db
+  this.passwordResetToken = crypto
+    .createHash('sha256')
+    .update(resetToken)
+    .digest('hex');
+
+  console.log({ resetToken }, this.passwordResetToken);
+
+  // store token expiration time into db
+  this.passwordResetExpired = Date.now() + 10 * 60 * 1000;
+
+  // return plain text token
+  return resetToken;
 };
 
 // MODEL

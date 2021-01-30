@@ -15,6 +15,14 @@ interface JsonWebToken {
   exp: Date;
 }
 
+// TYPES
+//--------------------------------------------------------------------------------------------------
+type MiddlewareFunction = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => void;
+
 const { secret, expiresIn } = environment.jwt;
 
 // HELPERS
@@ -106,6 +114,51 @@ export const loginController = catchAsync(
   }
 );
 
+// @desc    Send generated reset token to user
+// @route   POST /api/users/forgotPassword
+// @access  Private
+export const forgotPasswordController = catchAsync(
+  async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    // extract email form request body
+    const { email } = req.body;
+
+    // get user based on email
+    const user = await User.findOne({ email });
+
+    console.log('user:', user);
+
+    if (!user) {
+      return next(
+        new HttpException(`There is no user with email address.`, 404)
+      ); // NOT FOUND
+    }
+
+    // // generate random reset token
+    const resetToken = user.createPasswordResetToken();
+
+    // save token / deactivate validators in Schema
+    await user.save({ validateBeforeSave: false });
+
+    // send token to user email
+    // return next();
+
+    // send token to the client
+    res.status(200).json({
+      status: 'success',
+      resetToken,
+    });
+  }
+);
+
+// @desc    Log in user and send a signed token
+// @route   POST /api/users/login
+// @access  Public
+export const resetPasswordController = catchAsync(
+  async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    return next();
+  }
+);
+
 // MIDDLEWARES
 //--------------------------------------------------------------------------------------------------
 export const protect = catchAsync(
@@ -145,11 +198,8 @@ export const protect = catchAsync(
       ); // UNAUTHORIZED
     }
 
-    console.log('iat', iat);
-
     // did user changed the password after the token was issued?
     if (currentUser.changedPasswordAfter(iat)) {
-      // FIXME: userSchema.methods.changedPasswordAfter()
       return next(
         new HttpException(
           'User recently changed password! Please log in again.',
@@ -164,12 +214,6 @@ export const protect = catchAsync(
     next();
   }
 );
-
-type MiddlewareFunction = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => void;
 
 export const restrictTo = (...roles: string[]): MiddlewareFunction => {
   return (req: Request, res: Response, next: NextFunction): void => {
