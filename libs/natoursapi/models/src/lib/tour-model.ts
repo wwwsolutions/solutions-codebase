@@ -1,9 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-// SCHEMA WITH VALIDATORS
 import { NextFunction } from 'express';
 import mongoose, { Document, Schema, Query, Aggregate } from 'mongoose';
 import slugify from 'slugify';
-import validator from 'validator';
+// import validator from 'validator';
+
+// INTERFACES
+//--------------------------------------------------------------------------------------------------
 
 // https://medium.com/@agentwhs/complete-guide-for-typescript-for-mongoose-for-node-js-8cc0a7e470c1
 // https://medium.com/@tomanagle/strongly-typed-models-with-mongoose-and-typescript-7bc2f7197722
@@ -25,6 +27,9 @@ export interface TourDocument extends Document {
   slug?: string;
   secretTour?: boolean;
 }
+
+// SCHEMA
+//--------------------------------------------------------------------------------------------------
 
 export const tourSchema: Schema = new Schema(
   {
@@ -108,6 +113,9 @@ export const tourSchema: Schema = new Schema(
     timestamps: true,
   }
 );
+
+// INSTANCE METHODS
+//--------------------------------------------------------------------------------------------------
 
 // DOCUMENT MIDDLEWARE
 // runs before .save() and .create()
