@@ -18,9 +18,10 @@ export interface UserDocument extends Document, hasCorrectPassword {
   name: string;
   email: string;
   photo?: string;
-  role: string;
   password: string;
   passwordConfirm?: string;
+  role: string;
+  passwordChangedAt: Date;
 }
 
 // SCHEMA
@@ -84,9 +85,14 @@ export const userSchema: Schema = new Schema(
 userSchema.pre<UserDocument>('save', async function name(
   next: NextFunction
 ): Promise<void> {
-  if (!this.isModified('password')) return next(); // EXIT IF PASSWORD HAS NOT BEEN MODIFIED
-  this.password = await bcrypt.hash(this.password, 12); // HASH PASSWORD
-  this.passwordConfirm = undefined; // REMOVE REDUNDANT FIELD
+  // was password modified?
+  if (!this.isModified('password')) return next();
+
+  // hash password
+  this.password = await bcrypt.hash(this.password, 12);
+
+  // remove redundant field
+  this.passwordConfirm = undefined;
   next();
 });
 
@@ -116,4 +122,4 @@ userSchema.methods.changedPasswordAfter = function (
 };
 
 // MODEL
-export const User = mongoose.model('User', userSchema);
+export const User = mongoose.model<UserDocument>('User', userSchema);

@@ -5,18 +5,51 @@ import { Tour } from '@codebase/natoursapi/models';
 import { ApiFeatures, catchAsync } from '@codebase/natoursapi/utils';
 import { HttpException } from '@codebase/shared/exceptions';
 
-// MIDDLEWARE ALIAS ROUTE
-export const aliasTopTours = (req: Request, res: Response, next) => {
+// ALIASES
+//--------------------------------------------------------------------------------------------
+export const aliasTopTours = (req: Request, res: Response, next): void => {
   req.query.limit = '5';
   req.query.sort = '-ratingsAverage,price';
   req.query.fields = 'name,price,ratingsAverage,summary,difficulty';
   next();
 };
 
+// CONTROLLERS
+//--------------------------------------------------------------------------------------------------
+
+// @desc    Create tour
+// @route   CREATE /api/tours
+// @access  Protected/Admin
 export const createTour = catchAsync(
   async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    // create tour
     const tour = await Tour.create(req.body);
-    res.status(201).json({ status: 'success', data: { tour } });
+
+    // send tour
+    res.status(201).json({
+      status: 'success',
+      data: {
+        tour,
+      },
+    }); // CREATED
+  }
+);
+
+// @desc    Delete single tour by id
+// @route   DELETE /api/tours/:id
+// @access  Protected/Admin
+export const deleteTour = catchAsync(
+  async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    // find tour by id and delete
+    const tour = await Tour.findByIdAndDelete(req.params.id);
+
+    // does tour exist?
+    if (!tour) {
+      return next(new HttpException('Tour not found', 404)); // NOT FOUND
+    }
+
+    // send status
+    res.status(204).json({ status: 'success', data: null }); // NO CONTENT
   }
 );
 
@@ -79,18 +112,6 @@ export const updateTour = catchAsync(
     }
 
     res.status(200).json({ status: 'success', data: { tour } });
-  }
-);
-
-export const deleteTour = catchAsync(
-  async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-    const tour = await Tour.findByIdAndDelete(req.params.id);
-
-    if (!tour) {
-      return next(new HttpException('No tour found', 404));
-    }
-
-    res.status(204).json({ status: 'success', data: null });
   }
 );
 
