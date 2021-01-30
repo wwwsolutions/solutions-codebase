@@ -1,7 +1,4 @@
-/* eslint-disable @typescript-eslint/no-namespace */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { promisify } from 'util';
+// import { promisify } from 'util';
 import { Request, Response, NextFunction } from 'express';
 import { catchAsync } from '@codebase/natoursapi/utils';
 import jwt from 'jsonwebtoken';
@@ -112,7 +109,7 @@ export const protect = catchAsync(
         ? authorization.split(' ')[1]
         : null;
 
-    // token does not exists?
+    // token does not exist?
     if (!token) {
       return next(
         new HttpException(
@@ -122,7 +119,7 @@ export const protect = catchAsync(
       ); // UNAUTHORIZED
     }
 
-    // extract fields from verified token
+    // extract fields from decoded token
     const { id, iat } = await verifyToken(token);
 
     // find current user by id
@@ -138,8 +135,11 @@ export const protect = catchAsync(
       ); // UNAUTHORIZED
     }
 
-    // check if user changed password after the token was issued
+    console.log('iat', iat);
+
+    // did user changed the password after the token was issued?
     if (currentUser.changedPasswordAfter(iat)) {
+      // FIXME: userSchema.methods.changedPasswordAfter()
       return next(
         new HttpException(
           'User recently changed password! Please log in again.',
