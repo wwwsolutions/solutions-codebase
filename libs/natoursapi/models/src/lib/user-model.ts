@@ -67,7 +67,9 @@ export const userSchema: Schema = new Schema(
         message: 'Passwords are not the same!',
       },
     },
-    passwordChangedAt: Date,
+    passwordChangedAt: {
+      type: Date,
+    },
   },
   // SCHEMA OPTIONS
   {
@@ -100,12 +102,17 @@ userSchema.methods.hasCorrectPassword = async function (
 userSchema.methods.changedPasswordAfter = function (
   JwtTimestamp: string
 ): boolean {
+  console.log('changedTimestamp: ', JwtTimestamp);
+  // FIXME: this.passwordChangedAt:  undefined
+  console.log('this.passwordChangedAt: ', this.passwordChangedAt);
+
   if (this.passwordChangedAt) {
     const changedTimestamp = +this.passwordChangedAt.getTime() / 1000;
     return +JwtTimestamp < changedTimestamp;
   }
 
-  return false; // NOT CHANGED
+  // user has never changed the password
+  return false;
 };
 
 // MODEL
