@@ -2,7 +2,7 @@ import { Router } from 'express';
 import {
   protect,
   restrictTo,
-  getAllTours,
+  getAllToursController,
   getTour,
   createTour,
   deleteTour,
@@ -17,9 +17,8 @@ const router = Router();
 
 router.route('/tour-stats').get(getTourStats);
 router.route('/monthly-plan/:year').get(getMonthlyPlan);
-router.route('/top-5-cheap').get(aliasTopTours, getAllTours);
-
-router.route('/').get(protect, getAllTours).post(createTour);
+router.route('/top-5-cheap').get(aliasTopTours, getAllToursController);
+router.route('/').get(protect, getAllToursController).post(createTour);
 router
   .route('/:id')
   .get(getTour)
