@@ -5,15 +5,15 @@ import * as bcrypt from 'bcryptjs';
 
 // INTERFACES
 //--------------------------------------------------------------------------------------------------
-interface CorrectPassword {
-  correctPassword(
+interface hasCorrectPassword {
+  hasCorrectPassword(
     candidatePassword: string,
     userPassword: string
   ): Promise<boolean>;
 }
 
-export interface UserDocument extends Document, CorrectPassword {
-  correctPassword(password: string, userPassword: string): Promise<boolean>;
+export interface UserDocument extends Document, hasCorrectPassword {
+  hasCorrectPassword(password: string, userPassword: string): Promise<boolean>;
   changedPasswordAfter(iat: Date);
   name: string;
   email: string;
@@ -53,14 +53,15 @@ export const userSchema: Schema = new Schema(
       type: String,
       required: [true, 'Please provide a password'],
       minlength: 8,
-      select: false,
+      select: false, // { select : false } means the field will not be queried from the database at all.
     },
     passwordConfirm: <unknown>{
       type: String,
       required: [true, `Please confirm your password.`],
       validate: {
         validator: function (el) {
-          // it only works on 'create()'  and 'save()'
+          // Only works on CREATE and SAVE
+          // When updating user, implement >>> User.save() method!!!
           return el === this.password;
         },
         message: 'Passwords are not the same!',
@@ -78,25 +79,18 @@ export const userSchema: Schema = new Schema(
 
 // HOOKS
 //--------------------------------------------------------------------------------------------------
-userSchema.pre<UserDocument>(
-  'save',
-  async function name(next: NextFunction): Promise<void> {
-    // IF PASSWORD HAS NOT BEEN MODIFIED --> EXIT
-    if (!this.isModified('password')) return next();
-
-    // GENERATE HASH
-    this.password = await bcrypt.hash(this.password, 12);
-
-    // DELETE NOW UNNECESSARY FIELD
-    this.passwordConfirm = undefined;
-
-    next();
-  }
-);
+userSchema.pre<UserDocument>('save', async function name(
+  next: NextFunction
+): Promise<void> {
+  if (!this.isModified('password')) return next(); // EXIT IF PASSWORD HAS NOT BEEN MODIFIED
+  this.password = await bcrypt.hash(this.password, 12); // HASH PASSWORD
+  this.passwordConfirm = undefined; // REMOVE REDUNDANT FIELD
+  next();
+});
 
 // METHODS
 //--------------------------------------------------------------------------------------------------
-userSchema.methods.correctPassword = async function (
+userSchema.methods.hasCorrectPassword = async function (
   candidatePassword: string,
   userPassword: string
 ): Promise<boolean> {
@@ -111,8 +105,7 @@ userSchema.methods.changedPasswordAfter = function (
     return +JwtTimestamp < changedTimestamp;
   }
 
-  // FALSE MEANS NOT CHANGED
-  return false;
+  return false; // NOT CHANGED
 };
 
 // MODEL
