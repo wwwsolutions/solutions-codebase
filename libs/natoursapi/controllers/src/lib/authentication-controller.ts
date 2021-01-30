@@ -2,8 +2,9 @@
 import { Request, Response, NextFunction } from 'express';
 import { catchAsync } from '@codebase/natoursapi/utils';
 import jwt from 'jsonwebtoken';
-import { User, UserDocument } from '@codebase/natoursapi/models';
+
 import { HttpException } from '@codebase/shared/exceptions';
+import { User, UserDocument } from '@codebase/natoursapi/models';
 import { environment } from '@codebase/shared/environments';
 
 // INTERFACES
@@ -40,7 +41,14 @@ const verifyToken = async (token: string): Promise<JsonWebToken> => {
 export const signupController = catchAsync(
   async (req: Request, res: Response): Promise<void> => {
     // extract fields from request body
-    const { name, email, password, passwordConfirm } = req.body;
+    const {
+      name,
+      email,
+      password,
+      passwordConfirm,
+      role,
+      passwordChangedAt,
+    } = req.body;
 
     // create new user
     const newUser = await User.create({
@@ -48,17 +56,19 @@ export const signupController = catchAsync(
       email,
       password,
       passwordConfirm,
+      role,
+      passwordChangedAt,
     } as UserDocument);
 
     // create token
     const token = await signToken(newUser._id);
 
-    // return new user + token to the client
+    // send new user + token
     res.status(201).json({
       status: 'success',
       token,
       data: { user: newUser },
-    });
+    }); // CREATED
   }
 );
 
@@ -155,9 +165,15 @@ export const protect = catchAsync(
   }
 );
 
-export const restrictTo = (...roles) => {
+type MiddlewareFunction = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => void;
+
+export const restrictTo = (...roles: string[]): MiddlewareFunction => {
   return (req: Request, res: Response, next: NextFunction): void => {
-    console.log('restrictTo = req.body.user :::', req.body.user);
+    // does current user's role matches defined roles on resource?
     if (!roles.includes(req.body.user.role)) {
       return next(
         new HttpException(
@@ -166,6 +182,8 @@ export const restrictTo = (...roles) => {
         )
       ); // FORBIDDEN
     }
+
+    // continue
     next();
   };
 };
