@@ -9,6 +9,8 @@ import { User, UserDocument } from '@codebase/natoursapi/models';
 import { HttpException } from '@codebase/shared/exceptions';
 import { environment } from '@codebase/shared/environments';
 
+// INTERFACES
+//--------------------------------------------------------------------------------------------------
 interface JsonWebToken {
   id: string;
   iat: Date;
@@ -17,11 +19,17 @@ interface JsonWebToken {
 
 const { secret, expiresIn } = environment.jwt;
 
-const signToken = (id) => {
+// HELPERS
+//--------------------------------------------------------------------------------------------------
+
+const signToken = (id: string): string => {
   return jwt.sign({ id }, secret, { expiresIn });
 };
 
-// @desc    Sign up new user & get token
+// CONTROLLERS
+//--------------------------------------------------------------------------------------------------
+
+// @desc    Sign up a new user and send a signed token
 // @route   POST /api/users/signup
 // @access  Public
 export const signupController = catchAsync(
@@ -37,32 +45,40 @@ export const signupController = catchAsync(
 
     const token = signToken(newUser._id);
 
-    res.status(201).json({ status: 'success', token, data: { user: newUser } });
+    res.status(201).json({
+      status: 'success',
+      token,
+      data: { user: newUser },
+    });
   }
 );
 
+// @desc    Log in user and send a signed token
+// @route   POST /api/users/login
+// @access  Public
 export const loginController = catchAsync(
   async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     const { email, password } = req.body;
 
-    // CHECK BODY ::: THERE IS NO email OR NO password IN REQ.BODY?
+    // no email OR no password in the body?
     if (!email || !password) {
       return next(new HttpException(`Please provide email and password.`, 400)); // BAD REQUEST
     }
 
-    // QUERY DATABASE ::: FIND user + password
+    // find user + password
     const user = (await User.findOne({ email }).select(
       '+password'
     )) as UserDocument;
 
-    //  CHECK DATABASE RESULT ::: THERE IS NO user OR NO password?
-    if (!user || !(await user.correctPassword(password, user.password))) {
+    // no user OR wrong password?
+    if (!user || !(await user.hasCorrectPassword(password, user.password))) {
       return next(new HttpException(`Incorrect email or password.`, 401)); // UNAUTHORIZED
     }
 
-    // PASSED ::: SIGN TOKEN AND SEND IT TO THE CLIENT
+    // sign token
     const token = signToken(user._id);
 
+    // send token to the client
     res.status(200).json({
       status: 'success',
       token,
@@ -70,6 +86,8 @@ export const loginController = catchAsync(
   }
 );
 
+// MIDDLEWARES
+//--------------------------------------------------------------------------------------------------
 export const protect = catchAsync(
   async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     //   const authorization = <string>req.headers.authorization;
@@ -136,7 +154,7 @@ export const protect = catchAsync(
     const decoded = (await jwt.verify(
       token,
       process.env.JWT_SECRET
-    )) as JsonWebToken; // TODO: FIX TYPES
+    )) as JsonWebToken;
 
     // const decoded = (await promisify(jwt.verify)(
     //   token,
