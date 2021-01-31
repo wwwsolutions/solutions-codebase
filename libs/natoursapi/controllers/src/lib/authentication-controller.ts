@@ -1,4 +1,5 @@
 // import { promisify } from 'util';
+import crypto from 'crypto';
 import { Request, Response, NextFunction } from 'express';
 import { catchAsync, sendEmail } from '@codebase/natoursapi/utils';
 import jwt from 'jsonwebtoken';
@@ -123,6 +124,7 @@ export const forgotPasswordController = catchAsync(
 
     // no user?
     if (!user) {
+      // generate error
       return next(
         new HttpException(`There is no user with email address.`, 404)
       ); // NOT FOUND
@@ -172,12 +174,46 @@ export const forgotPasswordController = catchAsync(
   }
 );
 
-// @desc    Log in user and send a signed token
-// @route   POST /api/users/login
+// @desc    Reset password
+// @route   POST /api/users/resetPassword
 // @access  Public
 export const resetPasswordController = catchAsync(
   async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-    return next();
+    // get and hash the token
+    const hashedToken = crypto
+      .createHash('sha256')
+      .update(req.params.token)
+      .digest('hex');
+
+    // get user based on token
+    const user = await User.findOne({
+      passwordResetToken: hashedToken,
+      passwordResetExpires: { $gt: new Date(Date.now()) },
+    });
+
+    // if token has not expired, and there is user, set a new password
+    if (!user) {
+      // generate error
+      return next(new HttpException(`token is invalid or has expired`, 400)); // BAD REQUEST
+    }
+
+    // update and
+    user.password = req.body.password;
+    user.passwordConfirm = req.body.passwordConfirm;
+    user.passwordResetToken = undefined;
+    user.passwordResetExpires = undefined;
+
+    // save updated properties
+    await user.save();
+
+    // create a new token
+    const token = await signToken(user._id);
+
+    // send new token to the client
+    res.status(201).json({
+      status: 'success',
+      token,
+    }); // CREATED
   }
 );
 

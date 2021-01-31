@@ -86,6 +86,8 @@ export const userSchema: Schema = new Schema(
 
 // HOOKS
 //--------------------------------------------------------------------------------------------------
+
+// hash password
 userSchema.pre<UserDocument>('save', async function name(
   next: NextFunction
 ): Promise<void> {
@@ -97,6 +99,20 @@ userSchema.pre<UserDocument>('save', async function name(
 
   // remove redundant field
   this.passwordConfirm = undefined;
+
+  next();
+});
+
+// update changedPasswordAt property for the user
+userSchema.pre<UserDocument>('save', async function name(
+  next: NextFunction
+): Promise<void> {
+  // password not modified?
+  if (!this.isModified('password') || this.isNew) return next();
+
+  // generate new timestamp
+  this.passwordChangedAt = new Date(Date.now() - 1000); // subtract 1 second *(hack)
+
   next();
 });
 
@@ -112,9 +128,6 @@ userSchema.methods.hasCorrectPassword = async function (
 userSchema.methods.changedPasswordAfter = function (
   JwtTimestamp: string
 ): boolean {
-  console.log('changedTimestamp: ', JwtTimestamp);
-  console.log('this.passwordChangedAt: ', this.passwordChangedAt);
-
   if (this.passwordChangedAt) {
     const changedTimestamp = +this.passwordChangedAt.getTime() / 1000;
     return +JwtTimestamp < changedTimestamp;
