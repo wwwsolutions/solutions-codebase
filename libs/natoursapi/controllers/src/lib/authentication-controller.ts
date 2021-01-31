@@ -25,17 +25,31 @@ const { secret, expiresIn } = environment.jwt;
 // HELPERS
 //--------------------------------------------------------------------------------------------------
 
-// const signToken = (id: string): string => {
-//   return jwt.sign({ id }, secret, { expiresIn });
-// };
-
 const signToken = async (id: string): Promise<string> => {
   return jwt.sign({ id }, secret, { expiresIn });
-}; // impure function
+};
 
 const verifyToken = async (token: string): Promise<JsonWebToken> => {
   return jwt.verify(token, process.env.JWT_SECRET) as JsonWebToken;
-}; // impure function
+};
+
+const createAndSendToken = async (
+  user: UserDocument,
+  statusCode: number,
+  res: Response
+): Promise<void> => {
+  // create a new token
+  const token = await signToken(user._id);
+
+  // send new token to the client
+  res.status(statusCode).json({
+    status: 'success',
+    token,
+    data: {
+      user,
+    },
+  }); // CREATED
+};
 
 // CONTROLLERS
 //--------------------------------------------------------------------------------------------------
@@ -65,15 +79,8 @@ export const signupController = catchAsync(
       passwordChangedAt,
     } as UserDocument);
 
-    // create token
-    const token = await signToken(newUser._id);
-
-    // send new user + token
-    res.status(201).json({
-      status: 'success',
-      token,
-      data: { user: newUser },
-    }); // CREATED
+    // create and send token
+    createAndSendToken(newUser, 201, res);
   }
 );
 
@@ -100,14 +107,8 @@ export const loginController = catchAsync(
       return next(new HttpException(`Incorrect email or password.`, 401)); // UNAUTHORIZED
     }
 
-    // sign token
-    const token = await signToken(user._id);
-
-    // send token to the client
-    res.status(200).json({
-      status: 'success',
-      token,
-    });
+    // create and send token
+    createAndSendToken(user, 200, res);
   }
 );
 
@@ -206,14 +207,17 @@ export const resetPasswordController = catchAsync(
     // save updated properties
     await user.save();
 
-    // create a new token
-    const token = await signToken(user._id);
+    // create and send token
+    createAndSendToken(user, 201, res);
 
-    // send new token to the client
-    res.status(201).json({
-      status: 'success',
-      token,
-    }); // CREATED
+    // // create a new token
+    // const token = await signToken(user._id);
+
+    // // send new token to the client
+    // res.status(201).json({
+    //   status: 'success',
+    //   token,
+    // }); // CREATED
   }
 );
 
@@ -289,3 +293,38 @@ export const restrictTo = (...roles: string[]): ExpressMiddleware => {
     next();
   };
 };
+
+// @desc    Update password
+// @route   PATCH /api/users/updatePassword
+// @access  Private
+export const updatePasswordController = catchAsync(
+  async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    console.log('hello from updatePasswordController');
+
+    // console.log('req.body.user.id:', req.body.user.id);
+
+    // get current user's with password
+    const user = await User.findById(req.body.user.id).select('+password');
+
+    console.log('user:', user);
+    console.log('req.body', req.body);
+
+    // no user OR wrong password?
+    if (
+      !user ||
+      !(await user.hasCorrectPassword(req.body.passwordCurrent, user.password))
+    ) {
+      return next(new HttpException(`Incorrect password.`, 401)); // UNAUTHORIZED
+    }
+
+    // update password
+    user.password = req.body.password;
+    user.passwordConfirm = req.body.passwordConfirm;
+
+    // save updated properties
+    await user.save();
+
+    // create and send token
+    createAndSendToken(user, 201, res);
+  }
+);
