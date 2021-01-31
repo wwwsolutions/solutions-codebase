@@ -24,6 +24,8 @@ export interface UserDocument extends Document, hasCorrectPassword {
   passwordConfirm?: string;
   role: string;
   passwordChangedAt: Date;
+  passwordResetToken: string;
+  passwordResetExpires: Date;
 }
 
 // SCHEMA
@@ -72,7 +74,7 @@ export const userSchema: Schema = new Schema(
     },
     passwordChangedAt: Date,
     passwordResetToken: String,
-    passwordResetExpired: Date,
+    passwordResetExpires: Date,
   },
   // SCHEMA OPTIONS
   {
@@ -135,7 +137,7 @@ userSchema.methods.createPasswordResetToken = function () {
   console.log({ resetToken }, this.passwordResetToken);
 
   // store token expiration time into db
-  this.passwordResetExpired = Date.now() + 10 * 60 * 1000;
+  this.passwordResetExpires = Date.now() + 10 * 60 * 1000;
 
   // return plain text token
   return resetToken;

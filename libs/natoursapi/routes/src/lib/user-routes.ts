@@ -15,7 +15,7 @@ import {
 const router: Router = Router();
 
 router.route('/forgotPassword').post(forgotPasswordController);
-router.route('/resetPassword').post(resetPasswordController);
+router.route('/resetPassword/:token').patch(resetPasswordController);
 
 router.route('/signup').post(signupController);
 router.route('/login').post(loginController);
