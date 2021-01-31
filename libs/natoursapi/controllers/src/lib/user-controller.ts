@@ -40,7 +40,7 @@ export const getUserController = (req: Request, res: Response) => {
 
 // @desc    Update user data
 // @route   POST /api/users/updateMe
-// @access  Private/(user)
+// @access  Private/User
 export const updateMeController = catchAsync(
   async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     // user sends password data?
@@ -72,6 +72,22 @@ export const updateMeController = catchAsync(
         user: updatedUser,
       },
     });
+  }
+);
+
+// @desc    Delete user / set data as inactive
+// @route   POST /api/users/deleteMe
+// @access  Private/User
+export const deleteMeController = catchAsync(
+  async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    // set active flag to false
+    await User.findByIdAndUpdate(req.body.user.id, { active: false });
+
+    // send response
+    res.status(204).json({
+      status: 'success',
+      data: null,
+    }); // RESOURCE DELETED
   }
 );
 
