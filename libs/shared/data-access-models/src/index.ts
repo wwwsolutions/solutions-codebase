@@ -1,3 +1,6 @@
+// express.js
+export * from './lib/express-custom.types';
+
 // natoursapi
 export * from './lib/modification-note.interface';
 
