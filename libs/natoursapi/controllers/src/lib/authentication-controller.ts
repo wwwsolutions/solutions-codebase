@@ -209,19 +209,45 @@ export const resetPasswordController = catchAsync(
 
     // create and send token
     createAndSendToken(user, 201, res);
-
-    // // create a new token
-    // const token = await signToken(user._id);
-
-    // // send new token to the client
-    // res.status(201).json({
-    //   status: 'success',
-    //   token,
-    // }); // CREATED
   }
 );
 
-// MIDDLEWARES
+// @desc    Update password
+// @route   PATCH /api/users/updateMyPassword
+// @access  Private
+export const updatePasswordController = catchAsync(
+  async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    console.log('hello from updatePasswordController');
+
+    // console.log('req.body.user.id:', req.body.user.id);
+
+    // get current user's with password
+    const user = await User.findById(req.body.user.id).select('+password');
+
+    console.log('user:', user);
+    console.log('req.body', req.body);
+
+    // no user OR wrong password?
+    if (
+      !user ||
+      !(await user.hasCorrectPassword(req.body.passwordCurrent, user.password))
+    ) {
+      return next(new HttpException(`Incorrect password.`, 401)); // UNAUTHORIZED
+    }
+
+    // update password
+    user.password = req.body.password;
+    user.passwordConfirm = req.body.passwordConfirm;
+
+    // save updated properties
+    await user.save();
+
+    // create and send token
+    createAndSendToken(user, 201, res);
+  }
+);
+
+// MIDDLEWARE
 //--------------------------------------------------------------------------------------------------
 export const protect = catchAsync(
   async (req: Request, res: Response, next: NextFunction): Promise<void> => {
@@ -293,38 +319,3 @@ export const restrictTo = (...roles: string[]): ExpressMiddleware => {
     next();
   };
 };
-
-// @desc    Update password
-// @route   PATCH /api/users/updatePassword
-// @access  Private
-export const updatePasswordController = catchAsync(
-  async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-    console.log('hello from updatePasswordController');
-
-    // console.log('req.body.user.id:', req.body.user.id);
-
-    // get current user's with password
-    const user = await User.findById(req.body.user.id).select('+password');
-
-    console.log('user:', user);
-    console.log('req.body', req.body);
-
-    // no user OR wrong password?
-    if (
-      !user ||
-      !(await user.hasCorrectPassword(req.body.passwordCurrent, user.password))
-    ) {
-      return next(new HttpException(`Incorrect password.`, 401)); // UNAUTHORIZED
-    }
-
-    // update password
-    user.password = req.body.password;
-    user.passwordConfirm = req.body.passwordConfirm;
-
-    // save updated properties
-    await user.save();
-
-    // create and send token
-    createAndSendToken(user, 201, res);
-  }
-);
