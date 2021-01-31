@@ -6,17 +6,37 @@ import * as bcrypt from 'bcryptjs';
 
 // INTERFACES
 //--------------------------------------------------------------------------------------------------
-interface hasCorrectPassword {
+
+// Equivalent to calling `pre()` on `find`, `findOne`, `findOneAndUpdate`.
+interface DocumentFindMethods {
+  find(args: unknown);
+  findOne(args: unknown);
+  findOneAndUpdate(args: unknown);
+}
+interface HasCorrectPassword {
   hasCorrectPassword(
     candidatePassword: string,
     userPassword: string
   ): Promise<boolean>;
 }
 
-export interface UserDocument extends Document, hasCorrectPassword {
-  hasCorrectPassword(password: string, userPassword: string): Promise<boolean>;
+interface ChangedPasswordAfter {
   changedPasswordAfter(iat: Date);
-  createPasswordResetToken();
+}
+
+interface ChangedPasswordAfter {
+  createPasswordResetToken(): string;
+}
+
+export interface UserDocument
+  extends Document,
+    HasCorrectPassword,
+    ChangedPasswordAfter,
+    ChangedPasswordAfter,
+    DocumentFindMethods {
+  // hasCorrectPassword(password: string, userPassword: string): Promise<boolean>;
+  // changedPasswordAfter(iat: Date);
+  // createPasswordResetToken(): string;
   name: string;
   email: string;
   photo?: string;
@@ -26,6 +46,7 @@ export interface UserDocument extends Document, hasCorrectPassword {
   passwordChangedAt: Date;
   passwordResetToken: string;
   passwordResetExpires: Date;
+  active: boolean;
 }
 
 // SCHEMA
@@ -75,6 +96,11 @@ export const userSchema: Schema = new Schema(
     passwordChangedAt: Date,
     passwordResetToken: String,
     passwordResetExpires: Date,
+    active: {
+      type: Boolean,
+      default: true,
+      select: false,
+    },
   },
   // SCHEMA OPTIONS
   {
@@ -116,6 +142,15 @@ userSchema.pre<UserDocument>('save', async function name(
   next();
 });
 
+// Equivalent to calling `pre()` on `find`, `findOne`, `findOneAndUpdate`.
+userSchema.pre<UserDocument>(/^find/, async function name(
+  next: NextFunction
+): Promise<void> {
+  // this points to the current query
+  this.find({ active: { $ne: false } });
+  next();
+});
+
 // INSTANCE METHODS
 //--------------------------------------------------------------------------------------------------
 userSchema.methods.hasCorrectPassword = async function (
@@ -137,7 +172,7 @@ userSchema.methods.changedPasswordAfter = function (
   return false;
 };
 
-userSchema.methods.createPasswordResetToken = function () {
+userSchema.methods.createPasswordResetToken = function (): string {
   // generate reset token
   const resetToken = crypto.randomBytes(32).toString('hex');
 
