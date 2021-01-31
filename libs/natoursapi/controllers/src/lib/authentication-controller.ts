@@ -4,6 +4,7 @@ import { catchAsync } from '@codebase/natoursapi/utils';
 import jwt from 'jsonwebtoken';
 
 import { HttpException } from '@codebase/shared/exceptions';
+import { ExpressMiddleware } from '@codebase/shared/data-access-models';
 import { User, UserDocument } from '@codebase/natoursapi/models';
 import { environment } from '@codebase/shared/environments';
 
@@ -17,11 +18,6 @@ interface JsonWebToken {
 
 // TYPES
 //--------------------------------------------------------------------------------------------------
-type MiddlewareFunction = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => void;
 
 const { secret, expiresIn } = environment.jwt;
 
@@ -215,7 +211,7 @@ export const protect = catchAsync(
   }
 );
 
-export const restrictTo = (...roles: string[]): MiddlewareFunction => {
+export const restrictTo = (...roles: string[]): ExpressMiddleware => {
   return (req: Request, res: Response, next: NextFunction): void => {
     // does current user's role matches defined roles on resource?
     if (!roles.includes(req.body.user.role)) {
