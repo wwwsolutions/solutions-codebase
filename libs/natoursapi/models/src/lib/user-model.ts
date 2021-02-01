@@ -175,8 +175,8 @@ userSchema.methods.changedPasswordAfter = function <UserDocument>(
 };
 
 // FIXME: Property 'passwordChangedAt' does not exist on type 'Document<any>'.ts(2339)
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 userSchema.methods.createPasswordResetToken = function <
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   UserDocument
 >(): string {
   // generate reset token

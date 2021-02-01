@@ -5,8 +5,8 @@
   "author": "Domagoj-Mario Mendas <developer.domagoj.mendas@gmail.com> (https://github.com/wwwsolutions)",
   "private": true,
   "scripts": {
-    "mongo.import.dataset.natoursapi": "ts-node -P ./tools/tsconfig.tools.json ./tools/scripts/database/mongodb/init-db.ts --import",
-    "mongo.delete.dataset.natoursapi": "ts-node -P ./tools/tsconfig.tools.json ./tools/scripts/database/mongodb/init-db.ts --delete",
+    "import.natoursapi.dataset": "ts-node -P ./tools/tsconfig.tools.json ./tools/scripts/database/mongodb/natoursapi/init-db.ts --import",
+    "delete.natoursapi.dataset": "ts-node -P ./tools/tsconfig.tools.json ./tools/scripts/database/mongodb/natoursapi/init-db.ts --delete",
     "generate:environment": "ts-node ./tools/scripts/environments/environment.ts",
     "generate:environment.prod": "ts-node ./tools/scripts/environments/environment.prod.ts",
     "generate:environment.stage": "ts-node ./tools/scripts/environments/environment.stage.ts",
