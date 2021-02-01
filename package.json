@@ -5,8 +5,8 @@
   "author": "Domagoj-Mario Mendas <developer.domagoj.mendas@gmail.com> (https://github.com/wwwsolutions)",
   "private": true,
   "scripts": {
-    "mongo.import.dataset.natoursapi": "ts-node -P ./tools/tsconfig.tools.json ./tools/scripts/database/mongodb/init-db.ts --import",
-    "mongo.delete.dataset.natoursapi": "ts-node -P ./tools/tsconfig.tools.json ./tools/scripts/database/mongodb/init-db.ts --delete",
+    "import.natoursapi.dataset": "ts-node -P ./tools/tsconfig.tools.json ./tools/scripts/database/mongodb/natoursapi/init-db.ts --import",
+    "delete.natoursapi.dataset": "ts-node -P ./tools/tsconfig.tools.json ./tools/scripts/database/mongodb/natoursapi/init-db.ts --delete",
     "generate:environment": "ts-node ./tools/scripts/environments/environment.ts",
     "generate:environment.prod": "ts-node ./tools/scripts/environments/environment.prod.ts",
     "generate:environment.stage": "ts-node ./tools/scripts/environments/environment.stage.ts",
@@ -43,14 +43,6 @@
     "serve:postgres-ng-app": "nx serve postgres-ng-app"
   },
   "dependencies": {
-    "@angular/animations": "^11.0.0",
-    "@angular/common": "^11.0.0",
-    "@angular/compiler": "^11.0.0",
-    "@angular/core": "^11.0.0",
-    "@angular/forms": "^11.0.0",
-    "@angular/platform-browser": "^11.0.0",
-    "@angular/platform-browser-dynamic": "^11.0.0",
-    "@angular/router": "^11.0.0",
     "@fortawesome/fontawesome-free": "^5.15.1",
     "bcryptjs": "^2.4.3",
     "bluebird": "^3.7.2",
@@ -63,6 +55,7 @@
     "firebase-admin": "^9.4.1",
     "firebase-functions": "^3.12.0",
     "helmet": "^4.4.1",
+    "hpp": "^0.2.3",
     "human-readable-ids": "^1.0.4",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.20",
@@ -77,9 +70,8 @@
     "slugify": "^1.4.6",
     "tslib": "^2.0.0",
     "validator": "^13.5.2",
-    "xss-clean": "^0.1.1"
+    "xss-clean": "^0.1.1",
     "zone.js": "^0.10.2"
-
   },
   "devDependencies": {
     "@nrwl/cli": "10.4.4",

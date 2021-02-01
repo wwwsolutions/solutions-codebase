@@ -8,6 +8,8 @@ import * as bcrypt from 'bcryptjs';
 //--------------------------------------------------------------------------------------------------
 
 // Equivalent to calling `pre()` on `find`, `findOne`, `findOneAndUpdate`.
+
+// TODO: duplicate, extract to shared lib
 interface DocumentFindMethods {
   find(args: unknown);
   findOne(args: unknown);
@@ -24,7 +26,7 @@ interface ChangedPasswordAfter {
   changedPasswordAfter(iat: Date);
 }
 
-interface ChangedPasswordAfter {
+interface CreatePasswordResetToken {
   createPasswordResetToken(): string;
 }
 
@@ -32,12 +34,8 @@ export interface UserDocument
   extends Document,
     HasCorrectPassword,
     ChangedPasswordAfter,
-    ChangedPasswordAfter,
+    CreatePasswordResetToken,
     DocumentFindMethods {
-  // hasCorrectPassword(password: string, userPassword: string): Promise<boolean>;
-  // changedPasswordAfter(iat: Date);
-  // createPasswordResetToken(): string;
-  name: string;
   email: string;
   photo?: string;
   password: string;
@@ -114,42 +112,44 @@ export const userSchema: Schema = new Schema(
 //--------------------------------------------------------------------------------------------------
 
 // hash password
-userSchema.pre<UserDocument>('save', async function name(
-  next: NextFunction
-): Promise<void> {
-  // was password modified?
-  if (!this.isModified('password')) return next();
+userSchema.pre<UserDocument>(
+  'save',
+  async function name(next: NextFunction): Promise<void> {
+    // was password modified?
+    if (!this.isModified('password')) return next();
 
-  // hash password
-  this.password = await bcrypt.hash(this.password, 12);
+    // hash password
+    this.password = await bcrypt.hash(this.password, 12);
 
-  // remove redundant field
-  this.passwordConfirm = undefined;
+    // remove redundant field
+    this.passwordConfirm = undefined;
 
-  next();
-});
+    next();
+  }
+);
 
 // update changedPasswordAt property for the user
-userSchema.pre<UserDocument>('save', async function name(
-  next: NextFunction
-): Promise<void> {
-  // password not modified?
-  if (!this.isModified('password') || this.isNew) return next();
+userSchema.pre<UserDocument>(
+  'save',
+  async function name(next: NextFunction): Promise<void> {
+    // password not modified?
+    if (!this.isModified('password') || this.isNew) return next();
 
-  // generate new timestamp
-  this.passwordChangedAt = new Date(Date.now() - 1000); // subtract 1 second *(hack)
+    // generate new timestamp
+    this.passwordChangedAt = new Date(Date.now() - 1000); // subtract 1 second *(hack)
 
-  next();
-});
+    next();
+  }
+);
 
 // Equivalent to calling `pre()` on `find`, `findOne`, `findOneAndUpdate`.
-userSchema.pre<UserDocument>(/^find/, async function name(
-  next: NextFunction
-): Promise<void> {
-  // this points to the current query
-  this.find({ active: { $ne: false } });
-  next();
-});
+userSchema.pre<UserDocument>(
+  /^find/,
+  async function name(next: NextFunction): Promise<void> {
+    this.find({ active: { $ne: false } }); // 'this' points to the current query
+    next();
+  }
+);
 
 // INSTANCE METHODS
 //--------------------------------------------------------------------------------------------------
@@ -160,7 +160,9 @@ userSchema.methods.hasCorrectPassword = async function (
   return await bcrypt.compare(candidatePassword, userPassword);
 };
 
-userSchema.methods.changedPasswordAfter = function (
+// FIXME: Property 'passwordChangedAt' does not exist on type 'Document<any>'.ts(2339)
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+userSchema.methods.changedPasswordAfter = function <UserDocument>(
   JwtTimestamp: string
 ): boolean {
   if (this.passwordChangedAt) {
@@ -172,7 +174,11 @@ userSchema.methods.changedPasswordAfter = function (
   return false;
 };
 
-userSchema.methods.createPasswordResetToken = function (): string {
+// FIXME: Property 'passwordChangedAt' does not exist on type 'Document<any>'.ts(2339)
+userSchema.methods.createPasswordResetToken = function <
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  UserDocument
+>(): string {
   // generate reset token
   const resetToken = crypto.randomBytes(32).toString('hex');
 
@@ -192,4 +198,5 @@ userSchema.methods.createPasswordResetToken = function (): string {
 };
 
 // MODEL
+//--------------------------------------------------------------------------------------------------
 export const User = mongoose.model<UserDocument>('User', userSchema);

@@ -1,10 +1,11 @@
 import mongoose from 'mongoose';
-import { environment } from '../../../../libs/shared/environments/src/index';
+import { environment } from '../../../../../libs/shared/environments/src/index';
 
 // SCHEMAS
-import { tourSchema } from '../../../../libs/natoursapi/models/src/lib/tour-model';
+import { tourSchema } from '../../../../../libs/natoursapi/models/src/lib/tour-model';
 // DATA
-import { toursSimple } from '../../../../libs/natoursapi/fake-data/src/lib/tours-simple';
+// import { toursSimple } from '../../../../../libs/natoursapi/fake-data/src/lib/tours-simple';
+import { tours } from '../../../../../libs/natoursapi/fake-data/src/lib/tours';
 
 // CONNECT TO DATABASE
 const db: string = environment.mongoConfig.dbCloudConnectionStr;
@@ -28,7 +29,8 @@ const Tour: any = mongoose.model('Tour', tourSchema);
 // importCollection()
 const importCollection = async (): Promise<void> => {
   try {
-    await Tour.create(toursSimple);
+    // await Tour.create(toursSimple);
+    await Tour.create(tours);
     // await Tours.create(tours);
 
     console.log('Data successfully imported!');

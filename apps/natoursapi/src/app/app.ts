@@ -5,6 +5,7 @@ import rateLimit from 'express-rate-limit';
 import helmet from 'helmet';
 import sanitizer from 'express-mongo-sanitize';
 import xss from 'xss-clean';
+import hpp from 'hpp';
 
 import { tourRouter, userRouter } from '@codebase/natoursapi/routes';
 import { errorMiddleware } from '@codebase/natoursapi/middleware';
@@ -51,6 +52,20 @@ app.use(sanitizer());
 
 // apply data sanitizer - against XSS attacks
 app.use(xss());
+
+// apply hpp - prevent http parameter pollution
+app.use(
+  hpp({
+    whitelist: [
+      'duration',
+      'ratingsAverage',
+      'ratingsQuantity',
+      'maxGroupSize',
+      'difficulty',
+      'price',
+    ],
+  })
+);
 
 // apply serving static resources
 app.use(express.static(path.join(__dirname, '/public')));
