@@ -41,6 +41,28 @@ const createAndSendToken = async (
   // create a new token
   const token = await signToken(user._id);
 
+  // convert cookie expiration time to integer
+  // TODO: extract this conversion functionality into helper function
+  const jwtTokenExpiresIn: number =
+    typeof process.env.JWT_COOKIE_EXPIRES_IN === 'string'
+      ? parseInt(process.env.JWT_COOKIE_EXPIRES_IN)
+      : process.env.JWT_COOKIE_EXPIRES_IN;
+
+  // set default cookie options
+  const cookieOptions = {
+    expires: new Date(Date.now() + jwtTokenExpiresIn * 24 * 60 * 60 * 1000),
+    secure: false,
+    httpOnly: true,
+  };
+
+  if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
+
+  // store token as a cookie
+  res.cookie('jwt', token, cookieOptions);
+
+  // do not send password with response
+  user.password = undefined;
+
   // send new token to the client
   res.status(statusCode).json({
     status: 'success',
