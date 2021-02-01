@@ -1,7 +1,8 @@
-// import path from 'path';
+import path from 'path';
 import express, { Application, Request, Response, NextFunction } from 'express';
 import morgan from 'morgan';
 import rateLimit from 'express-rate-limit';
+import helmet from 'helmet';
 
 import { tourRouter, userRouter } from '@codebase/natoursapi/routes';
 import { errorMiddleware } from '@codebase/natoursapi/middleware';
@@ -11,38 +12,18 @@ import { environment } from '@codebase/shared/environments';
 
 const app: Application = express();
 
-// declare global {
-//   namespace Express {
-//     interface Request {
-//       token: any;
-//       requestTime: any;
-//       user?: any;
-//     }
-
-//     interface Response {
-//       token: any;
-//       requestTime: any;
-//     }
-
-//     // interface AuthenticatedRequest extends Request {
-//     //   user: any;
-//     // }
-
-//     // interface UnauthenticatedRequest extends Request {
-//     //   user?: undefined;
-//     // }
-//   }
-// }
-
 // GLOBAL MIDDLEWARE
 //--------------------------------------------------------------------------------------------------
+
+// apply helmet - set security HTTP headers
+app.use(helmet());
 
 // apply logging in development
 if (!environment.production) {
   app.use(morgan('dev'));
 }
 
-// generate global instance of rate limiter
+// generate global instance of rate limiter - limit requests from same API
 const globalLimiter = rateLimit({
   windowMs: 60 * 60 * 1000,
   max: 100,
@@ -53,17 +34,24 @@ const globalLimiter = rateLimit({
 // if (environment.production) {
 //   app.use('/api', globalLimiter);
 // }
+
+// apply rate limiter
 app.use('/api', globalLimiter);
 
+// apply url encoder
 app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
 
-// SERVE STATIC FILES TODO:
-// app.use(express.static(path.join(__dirname, '/dist/natoursapi')));
-// console.log(path.join(__dirname, ''));
+// apply body parser
+app.use(express.json({ limit: '10kb' }));
 
-app.use((req: Request, res: Response, next: NextFunction) => {
+// apply serving static resources
+app.use(express.static(path.join(__dirname, '/public')));
+// app.use('/static', express.static(path.join(__dirname, 'public')))
+
+// apply test middleware TODO: use for testing
+app.use((req: Request, res: Response, next: NextFunction): void => {
   req.requestTime = new Date().toISOString();
+  // console.log(req.headers)
   next();
 });
 
@@ -73,12 +61,15 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
 
-// INVALID ROUTE > THROW EXCEPTION
+// ERROR HANDLING MIDDLEWARE
+//--------------------------------------------------------------------------------------------------
+
+// apply invalid route middleware
 app.all('*', (req: Request, res: Response, next: NextFunction): void => {
   next(new HttpException(`Can't find ${req.originalUrl} on this server!`, 404));
 });
 
-// ERROR HANDLING MIDDLEWARE
+// apply global error handling middleware
 app.use(errorMiddleware);
 
 export default app;
