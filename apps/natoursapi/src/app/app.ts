@@ -1,12 +1,13 @@
 // import path from 'path';
-import express from 'express';
-import { Application, Request, Response, NextFunction } from 'express';
+import express, { Application, Request, Response, NextFunction } from 'express';
 import morgan from 'morgan';
-import { environment } from '@codebase/shared/environments';
+import rateLimit from 'express-rate-limit';
 
 import { tourRouter, userRouter } from '@codebase/natoursapi/routes';
 import { errorMiddleware } from '@codebase/natoursapi/middleware';
 import { HttpException } from '@codebase/shared/exceptions';
+
+import { environment } from '@codebase/shared/environments';
 
 const app: Application = express();
 
@@ -33,9 +34,26 @@ const app: Application = express();
 //   }
 // }
 
+// GLOBAL MIDDLEWARE
+//--------------------------------------------------------------------------------------------------
+
+// apply logging in development
 if (!environment.production) {
   app.use(morgan('dev'));
 }
+
+// generate global instance of rate limiter
+const globalLimiter = rateLimit({
+  windowMs: 60 * 60 * 1000,
+  max: 100,
+  message: `To many requests from this IP, please try again in an hour!`,
+});
+
+// apply rate limiter in production
+// if (environment.production) {
+//   app.use('/api', globalLimiter);
+// }
+app.use('/api', globalLimiter);
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -50,6 +68,8 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 });
 
 // ROUTING
+//--------------------------------------------------------------------------------------------------
+
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
 
