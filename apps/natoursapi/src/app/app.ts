@@ -3,6 +3,8 @@ import express, { Application, Request, Response, NextFunction } from 'express';
 import morgan from 'morgan';
 import rateLimit from 'express-rate-limit';
 import helmet from 'helmet';
+import sanitizer from 'express-mongo-sanitize';
+import xss from 'xss-clean';
 
 import { tourRouter, userRouter } from '@codebase/natoursapi/routes';
 import { errorMiddleware } from '@codebase/natoursapi/middleware';
@@ -43,6 +45,12 @@ app.use(express.urlencoded({ extended: false }));
 
 // apply body parser
 app.use(express.json({ limit: '10kb' }));
+
+// apply data sanitizer - against NoSQL query injection
+app.use(sanitizer());
+
+// apply data sanitizer - against XSS attacks
+app.use(xss());
 
 // apply serving static resources
 app.use(express.static(path.join(__dirname, '/public')));
