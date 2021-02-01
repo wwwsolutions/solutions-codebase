@@ -92,14 +92,14 @@ export const signupController = catchAsync(
     } = req.body;
 
     // create new user
-    const newUser = await User.create({
+    const newUser = await User.create(({
       name,
       email,
       password,
       passwordConfirm,
       role,
       passwordChangedAt,
-    } as UserDocument);
+    } as unknown) as UserDocument);
 
     // create and send token
     createAndSendToken(newUser, 201, res);

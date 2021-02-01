@@ -43,14 +43,6 @@
     "serve:postgres-ng-app": "nx serve postgres-ng-app"
   },
   "dependencies": {
-    "@angular/animations": "^11.0.0",
-    "@angular/common": "^11.0.0",
-    "@angular/compiler": "^11.0.0",
-    "@angular/core": "^11.0.0",
-    "@angular/forms": "^11.0.0",
-    "@angular/platform-browser": "^11.0.0",
-    "@angular/platform-browser-dynamic": "^11.0.0",
-    "@angular/router": "^11.0.0",
     "@fortawesome/fontawesome-free": "^5.15.1",
     "bcryptjs": "^2.4.3",
     "bluebird": "^3.7.2",
@@ -78,7 +70,8 @@
     "slugify": "^1.4.6",
     "tslib": "^2.0.0",
     "validator": "^13.5.2",
-    "xss-clean": "^0.1.1"
+    "xss-clean": "^0.1.1",
+    "zone.js": "^0.10.2"
   },
   "devDependencies": {
     "@nrwl/cli": "10.4.4",

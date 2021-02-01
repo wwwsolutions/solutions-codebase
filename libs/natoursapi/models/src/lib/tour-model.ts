@@ -7,9 +7,42 @@ import slugify from 'slugify';
 // INTERFACES
 //--------------------------------------------------------------------------------------------------
 
+interface StartLocation {
+  type: unknown;
+  coordinates: number[]; // geo spatial data
+  address: string;
+  description: string;
+}
+
+interface Location extends StartLocation {
+  day: number;
+}
+
+interface DocumentLocationData {
+  startLocation: StartLocation;
+  locations: Location[];
+}
+
+// TODO: duplicate, extract to shared lib
+interface DocumentFindMethods {
+  find(args: unknown);
+  findOne(args: unknown);
+  findOneAndUpdate(args: unknown);
+}
+
+// TODO: duplicate, extract to shared lib
+interface DocumentAggregateMethods {
+  _pipeline(arg0: string, _pipeline: unknown);
+  getQuery();
+}
+
 // https://medium.com/@agentwhs/complete-guide-for-typescript-for-mongoose-for-node-js-8cc0a7e470c1
 // https://medium.com/@tomanagle/strongly-typed-models-with-mongoose-and-typescript-7bc2f7197722
-export interface TourDocument extends Document {
+export interface TourDocument
+  extends Document,
+    DocumentFindMethods,
+    DocumentAggregateMethods,
+    DocumentLocationData {
   name: string;
   duration: number;
   maxGroupSize: number;
@@ -105,6 +138,31 @@ export const tourSchema: Schema = new Schema(
       type: Boolean,
       default: false,
     },
+    // GEO SPATIAL DATA
+    startLocation: {
+      // GeoJSON format
+      type: {
+        type: String,
+        default: 'Point',
+        enum: ['Point'],
+      },
+      coordinates: [Number],
+      address: String,
+      description: String,
+    },
+    locations: [
+      {
+        type: {
+          type: String,
+          default: 'Point',
+          enum: ['Point'],
+        },
+        coordinates: [Number],
+        address: String,
+        description: String,
+        day: Number,
+      },
+    ],
   },
   // SCHEMA OPTIONS
   {
@@ -114,44 +172,19 @@ export const tourSchema: Schema = new Schema(
   }
 );
 
-// INSTANCE METHODS
+// HOOKS
 //--------------------------------------------------------------------------------------------------
-
-// DOCUMENT MIDDLEWARE
-// runs before .save() and .create()
-// tourSchema.pre('save', function (next) {
-//   this.slug = slugify(this.name, { lower: true });
-//   next();
-// });
-
-// DOCUMENT MIDDLEWARE pre and post hooks
-// https://stackoverflow.com/questions/58791115/typescript-property-slug-does-not-exist-on-type-document
-// https://easyontheweb.com/pre-and-post-hooks-in-mongoose/
-// https://thecodebarbarian.com/working-with-mongoose-in-typescript.html
-
-// FIXME: next() throwing error
-// FIXED: next() has be annotated with NextFunction imported form "express" package
-// REFERENCE: https://stackoverflow.com/questions/58200432/argument-of-type-req-request-res-iresponse-next-nextfunction-void-is
 tourSchema.pre<TourDocument>('save', function (next: NextFunction): void {
   this.slug = slugify(this.name, { lower: true });
   next();
 });
 
-// QUERY MIDDLEWARE pre and post hooks
-// Target hook function, by using REGEX: all strings that start with 'find'
-// FIXME: using regex as method name throws error
-// REFERENCES: https://mongoosejs.com/docs/api.html#schema_Schema-pre
-// tourSchema.pre(/^find/, function name(next: NextFunction): void {
-//   this.find({ secretTour: { $ne: true } });
-//   next();
-// });
-
-tourSchema.pre('find', function name(next: NextFunction): void {
+tourSchema.pre<TourDocument>(/^find/, function name(next: NextFunction): void {
   this.find({ secretTour: { $ne: true } });
   next();
 });
 
-tourSchema.post('find', function name(
+tourSchema.post<TourDocument>(/^find/, function name(
   docs: TourDocument[],
   next: NextFunction
 ): void {
@@ -159,18 +192,25 @@ tourSchema.post('find', function name(
   next();
 });
 
-// AGGREGATION MIDDLEWARE pre and post hooks
-// FIXME: using regex as method name throws error
-// tourSchema.pre('aggregate', function (next: NextFunction): void {
-//   console.log('this:', this._pipeline);
-//   this.getQuery();
-//   next();
-// });
+tourSchema.pre<TourDocument>(/^aggregate/, function (next: NextFunction): void {
+  console.log('this:', this._pipeline);
+  this.getQuery();
+  next();
+});
 
 // VIRTUAL PROPERTIES
+//--------------------------------------------------------------------------------------------------
 tourSchema.virtual('durationWeeks').get(function (this: TourDocument) {
   return this.duration / 7;
 });
 
+// INSTANCE METHODS
+//--------------------------------------------------------------------------------------------------
+
+// METHOD 1
+
+// METHOD 2
+
 // MODEL
+//--------------------------------------------------------------------------------------------------
 export const Tour = mongoose.model('Tour', tourSchema);
